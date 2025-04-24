@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Logo } from "./logo";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -12,18 +13,29 @@ export function Navbar() {
     return false;
   };
 
+  const linkStyle = (path: string) => {
+    return {
+      color: getIsActive(path) ? "var(--color-accent)" : "",
+    };
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-10 bg-[#191c20]/80 backdrop-blur-sm border-b border-gray-800">
-      <div className="container mx-auto px-4 max-w-4xl">
+    <nav
+      className="fixed top-0 left-0 right-0 z-10 border-b border-gray-800"
+      style={{
+        backgroundColor: "var(--color-background)",
+        backdropFilter: "blur(8px)",
+      }}
+    >
+      <div className="container mx-auto px-4 max-w-5xl">
         <div className="flex justify-between items-center h-16">
-          <div className="text-xl font-semibold">Portfolio</div>
+          <Logo />
           <ul className="flex space-x-8">
             <li>
               <Link
                 href="/"
-                className={`capitalize hover:text-teal-400 transition-colors ${
-                  getIsActive("/") ? "text-teal-400" : ""
-                }`}
+                className="capitalize transition-colors hover-accent"
+                style={linkStyle("/about")}
               >
                 About
               </Link>
@@ -31,9 +43,8 @@ export function Navbar() {
             <li>
               <Link
                 href="/talks"
-                className={`capitalize hover:text-teal-400 transition-colors ${
-                  getIsActive("/talks") ? "text-teal-400" : ""
-                }`}
+                className="capitalize transition-colors hover-accent"
+                style={linkStyle("/talks")}
               >
                 Talks
               </Link>
@@ -41,9 +52,8 @@ export function Navbar() {
             <li>
               <Link
                 href="/contact"
-                className={`capitalize hover:text-teal-400 transition-colors ${
-                  getIsActive("/contact") ? "text-teal-400" : ""
-                }`}
+                className="capitalize transition-colors hover-accent"
+                style={linkStyle("/contact")}
               >
                 Contact
               </Link>

@@ -6,9 +6,18 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --color-accent: #2dd4bf; /* teal-400 */
+  --color-background: #191c20;
+}
+
 body {
-  background-color: #191c20;
+  background-color: var(--color-background);
   color: white;
+}
+
+.hover-accent:hover {
+  color: var(--color-accent);
 }
 
 @layer base {
