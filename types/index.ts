@@ -95,17 +95,18 @@ export type Repo = {
   language: string;
   fork: boolean;
 };
-export type Dropdown = {
+
+export interface Dropdown {
   id: number;
   label: string;
-};
+}
 
-export type ContactEntry = {
-  fullName: string;
+export interface ContactEntry {
   email: string;
+  fullName: string;
   purpose: string;
   message: string;
-};
+}
 
 export type SocialPlatform =
   | "Github"
