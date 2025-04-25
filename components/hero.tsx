@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 
-export function About() {
+export function Hero() {
   return (
     <div className="space-y-12">
       <h1 className="text-5xl sm:text-6xl font-bold leading-tight">

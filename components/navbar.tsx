@@ -33,7 +33,7 @@ export function Navbar() {
           <ul className="flex space-x-8">
             <li>
               <Link
-                href="/"
+                href="/about"
                 className="capitalize transition-colors hover-accent"
                 style={linkStyle("/about")}
               >

@@ -1,128 +1,101 @@
-import { Calendar, Clock, Mic, FileText, Code, LinkIcon } from "lucide-react"
-import Link from "next/link"
-
-type Talk = {
-  id: string
-  year: number
-  type: string
-  duration: string
-  conference: string
-  location: string
-  date: string
-  title: string
-  links: {
-    slides?: string
-    code?: string
-    demo?: string
-  }
-}
-
-const talks: Talk[] = [
-  {
-    id: "1",
-    year: 2024,
-    type: "Conference",
-    duration: "30min",
-    conference: "React Africa",
-    location: "🇲🇦 Casablanca",
-    date: "November 29, 2024",
-    title: "Server Components, What's that?",
-    links: {
-      slides: "#",
-      code: "#",
-      demo: "#",
-    },
-  },
-  {
-    id: "2",
-    year: 2024,
-    type: "Workshop",
-    duration: "2h",
-    conference: "Next.js Conf",
-    location: "🇺🇸 San Francisco",
-    date: "October 15, 2024",
-    title: "Building with the App Router",
-    links: {
-      slides: "#",
-      code: "#",
-    },
-  },
-  {
-    id: "3",
-    year: 2023,
-    type: "Meetup",
-    duration: "45min",
-    conference: "React Meetup",
-    location: "🇬🇧 London",
-    date: "December 12, 2023",
-    title: "State Management in 2023",
-    links: {
-      slides: "#",
-      demo: "#",
-    },
-  },
-  {
-    id: "4",
-    year: 2023,
-    type: "Podcast",
-    duration: "1h",
-    conference: "JS Party",
-    location: "🎙️ Remote",
-    date: "August 5, 2023",
-    title: "The Future of Frontend Development",
-    links: {
-      demo: "#",
-    },
-  },
-]
+import {
+  Calendar,
+  Clock,
+  Mic,
+  FileText,
+  Code,
+  LinkIcon,
+  Video,
+  BookOpen,
+} from "lucide-react";
+import Link from "next/link";
+import { Talks as TalksData } from "@/content/talks";
 
 export function Talks() {
   // Group talks by year
-  const talksByYear = talks.reduce(
-    (acc, talk) => {
-      if (!acc[talk.year]) {
-        acc[talk.year] = []
-      }
-      acc[talk.year].push(talk)
-      return acc
-    },
-    {} as Record<number, Talk[]>,
-  )
+  const talksByYear = TalksData.reduce((acc, talk) => {
+    const year = new Date(talk.date).getFullYear();
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(talk);
+    return acc;
+  }, {} as Record<number, any[]>);
 
   // Sort years in descending order
   const sortedYears = Object.keys(talksByYear)
     .map(Number)
-    .sort((a, b) => b - a)
+    .sort((a, b) => b - a);
 
   return (
-    <div className="space-y-12">
-      <h2 className="text-4xl font-bold">Talks</h2>
+    <div className="w-full space-y-12">
+      <div className="flex flex-col items-center text-center mb-10">
+        <h1 className="text-4xl font-bold mb-2">
+          Public Talks
+          <span
+            className="text-4xl leading-3"
+            style={{ color: "var(--color-accent)" }}
+          >
+            .
+          </span>
+        </h1>
+        <p className="mb-3">
+          Wearing my speaker hat because sharing is caring!
+        </p>
+      </div>
 
-      <div className="space-y-16">
+      <div className="space-y-16 w-full">
         {sortedYears.map((year) => (
-          <div key={year} className="space-y-6">
-            <h3 className="text-3xl font-bold text-teal-400">{year}</h3>
+          <div key={year} className="space-y-6 w-full">
+            <h3
+              className="text-3xl font-bold"
+              style={{ color: "var(--color-accent)" }}
+            >
+              {year}
+            </h3>
 
-            <div className="grid gap-6">
-              {talksByYear[year].map((talk) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+              {talksByYear[year].map((talk, index) => (
                 <div
-                  key={talk.id}
-                  className="border border-gray-700 rounded-lg p-5 hover:border-teal-400/50 transition-colors"
+                  key={index}
+                  className="border border-gray-800 rounded-lg p-5 bg-[#17191d]"
                 >
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                     <div className="space-y-4">
                       <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-gray-300">
-                        <div className="inline-flex items-center rounded-full bg-teal-400/20 px-3 py-1 text-sm text-teal-400">
-                          <Clock className="mr-1 h-3 w-3" />
-                          {talk.duration}
+                        <div
+                          className="inline-flex items-center rounded-full px-3 py-1 text-sm"
+                          style={{
+                            backgroundColor: "rgba(45, 212, 191, 0.2)",
+                            color: "var(--color-accent)",
+                          }}
+                        >
+                          ⏱️ {talk.duration}
                         </div>
-                        <div className="text-sm">{talk.type}</div>
+                        <div
+                          className="inline-flex items-center rounded-full px-3 py-1 text-sm"
+                          style={{
+                            backgroundColor: "rgba(87, 90, 96, 0.5)",
+                            color: "var(--color-accent)",
+                          }}
+                        >
+                          {talk.talkType}
+                        </div>
                       </div>
 
                       <div>
                         <div className="flex items-center gap-2 text-xl font-semibold">
-                          <span className="underline underline-offset-4">{talk.conference}</span>
-                          <span>{talk.location}</span>
+                          <a
+                            href={talk.hostLink || "#"}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="underline underline-offset-4 hover-accent"
+                          >
+                            {talk.host}
+                          </a>
+                          <span>
+                            {talk.country} {talk.city}
+                          </span>
                         </div>
                         <div className="flex items-center gap-1 text-gray-400 mt-1">
                           <Calendar className="h-4 w-4" />
@@ -131,41 +104,75 @@ export function Talks() {
                       </div>
 
                       <div className="flex items-center gap-2 text-xl font-medium">
-                        <Mic className="h-5 w-5 text-teal-400" />
-                        <span>{talk.title}</span>
+                        <span>🎤 {talk.title}</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-4 mt-4">
-                    {talk.links.slides && (
-                      <Link
-                        href={talk.links.slides}
-                        className="flex items-center gap-1 text-gray-300 hover:text-teal-400 transition-colors"
+                  <div className="flex flex-wrap gap-3 mt-4">
+                    {talk.video && (
+                      <a
+                        className="flex items-center gap-1 text-gray-300 hover-accent"
+                        href={talk.video}
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Video Recording"
                       >
-                        <FileText className="h-4 w-4" />
-                        <span>Slides</span>
-                      </Link>
+                        📽️
+                        <span className="underline">Video</span>
+                      </a>
                     )}
 
-                    {talk.links.code && (
-                      <Link
-                        href={talk.links.code}
-                        className="flex items-center gap-1 text-gray-300 hover:text-teal-400 transition-colors"
+                    {talk.slides && (
+                      <a
+                        className="flex items-center gap-1 text-gray-300 hover-accent"
+                        href={talk.slides}
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Slides"
                       >
-                        <Code className="h-4 w-4" />
-                        <span>Code</span>
-                      </Link>
+                        📝
+                        <span className="underline">Slides</span>
+                      </a>
                     )}
 
-                    {talk.links.demo && (
-                      <Link
-                        href={talk.links.demo}
-                        className="flex items-center gap-1 text-gray-300 hover:text-teal-400 transition-colors"
+                    {talk.docs && (
+                      <a
+                        className="flex items-center gap-1 text-gray-300 hover-accent"
+                        href={talk.docs}
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Docs"
                       >
-                        <LinkIcon className="h-4 w-4" />
-                        <span>Demo</span>
-                      </Link>
+                        📖
+                        <span className="underline">Docs</span>
+                      </a>
+                    )}
+
+                    {talk.demoCode && (
+                      <a
+                        className="flex items-center gap-1 text-gray-300 hover-accent"
+                        href={talk.demoCode}
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Open Source Code"
+                      >
+                        💻
+                        <span className="underline">Code</span>
+                      </a>
+                    )}
+
+                    {talk.demoLink && (
+                      <a
+                        className="flex items-center gap-1 text-gray-300 hover-accent"
+                        href={talk.demoLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Demo Link"
+                      >
+                        🔗
+                        <span className="underline">Demo</span>
+                      </a>
                     )}
                   </div>
                 </div>
@@ -175,5 +182,5 @@ export function Talks() {
         ))}
       </div>
     </div>
-  )
+  );
 }

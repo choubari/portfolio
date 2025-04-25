@@ -8,7 +8,8 @@ html {
 
 :root {
   --color-accent: #2dd4bf; /* teal-400 */
-  --color-background: #191c20;
+  --color-background: #1f2329; /* Lighter color for navbar/footer */
+  --color-background-alt: #191c20; /* Darker color for main content */
 }
 
 body {

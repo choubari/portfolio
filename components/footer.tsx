@@ -5,7 +5,7 @@ import { SiGithub, SiNextdotjs, SiTailwindcss, SiVercel } from "react-icons/si";
 export function Footer() {
   return (
     <footer
-      className="w-full py-8 mt-16 border-t border-gray-800"
+      className="w-full py-8 border-t border-gray-800"
       style={{ backgroundColor: "var(--color-background)" }}
     >
       <div className="container mx-auto px-4 max-w-5xl">
@@ -25,8 +25,13 @@ export function Footer() {
             </h2>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="hover-accent">
+                <Link href="/about" className="hover-accent">
                   About
+                </Link>
+              </li>
+              <li>
+                <Link href="/testimonials" className="hover-accent">
+                  Testimonials
                 </Link>
               </li>
               <li>
@@ -47,7 +52,13 @@ export function Footer() {
               Newsletter
               <span style={{ color: "var(--color-accent)" }}>.</span>
             </h2>
-            <p className="mb-3">Occasional updates, unsubscribe anytime.</p>
+            <p className="mb-3">
+              {" "}
+              <Link href={"/newsletter"} className="underline">
+                Occasional updates
+              </Link>
+              , unsubscribe anytime.
+            </p>
             <div className="flex">
               <input
                 type="email"
