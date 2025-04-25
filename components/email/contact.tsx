@@ -6,19 +6,21 @@ interface EmailTemplateProps {
   message: string;
 }
 
-export const ContactEmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
+export function ContactEmailTemplate({
   fullName,
   purpose,
   message,
-}) => (
-  <div>
-    <h1>Welcome, {fullName}!</h1>
-    <p>
-      We have successfully received your message about {purpose}:
-      <br />
-      <code>{message}</code>
-      <br />
-      we will be in touch soon!
-    </p>
-  </div>
-);
+}: Readonly<EmailTemplateProps>): React.ReactElement {
+  return (
+    <div>
+      <h1>Welcome, {fullName}!</h1>
+      <p>
+        We have successfully received your message about {purpose}:
+        <br />
+        <code>{message}</code>
+        <br />
+        we will be in touch soon!
+      </p>
+    </div>
+  );
+}

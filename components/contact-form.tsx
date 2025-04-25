@@ -2,7 +2,7 @@
 import SelectMenu from "@/components/ui/dropdown";
 import { ContactPurpose } from "@/content/contact";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function ContactForm() {
@@ -10,48 +10,60 @@ export default function ContactForm() {
   const [email, setEmail] = useState("");
   const [purpose, setPurpose] = useState(ContactPurpose[0]);
   const [message, setMessage] = useState("");
-  const formData = new FormData();
   const [loading, setLoading] = useState(false);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   function clearForm() {
     setFullName("");
     setEmail("");
     setPurpose(ContactPurpose[0]);
     setMessage("");
-    grecaptcha.reset();
+    if (recaptchaRef.current) {
+      recaptchaRef.current.reset();
+    }
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
 
-    if (grecaptcha.getResponse() === "") {
-      e.preventDefault();
+    const recaptchaValue = recaptchaRef.current?.getValue();
+    if (!recaptchaValue) {
       alert("Please click <I'm not a robot> before sending the form");
       setLoading(false);
       return;
     }
 
-    formData.append("g-recaptcha-response", grecaptcha.getResponse());
-
+    const formData = new FormData();
+    formData.append("g-recaptcha-response", recaptchaValue);
     formData.append("fullName", fullname);
     formData.append("email", email);
     formData.append("purpose", purpose.label);
     formData.append("message", message);
 
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      body: formData,
-    });
-    const resBody = await res.json();
-    setLoading(false);
-    if (resBody.id) {
-      alert("Your message has been sent successfully");
-    } else {
-      alert(`Error, try again! or reach me at ${process.env.FORWARD_EMAIL}`);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        body: formData,
+      });
+
+      const resBody = await res.json();
+      setLoading(false);
+
+      if (res.ok && !resBody.error) {
+        alert("Your message has been sent successfully");
+        clearForm();
+      } else {
+        console.error("API error:", resBody);
+        alert("Error, try again! or reach me on Linkedin / X");
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      setLoading(false);
+      alert("An unexpected error occurred. Please try again later.");
     }
-    clearForm();
   }
+
   return (
     <div className="py-8">
       <div className="flex flex-col items-center text-center mb-10">
@@ -143,6 +155,7 @@ export default function ContactForm() {
 
           <div>
             <ReCAPTCHA
+              ref={recaptchaRef}
               size="normal"
               sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
             />

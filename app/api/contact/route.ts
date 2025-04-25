@@ -10,7 +10,9 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
 
-    if (!(await validateCaptcha(formData.get("g-recaptcha-response")))) {
+    if (
+      !(await validateCaptcha(formData.get("g-recaptcha-response") as string))
+    ) {
       return NextResponse.json({ error: "error" });
     }
     formData.delete("g-recaptcha-response");
