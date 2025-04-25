@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "./logo";
 import { SiGithub, SiNextdotjs, SiTailwindcss, SiVercel } from "react-icons/si";
+import NewsletterBox from "@/components/newsletter-box";
 
 export function Footer() {
   return (
@@ -29,11 +30,11 @@ export function Footer() {
                   About
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/testimonials" className="hover-accent">
                   Testimonials
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/talks" className="hover-accent">
                   Talks
@@ -59,19 +60,7 @@ export function Footer() {
               </Link>
               , unsubscribe anytime.
             </p>
-            <div className="flex">
-              <input
-                type="email"
-                placeholder="Your best email"
-                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-md focus:outline-none focus:ring-1 focus:border-[var(--color-accent)]"
-              />
-              <button
-                className="px-4 py-2 rounded-r-md text-white"
-                style={{ backgroundColor: "var(--color-accent)" }}
-              >
-                Subscribe
-              </button>
-            </div>
+            <NewsletterBox type="slim" />
           </div>
         </div>
 
@@ -102,9 +91,8 @@ export function Footer() {
               className="hover-accent"
               style={{ color: "var(--color-accent)" }}
             >
-              Open-Source
+              Open-Source.
             </a>
-            <span>!</span>
           </div>
         </div>
       </div>
