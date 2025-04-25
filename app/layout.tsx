@@ -36,7 +36,7 @@ export default function RootLayout({
           >
             <Navbar />
             <main
-              className="flex-1 flex flex-col mt-12 border-y border-gray-800"
+              className="flex-1 flex flex-col mt-16 border-y border-gray-800"
               style={{ backgroundColor: "var(--color-background-alt)" }}
             >
               <Analytics />
