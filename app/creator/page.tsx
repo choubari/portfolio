@@ -50,7 +50,7 @@ export default async function Creator() {
     <div className="mx-5 my-10">
       <div className="flex flex-col items-center text-center mb-10">
         <h1 className="text-4xl font-bold mb-2">
-          Content Creation{" "}
+          Content Creation
           <span
             className="text-4xl leading-3"
             style={{ color: "var(--color-accent)" }}
