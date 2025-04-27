@@ -2,7 +2,16 @@ import { Talk } from "@/types";
 
 export const Talks: Talk[] = [
   {
-    featured: true,
+    title: "How I capture testimonials before they disappear",
+    host: "Strapi Conf",
+    country: "🇫🇷",
+    city: "Paris",
+    talkType: "Conference",
+    hostLink: "https://conf.strapi.io/",
+    date: "May 13, 2025",
+    duration: "15min.",
+  },
+  {
     title: "Server Components, What's that?",
     host: "React Africa",
     country: "🇲🇦",
@@ -29,7 +38,6 @@ export const Talks: Talk[] = [
     video: "https://youtu.be/6s_T8mlt0_Y",
   },
   {
-    featured: true,
     title: "React Server Components 101",
     host: "ReactJS Day",
     country: "🇮🇹",
@@ -45,7 +53,6 @@ export const Talks: Talk[] = [
     demoLink: "https://react-server-components-101-demo.vercel.app/",
   },
   {
-    featured: true,
     title: "React Server Components Deep Dive",
     host: "O'Reilly Media",
     country: "🌐",
@@ -79,7 +86,6 @@ export const Talks: Talk[] = [
     video: "https://www.youtube.com/live/8uKEwWbgRBc",
   },
   {
-    featured: true,
     title: "React Server Components 101",
     host: "Devoxx France",
     country: "🇫🇷",
@@ -95,7 +101,6 @@ export const Talks: Talk[] = [
     video: "https://youtu.be/sPoo1Zwh64w",
   },
   {
-    featured: true,
     title: "Partial Prerendering: Hype or Innovation?",
     host: "React Paris",
     country: "🇫🇷",
@@ -125,7 +130,6 @@ export const Talks: Talk[] = [
     demoLink: "https://react-server-components-101-demo.vercel.app/",
   },
   {
-    featured: true,
     title: "Modern Web Development with Next.js 13",
     host: "Devoxx Morocco",
     country: "🇲🇦",
