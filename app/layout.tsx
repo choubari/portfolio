@@ -6,14 +6,60 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Footer } from "@/components/footer";
 import Analytics from "@/components/analytics";
 import { Navbar } from "@/components/navbar";
+import { siteConfig } from "@/config/site";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Portfolio | Coding & Storytelling",
-  description:
-    "A monochrome, Notion-style portfolio showcasing talks and projects",
-  generator: "v0.dev",
+export const metadata = {
+  title: siteConfig.name,
+  description: siteConfig.description,
+  keywords: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Server Components",
+    "Github",
+    "Vercel",
+  ],
+  authors: [
+    {
+      name: "Kawtar Choubari",
+      url: "https://choubari.com",
+    },
+  ],
+  creator: "Kawtar Choubari",
+  publisher: "Kawtar Choubari",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "darkblue" },
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: `${siteConfig.url}/og.jpg`,
+        alt: "Choubari.com",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [`${siteConfig.url}/og.jpg`],
+    creator: "@choubari_",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-32x32.png",
+    apple: "apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

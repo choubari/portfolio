@@ -51,6 +51,15 @@ export function Navbar() {
             </li>
             <li>
               <Link
+                href="/blog"
+                className="capitalize transition-colors hover-accent"
+                style={linkStyle("/blog")}
+              >
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/contact"
                 className="capitalize transition-colors hover-accent"
                 style={linkStyle("/contact")}
