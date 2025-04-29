@@ -4,9 +4,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Footer } from "@/components/footer";
-import Analytics from "@/components/analytics";
+import Analytics from "@/components/metrics/analytics";
 import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/config/site";
+import SpeedInsight from "@/components/metrics/speed-insight";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -86,6 +87,7 @@ export default function RootLayout({
               style={{ backgroundColor: "var(--color-background-alt)" }}
             >
               <Analytics />
+              <SpeedInsight />
               <div className="container mx-auto px-4 py-4 max-w-5xl flex-1 flex flex-col">
                 {children}
               </div>
