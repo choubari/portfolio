@@ -78,7 +78,7 @@ export type Feedback = {
   message: string;
   position: string;
   company?: string;
-  photo: string;
+  photo?: string;
   date: string;
   source?: SocialPlatform;
   link?: string;
