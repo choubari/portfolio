@@ -1,5 +1,5 @@
 "use client";
-import { Talks } from "@/components/talks";
+import { Talks } from "@/components/blocks/talks";
 
 export default function TalksPage() {
   return (

@@ -30,11 +30,11 @@ export function Footer() {
                   About
                 </Link>
               </li>
-              {/* <li>
+              <li>
                 <Link href="/testimonials" className="hover-accent">
                   Testimonials
                 </Link>
-              </li> */}
+              </li>
               <li>
                 <Link href="/talks" className="hover-accent">
                   Talks

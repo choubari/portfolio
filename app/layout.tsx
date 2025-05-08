@@ -11,7 +11,7 @@ import SpeedInsight from "@/components/metrics/speed-insight";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
   keywords: [
@@ -31,10 +31,6 @@ export const metadata = {
   ],
   creator: "Kawtar Choubari",
   publisher: "Kawtar Choubari",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "darkblue" },
-  ],
   openGraph: {
     type: "website",
     locale: "en_US",
