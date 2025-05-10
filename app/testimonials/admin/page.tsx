@@ -17,7 +17,7 @@ export default function NewTestimonialPage() {
         <p className="mb-6">You need to be signed in to access this page.</p>
         <button
           onClick={() => signIn("github")}
-          className="px-6 py-2 bg-[var(--color-accent)] text-white rounded hover:bg-opacity-80 transition-colors"
+          className="px-6 py-2 bg-[var(--color-accent)] text-black rounded hover:bg-opacity-80 transition-colors"
         >
           Sign in with GitHub
         </button>

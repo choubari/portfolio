@@ -54,7 +54,7 @@ export default function PublishTestimonialClient({
         </p>
         <button
           onClick={() => signIn("github")}
-          className="px-6 py-2 bg-[var(--color-accent)] text-white rounded hover:bg-opacity-80 transition-colors"
+          className="px-6 py-2 bg-[var(--color-accent)] text-black rounded hover:bg-opacity-80 transition-colors"
         >
           Sign in with GitHub
         </button>
@@ -83,7 +83,7 @@ export default function PublishTestimonialClient({
           <p className="mb-4">No testimonial ID provided.</p>
           <a
             href="/testimonials"
-            className="px-6 py-2 bg-[var(--color-accent)] text-white rounded hover:bg-opacity-80 transition-colors inline-block"
+            className="px-6 py-2 bg-[var(--color-accent)] text-black rounded hover:bg-opacity-80 transition-colors inline-block"
           >
             Back to Testimonials
           </a>
@@ -97,7 +97,7 @@ export default function PublishTestimonialClient({
           <button
             onClick={handlePublish}
             disabled={isPublishing}
-            className="px-6 py-2 bg-[var(--color-accent)] text-white rounded hover:bg-opacity-80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-2 bg-[var(--color-accent)] text-black rounded hover:bg-opacity-80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isPublishing ? "Publishing..." : "Publish This Testimonial"}
           </button>
