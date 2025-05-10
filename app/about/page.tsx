@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { BrandButton } from "@/components/brand-button";
 
 export default function AboutPage() {
   return (
@@ -131,9 +131,7 @@ export default function AboutPage() {
         </h2>
         <div className="mt-6">
           <Link href="/contact">
-            <Button className="bg-blue-400 hover:bg-blue-500 text-white rounded-full text-lg px-6 py-3 h-auto">
-              Let&apos;s CHAT!
-            </Button>
+            <BrandButton>Let&apos;s CHAT!</BrandButton>
           </Link>
         </div>
       </div>
