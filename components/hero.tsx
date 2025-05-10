@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { BrandButton } from "@/components/brand-button";
+import { BrandTag } from "@/components/brand-tag";
 import Link from "next/link";
 
 export function Hero() {
@@ -14,24 +16,9 @@ export function Hero() {
         </h1>
 
         <div className="flex flex-wrap gap-4">
-          <Button
-            variant="outline"
-            className="bg-blue-400/20 text-blue-200 hover:bg-blue-400/30 border-blue-400/30 rounded-md text-lg px-4 py-1 h-auto"
-          >
-            Engineering
-          </Button>
-          <Button
-            variant="outline"
-            className="bg-blue-400/20 text-blue-200 hover:bg-blue-400/30 border-blue-400/30 rounded-md text-lg px-4 py-1 h-auto"
-          >
-            Educating
-          </Button>
-          <Button
-            variant="outline"
-            className="bg-blue-400/20 text-blue-200 hover:bg-blue-400/30 border-blue-400/30 rounded-md text-lg px-4 py-1 h-auto"
-          >
-            Entertaining
-          </Button>
+          <BrandTag>Engineering</BrandTag>
+          <BrandTag>Educating</BrandTag>
+          <BrandTag>Entertaining</BrandTag>
         </div>
 
         <p className="text-xl leading-relaxed max-w-2xl">
@@ -41,9 +28,7 @@ export function Hero() {
 
         <div>
           <Link href="/contact">
-            <Button className="bg-blue-400 hover:bg-blue-500 text-white rounded-full text-lg px-6 py-3 h-auto">
-              Let&apos;s CHAT!
-            </Button>
+            <BrandButton>Let&apos;s CHAT!</BrandButton>
           </Link>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { BrandButton } from "@/components/brand-button";
 
 export default function NotFound() {
   return (
@@ -14,9 +14,7 @@ export default function NotFound() {
           We're working on it and it might be available soon.
         </p>
         <Link href="/">
-          <Button className="bg-blue-400 hover:bg-blue-500 text-white rounded-full text-lg px-6 py-3 h-auto">
-            Back to Home
-          </Button>
+          <BrandButton>Back to Home</BrandButton>
         </Link>
       </div>
     </div>
