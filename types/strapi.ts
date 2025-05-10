@@ -20,20 +20,24 @@ export interface StrapiMedia {
 
 // Strapi response attributes for testimonials
 export interface StrapiTestimonialAttributes {
+  id: number;
   name: string;
   message: string;
-  position: string;
-  company?: string;
+  position: string | null;
+  company: string | null;
   photo?: StrapiMedia;
-  source: SocialPlatform;
-  link?: string;
+  source: string;
+  link?: string | null;
+  testimonial_link?: string | null;
+  profile_link?: string | null;
+  source_details?: string;
+  email?: string;
   date: string;
   categories: TESTIMONIAL_CATEGORY[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   documentId: string;
-  id: number;
 }
 
 // Single Strapi testimonial

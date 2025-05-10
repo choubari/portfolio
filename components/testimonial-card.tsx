@@ -6,7 +6,8 @@ interface TestimonialCardProps {
 }
 
 export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
-  const { message, name, position, company, link, source } = testimonial;
+  const { message, name, position, company, testimonial_link, source } =
+    testimonial;
 
   const NormalizedSource = source?.toLowerCase();
   const IconComponent =
@@ -20,7 +21,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
       {IconElement && (
         <span
           className={`absolute top-4 right-4 text-xl transition-colors ${
-            link ? "text-[var(--color-accent)]" : "text-gray-500"
+            testimonial_link ? "text-[var(--color-accent)]" : "text-gray-500"
           }`}
         >
           {IconElement}
@@ -42,10 +43,10 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
   const commonClasses =
     "block mb-4 break-inside-avoid rounded-lg border border-gray-800 bg-[#17191d] p-5 relative transition-colors";
 
-  if (link) {
+  if (testimonial_link) {
     return (
       <a
-        href={link}
+        href={testimonial_link}
         target="_blank"
         rel="noopener noreferrer"
         className={`${commonClasses} hover:border-[var(--color-accent)] cursor-pointer`}

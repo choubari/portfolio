@@ -2,7 +2,7 @@
 import SelectMenu from "@/components/ui/dropdown";
 import { ContactPurpose } from "@/content/contact";
 import { cn } from "@/lib/utils";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function ContactForm() {
@@ -11,7 +11,12 @@ export default function ContactForm() {
   const [purpose, setPurpose] = useState(ContactPurpose[0]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isRecaptchaDisabled, setIsRecaptchaDisabled] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  useEffect(() => {
+    setIsRecaptchaDisabled(process.env.DISABLE_RECAPTCHA === "true");
+  }, []);
 
   function clearForm() {
     setFullName("");
@@ -27,15 +32,18 @@ export default function ContactForm() {
     e.preventDefault();
     setLoading(true);
 
-    const recaptchaValue = recaptchaRef.current?.getValue();
-    if (!recaptchaValue) {
+    let recaptchaValue = recaptchaRef.current?.getValue();
+
+    if (!isRecaptchaDisabled && !recaptchaValue) {
       alert("Please click <I'm not a robot> before sending the form");
       setLoading(false);
       return;
     }
 
     const formData = new FormData();
-    formData.append("g-recaptcha-response", recaptchaValue);
+    if (recaptchaValue) {
+      formData.append("g-recaptcha-response", recaptchaValue);
+    }
     formData.append("fullName", fullname);
     formData.append("email", email);
     formData.append("purpose", purpose.label);
@@ -153,13 +161,19 @@ export default function ContactForm() {
             ></textarea>
           </div>
 
-          <div>
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              size="normal"
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
-            />
-          </div>
+          {isRecaptchaDisabled ? (
+            <div className="bg-yellow-800/20 border border-yellow-700 p-2 rounded text-yellow-200 text-sm">
+              reCAPTCHA validation is disabled in development mode
+            </div>
+          ) : (
+            <div>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                size="normal"
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+              />
+            </div>
+          )}
 
           <button
             type="submit"

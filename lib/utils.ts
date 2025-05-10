@@ -10,6 +10,11 @@ export function cn(...inputs: ClassValue[]) {
 
 export const validateCaptcha = (response_key: string) => {
   return new Promise((resolve, reject) => {
+    // Skip reCAPTCHA validation if DISABLE_RECAPTCHA is set to 'true'
+    if (process.env.DISABLE_RECAPTCHA === "true") {
+      return resolve(true);
+    }
+
     const secret_key = process.env.RECAPTCHA_SECRET_KEY;
     const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${response_key}`;
 

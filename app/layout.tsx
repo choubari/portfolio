@@ -8,6 +8,10 @@ import Analytics from "@/components/metrics/analytics";
 import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 import SpeedInsight from "@/components/metrics/speed-insight";
+import AuthProvider from "@/components/auth-provider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -66,6 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
@@ -73,23 +78,28 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <div
-            className="flex flex-col min-h-screen text-white"
-            style={{ backgroundColor: "var(--color-background)" }}
-          >
-            <Navbar />
-            <main
-              className="flex-1 flex flex-col mt-16 border-y border-gray-800"
-              style={{ backgroundColor: "var(--color-background-alt)" }}
+          <AuthProvider>
+            <div
+              className="flex flex-col min-h-screen text-white"
+              style={{ backgroundColor: "var(--color-background)" }}
             >
-              <Analytics />
-              <SpeedInsight />
-              <div className="container mx-auto px-4 py-4 max-w-5xl flex-1 flex flex-col">
-                {children}
-              </div>
-            </main>
-            <Footer />
-          </div>
+              <Navbar />
+              <main
+                className="flex-1 flex flex-col mt-16 border-y border-gray-800"
+                style={{ backgroundColor: "var(--color-background-alt)" }}
+              >
+                <Analytics />
+                <SpeedInsight />
+                <div className="container mx-auto px-4 py-4 max-w-5xl flex-1 flex flex-col">
+                  {children}
+                </div>
+              </main>
+              <Footer />
+            </div>
+            <Toaster richColors />
+            <SpeedInsights />
+            <VercelAnalytics />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
