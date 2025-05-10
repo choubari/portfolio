@@ -4,7 +4,7 @@ import { TALK_TYPES } from "@/types";
 import { Calendar, MapPin } from "lucide-react";
 import { Talks as TalksData } from "@/content/talks";
 
-export function Talks() {
+export function TalksClient() {
   const [activeType, setActiveType] = useState<string | null>(null);
   const filteredData = activeType
     ? TalksData.filter((t) => t.talkType === activeType)

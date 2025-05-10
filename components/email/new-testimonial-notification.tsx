@@ -36,12 +36,12 @@ export const NewTestimonialNotificationEmail: React.FC<
 
   if (documentId) {
     // Prioritize documentId
-    publishUrl = `${baseUrl}/api/testimonials/publish?documentId=${encodeURIComponent(
+    publishUrl = `${baseUrl}/testimonials/publish?documentId=${encodeURIComponent(
       documentId
     )}`;
   } else if (testimonialId) {
     // Fallback to ID if no documentId
-    publishUrl = `${baseUrl}/api/testimonials/publish?id=${encodeURIComponent(
+    publishUrl = `${baseUrl}/testimonials/publish?id=${encodeURIComponent(
       testimonialId
     )}`;
   }
@@ -146,7 +146,7 @@ export const NewTestimonialNotificationEmail: React.FC<
               display: "inline-block",
             }}
           >
-            Publish This Testimonial
+            Authenticate & Publish This Testimonial
           </a>
           <p style={{ marginTop: "10px", fontSize: "12px", color: "#666" }}>
             If the button doesn't work, copy and paste this URL: {publishUrl}

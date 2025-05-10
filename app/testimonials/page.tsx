@@ -1,7 +1,7 @@
-import TestimonialsBlock from "@/components/blocks/testimonials";
 import { getTestimonials } from "@/lib/strapi";
 import ToastClient from "@/components/toast-client";
 import { Suspense } from "react";
+import TestimonialsClient from "./client";
 
 export const dynamic = "force-dynamic"; // Disable caching for this page
 
@@ -34,7 +34,7 @@ export default async function TestimonialsPage() {
           <p>No testimonials found</p>
         </div>
       ) : (
-        <TestimonialsBlock testimonials={testimonials} />
+        <TestimonialsClient testimonials={testimonials} />
       )}
     </div>
   );

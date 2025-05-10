@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
     const sourceDetails = formData.get("sourceDetails") as string | null;
     const profileLink = formData.get("profileLink") as string | null;
     const message = formData.get("message") as string | null;
+    const submittedDate = formData.get("date") as string | null;
 
     // Extract categories (multiple values)
     const categoryValues: string[] = [];
@@ -80,8 +81,8 @@ export async function POST(req: NextRequest) {
       profile_link: profileLink || null,
       message,
       categories: validCategories,
-      // Server-side fields that don't come from the form
-      date: new Date().toISOString().split("T")[0],
+      // Use submitted date if available, otherwise default to today
+      date: submittedDate || new Date().toISOString().split("T")[0],
       source: TESTIMONIAL_SOURCE.OTHER,
       publishedAt: null,
     };

@@ -10,7 +10,7 @@ interface TestimonialsFilterProps {
   testimonials: StrapiTestimonialAttributes[];
 }
 
-export default function TestimonialsBlock({
+export default function TestimonialsClient({
   testimonials,
 }: TestimonialsFilterProps) {
   const [activeCategoryKey, setActiveCategoryKey] = useState<

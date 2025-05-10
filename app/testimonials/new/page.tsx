@@ -1,4 +1,4 @@
-import PublicTestimonialForm from "@/components/public-testimonial-form";
+import PublicTestimonialForm from "@/components/forms/public-testimonial-form";
 
 export default function SubmitTestimonialPage() {
   return (

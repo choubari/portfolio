@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession, signIn } from "next-auth/react";
-import TestimonialForm from "@/components/admin/testimonial-form";
+import TestimonialForm from "@/components/forms/admin-testimonial-form";
 
 export default function NewTestimonialPage() {
   const { data: session, status } = useSession();

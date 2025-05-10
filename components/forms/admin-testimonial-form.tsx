@@ -20,7 +20,7 @@ const initialFormData: AdminTestimonialFormData = {
   position: "",
   company: "",
   source: "",
-  date: "",
+  date: new Date().toISOString().split("T")[0],
   link: "",
   categories: [],
   message: "",
@@ -394,7 +394,7 @@ export default function TestimonialForm() {
 
       <div>
         <label htmlFor="date" className={labelStyles}>
-          Date
+          Date <span className="text-red-500">*</span>
         </label>
         <input
           type="date"
@@ -403,6 +403,7 @@ export default function TestimonialForm() {
           value={formData.date}
           onChange={handleChange}
           className={inputStyles}
+          required
           disabled={isLoading || isOcrProcessing}
         />
       </div>

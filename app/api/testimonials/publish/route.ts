@@ -1,12 +1,25 @@
 "use server";
 
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const STRAPI_API_URL = process.env.STRAPI_API_URL;
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export async function GET(req: NextRequest) {
+  // Check authentication
+  const session = await getServerSession(authOptions);
+
+  // Only allow the admin to publish testimonials
+  const adminUsername = process.env.GITHUB_ADMIN_USERNAME || "choubari";
+  if (!session || (session.user as any)?.login !== adminUsername) {
+    return NextResponse.redirect(
+      new URL(`${BASE_URL}/testimonials?error=unauthorized`)
+    );
+  }
+
   try {
     // Extract testimonial ID from the URL query parameters
     const { searchParams } = new URL(req.url);

@@ -1,9 +1,9 @@
-import { Talks } from "@/components/blocks/talks";
+import { TalksClient } from "./client";
 
 export default function TalksPage() {
   return (
     <div className="mx-5 my-10">
-      <Talks />
+      <TalksClient />
     </div>
   );
 }

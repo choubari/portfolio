@@ -96,7 +96,7 @@ export default function PublicTestimonialForm() {
     );
 
     try {
-      const response = await fetch("/api/public/testimonials", {
+      const response = await fetch("/api/testimonials/submit", {
         method: "POST",
         body: submissionFormData,
       });

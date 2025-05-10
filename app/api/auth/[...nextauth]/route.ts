@@ -19,25 +19,25 @@ export const authOptions: import("next-auth").AuthOptions = {
   callbacks: {
     async signIn({ profile }) {
       const githubProfile = profile as { login?: string; [key: string]: any };
-      if (githubProfile.login === "choubari") {
+      if (githubProfile.login === process.env.GITHUB_ADMIN_USERNAME) {
         return true;
       }
       return false;
     },
-    // Potentially add a jwt callback to include github username (profile.login) in the session token
-    // async jwt({ token, profile }) {
-    //   if (profile) {
-    //     token.login = (profile as { login?: string }).login;
-    //   }
-    //   return token;
-    // },
-    // And session callback to make it available in useSession()
-    // async session({ session, token }) {
-    //   if (token.login && session.user) {
-    //     (session.user as any).login = token.login;
-    //   }
-    //   return session;
-    // },
+    // Add jwt callback to include github username in the token
+    async jwt({ token, profile }) {
+      if (profile) {
+        token.login = (profile as { login?: string }).login;
+      }
+      return token;
+    },
+    // Make github username available in useSession()
+    async session({ session, token }) {
+      if (token.login && session.user) {
+        (session.user as any).login = token.login;
+      }
+      return session;
+    },
   },
 };
 
