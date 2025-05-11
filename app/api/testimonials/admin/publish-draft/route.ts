@@ -6,7 +6,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const STRAPI_API_URL = process.env.STRAPI_API_URL;
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL;
 const GITHUB_ADMIN_USERNAME = process.env.GITHUB_ADMIN_USERNAME;
 
 export async function GET(req: NextRequest) {
