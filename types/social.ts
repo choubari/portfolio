@@ -2,7 +2,7 @@ export type SocialPlatform =
   | "Github"
   | "Linkedin"
   | "YouTube"
-  | "Twitter"
+  | "X"
   | "Instagram"
   | "Facebook"
   | "TikTok"

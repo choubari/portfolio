@@ -30,7 +30,9 @@ export default function PublishTestimonialClient({
     setIsPublishing(true);
     try {
       // We'll use client-side navigation to the server endpoint
-      router.push(`/api/testimonials/publish?documentId=${documentId}`);
+      router.push(
+        `/api/testimonials/admin/publish-draft?documentId=${documentId}`
+      );
     } catch (error) {
       console.error("Error publishing testimonial:", error);
       setIsPublishing(false);

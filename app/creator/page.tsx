@@ -30,7 +30,7 @@ async function followersByPlatform(): Promise<PlatformCounts[]> {
   return [
     { name: "YouTube", label: "Subscribers", count: youtubeCount },
     { name: "Instagram", label: "Total Followers", count: instagramCount },
-    { name: "Twitter", label: "Total Followers", count: twitterCount },
+    { name: "X", label: "Total Followers", count: twitterCount },
     { name: "Github", label: "Followers", count: githubCount },
     { name: "Linkedin", label: "Followers", count: linkedinCount },
     { name: "Facebook", label: "Page Likes", count: facebookCount },

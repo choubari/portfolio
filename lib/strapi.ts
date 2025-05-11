@@ -1,18 +1,15 @@
 import { StrapiCollectionResponse, StrapiTestimonialAttributes } from "@/types";
 
 const STRAPI_URL = process.env.STRAPI_API_URL;
-// const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 const getFetchOptions = (): RequestInit => ({
   headers: {
-    // Authorization: `Bearer ${STRAPI_API_TOKEN}`,
     "Content-Type": "application/json",
   },
-  // cache: "no-store", // Disable cache
-  next: {
-    revalidate: 60, // Revalidate every minute
-    // revalidate: 0, // Force revalidation on every request
-  },
+  cache: "no-store", // Disable cache
+  // next: {
+  //   revalidate: 3600, // revalidate every hour
+  // },
 });
 
 export async function getTestimonials(): Promise<

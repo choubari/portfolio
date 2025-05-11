@@ -15,7 +15,12 @@ import {
 } from "react";
 import { toast } from "sonner";
 
-const initialFormData: AdminTestimonialFormData = {
+// Add screenshot to the type definition
+interface ExtendedFormData extends AdminTestimonialFormData {
+  screenshot: File | null;
+}
+
+const initialFormData: ExtendedFormData = {
   name: "",
   position: "",
   company: "",
@@ -25,11 +30,11 @@ const initialFormData: AdminTestimonialFormData = {
   categories: [],
   message: "",
   status: "draft",
+  screenshot: null,
 };
 
 export default function TestimonialForm() {
-  const [formData, setFormData] =
-    useState<AdminTestimonialFormData>(initialFormData);
+  const [formData, setFormData] = useState<ExtendedFormData>(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
   const [isOcrProcessing, setIsOcrProcessing] = useState(false);
   const [isDraggingOver, setIsDraggingOver] = useState(false);
@@ -84,6 +89,76 @@ export default function TestimonialForm() {
       setFormData((prev) => ({ ...prev, screenshot: null }));
     } else {
       setFormData((prev) => ({ ...prev, screenshot: null }));
+    }
+  };
+
+  const processImageWithOCR = async (file: File) => {
+    setIsOcrProcessing(true);
+    toast.info("Processing image with OCR...");
+
+    try {
+      const formData = new FormData();
+      formData.append("screenshot", file);
+
+      const response = await fetch("/api/ocr", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`OCR processing failed: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+
+      if (result.data) {
+        // Map source key (should already be in the correct format from the API)
+        const sourceKey = result.data.source || "";
+
+        // Get categories (should already be an array of valid keys from the API)
+        const categories = Array.isArray(result.data.categories)
+          ? result.data.categories.filter((cat: string) =>
+              Object.keys(TESTIMONIAL_CATEGORY).includes(cat)
+            )
+          : [];
+
+        // Update form data with OCR results
+        setFormData((prev: ExtendedFormData) => {
+          // Handle date validation
+          let finalDate = prev.date;
+          if (result.data.date && isValidDate(result.data.date)) {
+            finalDate = result.data.date;
+          }
+
+          return {
+            ...prev,
+            name: result.data.name || prev.name,
+            position: result.data.position || prev.position,
+            company: result.data.company || prev.company,
+            message: result.data.message || prev.message,
+            source: sourceKey || prev.source,
+            date: finalDate,
+            link: result.data.link || prev.link,
+            categories:
+              categories.length > 0
+                ? (categories as (keyof typeof TESTIMONIAL_CATEGORY)[])
+                : prev.categories,
+          };
+        });
+
+        toast.success(
+          "OCR processing complete! Form fields have been filled with detected information."
+        );
+      } else {
+        toast.error("OCR processing did not return any usable data.");
+      }
+    } catch (error) {
+      console.error("OCR processing error:", error);
+      toast.error(
+        "Failed to process image with OCR. Please try filling the form manually."
+      );
+    } finally {
+      setIsOcrProcessing(false);
     }
   };
 
@@ -190,7 +265,7 @@ export default function TestimonialForm() {
     );
 
     try {
-      const response = await fetch("/api/admin/testimonials", {
+      const response = await fetch("/api/testimonials/admin/new", {
         method: "POST",
         body: submissionFormData,
       });
@@ -247,6 +322,17 @@ export default function TestimonialForm() {
     };
   }, [screenshotPreviewUrl]);
 
+  // Add this helper function
+  const isValidDate = (dateString: string): boolean => {
+    // Check if the string is in YYYY-MM-DD format
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(dateString)) return false;
+
+    // Check if it's a valid date
+    const date = new Date(dateString);
+    return !isNaN(date.getTime());
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -277,35 +363,37 @@ export default function TestimonialForm() {
             disabled={isLoading}
           />
           {screenshotPreviewUrl ? (
-            <div className="relative w-full h-full flex justify-center items-center p-2">
+            <div className="relative w-full h-full flex flex-col justify-center items-center p-2">
               <img
                 src={screenshotPreviewUrl}
                 alt="Screenshot Preview"
                 className="max-h-full max-w-full object-contain rounded-md shadow-md"
               />
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  clearScreenshot();
-                }}
-                className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 hover:bg-red-700 transition-colors z-10 shadow-lg"
-                aria-label="Remove screenshot"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3.5 w-3.5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+              <div className="flex gap-2 absolute bottom-2 left-1/2 transform -translate-x-1/2">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    processImageWithOCR(formData.screenshot as File);
+                  }}
+                  className="px-3 py-1.5 bg-[var(--color-accent)] text-white rounded-md text-sm hover:bg-opacity-90 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isOcrProcessing}
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
+                  {isOcrProcessing ? "Processing..." : "Process with OCR"}
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    clearScreenshot();
+                  }}
+                  className="px-3 py-1.5 bg-red-600 text-white rounded-md text-sm hover:bg-red-700 transition-colors z-10 shadow-lg"
+                  aria-label="Remove screenshot"
+                >
+                  Remove
+                </button>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center">
@@ -410,7 +498,7 @@ export default function TestimonialForm() {
 
       <div>
         <label htmlFor="link" className={labelStyles}>
-          Link (URL)
+          Link (URL of the testimonial)
         </label>
         <input
           type="url"

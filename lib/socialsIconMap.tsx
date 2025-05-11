@@ -6,6 +6,7 @@ import {
   BsInstagram,
   BsFacebook,
   BsLinkedin,
+  BsTwitterX,
 } from "react-icons/bs";
 import { FaTiktok } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
@@ -17,6 +18,7 @@ const SocialsIcon: { [key: string]: () => ReactElement } = {
   tiktok: () => <FaTiktok />,
   instagram: () => <BsInstagram />,
   twitter: () => <BsTwitter />,
+  x: () => <BsTwitterX />,
   facebook: () => <BsFacebook />,
   newsletter: () => <MdEmail />,
   none: () => <></>,

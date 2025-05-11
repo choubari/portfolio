@@ -36,12 +36,12 @@ export const NewTestimonialNotificationEmail: React.FC<
 
   if (documentId) {
     // Prioritize documentId
-    publishUrl = `${baseUrl}/testimonials/publish?documentId=${encodeURIComponent(
+    publishUrl = `${baseUrl}/testimonials/admin/publish-draft?documentId=${encodeURIComponent(
       documentId
     )}`;
   } else if (testimonialId) {
     // Fallback to ID if no documentId
-    publishUrl = `${baseUrl}/testimonials/publish?id=${encodeURIComponent(
+    publishUrl = `${baseUrl}/testimonials/admin/publish-draft?id=${encodeURIComponent(
       testimonialId
     )}`;
   }
