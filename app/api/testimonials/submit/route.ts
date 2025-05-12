@@ -87,14 +87,17 @@ export async function POST(req: NextRequest) {
       publishedAt: null,
     };
 
-    const response = await fetch(`${STRAPI_API_URL}/api/testimonials`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${STRAPI_API_TOKEN}`,
-      },
-      body: JSON.stringify({ data: finalPayload }),
-    });
+    const response = await fetch(
+      `${STRAPI_API_URL}/api/testimonials?status=draft`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+        },
+        body: JSON.stringify({ data: finalPayload }),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
