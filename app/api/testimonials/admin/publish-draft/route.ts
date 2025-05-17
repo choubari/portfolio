@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Find by documentId and then publish
-    const queryUrl = `${STRAPI_API_URL}/api/testimonials?filters[documentId][$eq]=${documentId}`;
+    const queryUrl = `${STRAPI_API_URL}/api/testimonials?filters[documentId][$eq]=${documentId}&status=draft`;
 
     const findResponse = await fetch(queryUrl, {
       headers: {
@@ -55,7 +55,6 @@ export async function GET(req: NextRequest) {
     }
 
     const testimonial = findData.data[0];
-    const actualId = testimonial.id;
 
     // Check if it's already published
     if (testimonial.publishedAt) {
@@ -66,7 +65,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Update this testimonial to published
-    const updateUrl = `${STRAPI_API_URL}/api/testimonials/${actualId}`;
+    const updateUrl = `${STRAPI_API_URL}/api/testimonials/${documentId}`;
     const updateResponse = await fetch(updateUrl, {
       method: "PUT",
       headers: {
