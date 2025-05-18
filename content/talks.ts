@@ -2,6 +2,16 @@ import { Talk } from "@/types";
 
 export const Talks: Talk[] = [
   {
+    title: "TBD",
+    host: "Frontend Nation",
+    country: "🌐",
+    city: "Online",
+    talkType: "Conference",
+    hostLink: "https://frontendnation.com/",
+    date: "June 4, 2025",
+    duration: "20min.",
+  },
+  {
     title: "How I capture testimonials before they disappear",
     host: "Strapi Conf",
     country: "🇫🇷",
@@ -10,6 +20,8 @@ export const Talks: Talk[] = [
     hostLink: "https://conf.strapi.io/",
     date: "May 13, 2025",
     duration: "15min.",
+    slides:
+      "https://docs.google.com/presentation/d/14vMnQTGzhhIPpqDNqp84uNAA_aHZDudIPdRKNi6-ggs/edit?usp=sharing",
   },
   {
     title: "Server Components, What's that?",
