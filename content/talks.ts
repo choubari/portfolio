@@ -2,7 +2,7 @@ import { Talk } from "@/types";
 
 export const Talks: Talk[] = [
   {
-    title: "TBD",
+    title: "What you should know before vibe coding with React ",
     host: "Frontend Nation",
     country: "🌐",
     city: "Online",
