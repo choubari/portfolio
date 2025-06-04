@@ -10,6 +10,8 @@ export const Talks: Talk[] = [
     hostLink: "https://frontendnation.com/",
     date: "June 4, 2025",
     duration: "20min.",
+    slides:
+      "https://docs.google.com/presentation/d/150eLssLWJwlWMOvkU1014cOINLmolcaPfIoAXTAKCHo/edit?usp=sharing",
   },
   {
     title: "How I capture testimonials before they disappear",
