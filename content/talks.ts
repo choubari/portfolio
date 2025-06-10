@@ -24,6 +24,7 @@ export const Talks: Talk[] = [
     duration: "15min.",
     slides:
       "https://docs.google.com/presentation/d/14vMnQTGzhhIPpqDNqp84uNAA_aHZDudIPdRKNi6-ggs/edit?usp=sharing",
+    video: "https://youtu.be/7tB0vOUrqHw",
   },
   {
     title: "Server Components, What's that?",
