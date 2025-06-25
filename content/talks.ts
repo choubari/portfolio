@@ -12,6 +12,7 @@ export const Talks: Talk[] = [
     duration: "20min.",
     slides:
       "https://docs.google.com/presentation/d/150eLssLWJwlWMOvkU1014cOINLmolcaPfIoAXTAKCHo/edit?usp=sharing",
+    video: "https://youtu.be/GwYVAD2emfo",
   },
   {
     title: "How I capture testimonials before they disappear",
