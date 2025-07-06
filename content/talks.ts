@@ -2,6 +2,17 @@ import { Talk } from "@/types";
 
 export const Talks: Talk[] = [
   {
+    title: "Your First Job as a fresh Graduate",
+    host: "GeeksBlaBla #220",
+    country: "🌐",
+    city: "Online",
+    talkType: "Podcast",
+    hostLink: "https://geeksblabla.community/podcast/",
+    date: "July 6, 2025",
+    duration: "120min.",
+    video: "https://www.youtube.com/watch?v=qrutomrVhBk",
+  },
+  {
     title: "What you should know before vibe coding with React ",
     host: "Frontend Nation",
     country: "🌐",
