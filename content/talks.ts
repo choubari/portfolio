@@ -74,6 +74,7 @@ export const Talks: Talk[] = [
       "https://2024.reactjsday.it/talks_speakers/#ReactServerComponents101",
     date: "October 25, 2024",
     duration: "45min.",
+    video: "https://youtu.be/B3SvI-q2UKQ",
     slides:
       "https://docs.google.com/presentation/d/1f6527uoa7hDLc4f_gT9kYI9xge5qsPx7nMEW8eLxJyI/edit?usp=sharing",
     demoCode: "https://github.com/choubari/react-server-components-101-demo",
