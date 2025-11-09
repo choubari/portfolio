@@ -7,7 +7,7 @@ html {
 }
 
 :root {
-  --color-accent: #2dd4bf; /* teal-400 */
+  --color-accent: #63a1dd; /* blue primary */
   --color-background: #282d34; /* Lighter color for navbar/footer */
   --color-background-alt: #1f2329; /* Darker color for main content */
 }
@@ -29,7 +29,7 @@ body {
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 173 80% 40%;
+    --primary: 218 65% 63%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -41,7 +41,7 @@ body {
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 173 80% 40%;
+    --ring: 218 65% 63%;
     --radius: 0.5rem;
   }
 
@@ -52,7 +52,7 @@ body {
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 173 80% 40%;
+    --primary: 218 65% 63%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -64,6 +64,6 @@ body {
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 173 80% 40%;
+    --ring: 218 65% 63%;
   }
 }

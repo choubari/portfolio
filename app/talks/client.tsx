@@ -93,7 +93,7 @@ export function TalksClient() {
                       <div
                         className="inline-flex items-center rounded-full px-3 py-1 text-sm"
                         style={{
-                          backgroundColor: "rgba(45, 212, 191, 0.2)",
+                          backgroundColor: "rgba(99, 161, 221, 0.2)",
                           color: "var(--color-accent)",
                         }}
                       >
@@ -161,7 +161,7 @@ export function TalksClient() {
                         <div
                           className="inline-flex items-center rounded-full px-3 py-1 text-sm"
                           style={{
-                            backgroundColor: "rgba(45, 212, 191, 0.2)",
+                            backgroundColor: "rgba(99, 161, 221, 0.2)",
                             color: "var(--color-accent)",
                           }}
                         >
