@@ -21,6 +21,44 @@ body {
   color: var(--color-accent);
 }
 
+/* MDX Table Styling - Force override for prose */
+.prose.prose-invert table,
+.prose table {
+  border-collapse: collapse !important;
+  border: 1px solid #374151 !important;
+  background-color: rgba(17, 24, 39, 0.5) !important;
+  width: 100% !important;
+  margin: 1.5rem 0 !important;
+}
+
+.prose.prose-invert th,
+.prose th {
+  border: 1px solid #374151 !important;
+  padding: 12px 16px !important;
+  background-color: rgba(31, 41, 55, 0.5) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-align: left !important;
+}
+
+.prose.prose-invert td,
+.prose td {
+  border: 1px solid #374151 !important;
+  padding: 12px 16px !important;
+  color: #e5e7eb !important;
+  text-align: left !important;
+}
+
+.prose.prose-invert tr:nth-child(even),
+.prose tr:nth-child(even) {
+  background-color: rgba(31, 41, 55, 0.3) !important;
+}
+
+.prose.prose-invert tbody tr,
+.prose tbody tr {
+  border-bottom: 1px solid #374151 !important;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
