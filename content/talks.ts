@@ -2,6 +2,16 @@ import { Talk } from "@/types";
 
 export const Talks: Talk[] = [
   {
+    title: "Lightning Talk: React Anti-Patterns In AI-Generated Code",
+    host: "React Paris",
+    country: "🇫🇷",
+    city: "Paris",
+    talkType: "Conference",
+    hostLink: "https://react.paris/",
+    date: "March 26, 2026",
+    duration: "10min.",
+  },
+  {
     title: "Your First Job as a fresh Graduate",
     host: "GeeksBlaBla #220",
     country: "🌐",
