@@ -10,6 +10,8 @@ export const Talks: Talk[] = [
     hostLink: "https://react.paris/",
     date: "March 26, 2026",
     duration: "10min.",
+    slides:
+      "https://docs.google.com/presentation/d/1tgzQQg927DfQxeHiUgrBGx_IAyt_wNpLXyCiynQoUVA/edit?usp=sharing",
   },
   {
     title: "Your First Job as a fresh Graduate",
