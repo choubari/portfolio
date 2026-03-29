@@ -7,9 +7,9 @@ const getFetchOptions = (): RequestInit => ({
     "Content-Type": "application/json",
   },
   cache: "no-store", // Disable cache
-  // next: {
-  //   revalidate: 3600, // revalidate every hour
-  // },
+  next: {
+    revalidate: 3600, // revalidate every hour
+  },
 });
 
 export async function getTestimonials(): Promise<
