@@ -1,3 +1,5 @@
+"use client";
+
 import { Tweet } from "react-tweet";
 
 interface TweetProps {
