@@ -25,6 +25,7 @@ export async function POST(request: Request) {
     };
     const data = await resend.emails.send({
       from: `Kawtar <${process.env.SENDER_EMAIL}>`,
+      replyTo: `${process.env.REPLY_TO_EMAIL}`,
       to: [contactEntry.email],
       bcc: `${process.env.FORWARD_EMAIL}`,
       subject: "Thanks for contacting me @choubari.com",

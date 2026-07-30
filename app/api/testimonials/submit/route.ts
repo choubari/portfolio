@@ -138,6 +138,7 @@ export async function POST(req: NextRequest) {
 
       await resend.emails.send({
         from: `Kawtar <${process.env.SENDER_EMAIL}>`,
+        replyTo: `${process.env.REPLY_TO_EMAIL}`,
         to: `${process.env.FORWARD_EMAIL}`,
         subject: "New Testimonial Submitted!",
         react: NewTestimonialNotificationEmail(
