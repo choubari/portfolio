@@ -84,10 +84,14 @@ export default function RootLayout({
       className={`${sans.variable} ${mono.variable}`}
     >
       <head>
-        {/* Scroll-reveal is JS-driven; without it the content must still show. */}
-        <noscript>
-          <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
-        </noscript>
+        {/* Runs before first paint. Entrance/scroll animations only apply once
+            this marks the document as JS-capable, so the page is never blank
+            if the script fails to load or run. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add('js')`,
+          }}
+        />
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider

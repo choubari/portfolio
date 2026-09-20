@@ -42,7 +42,7 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-40 transition-colors duration-500",
         scrolled
-          ? "border-b border-[var(--rule)] bg-[rgba(8,11,24,0.72)] backdrop-blur-md"
+          ? "border-b border-[var(--rule)] bg-[rgba(16,30,74,0.78)] backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
       )}
     >
@@ -90,7 +90,7 @@ export function Navbar() {
       {/* Mobile drawer */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-[rgba(8,11,24,0.6)] backdrop-blur-sm transition-opacity duration-300 md:hidden",
+          "fixed inset-0 z-40 bg-[rgba(16,30,74,0.6)] backdrop-blur-sm transition-opacity duration-300 md:hidden",
           menuOpen ? "opacity-100" : "pointer-events-none opacity-0"
         )}
         onClick={() => setMenuOpen(false)}

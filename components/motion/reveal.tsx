@@ -43,11 +43,20 @@ export function Reveal({
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      // threshold 0: any sliver of the element counts. A higher threshold can
+      // never be met by an element taller than the viewport.
+      { threshold: 0, rootMargin: "0px 0px -5% 0px" }
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+
+    // Safety net: whatever happens with the observer, nothing stays invisible.
+    const failsafe = window.setTimeout(() => setVisible(true), 3000);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(failsafe);
+    };
   }, []);
 
   return (

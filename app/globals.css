@@ -10,19 +10,20 @@
    ========================================================================== */
 
 :root {
-  /* Paper & surfaces — near-black with an indigo cast, not neutral grey */
-  --paper: #080b18;
-  --surface: #0e1426;
-  --raised: #161e38;
+  /* Paper & surfaces — the banner's own indigo field, deepened just enough
+     to carry body text. #1f3470 is the banner's dark end verbatim. */
+  --paper: #101e4a;
+  --surface: #17285c;
+  --raised: #1f3470;
 
   /* Rules & edges */
-  --rule: rgba(140, 198, 255, 0.12);
-  --rule-strong: rgba(140, 198, 255, 0.28);
+  --rule: rgba(140, 198, 255, 0.18);
+  --rule-strong: rgba(140, 198, 255, 0.4);
 
   /* Type */
   --text: #ecf1ff;
-  --muted: #8fa0c4;
-  --faint: #5d6c8f;
+  --muted: #a9bce2;
+  --faint: #7f93c4;
 
   /* Brand */
   --gold: #f7e84a;
@@ -146,14 +147,21 @@ body {
    Every animation below collapses under prefers-reduced-motion.
    ========================================================================== */
 
-/* Reveal: starts hidden, .is-visible is applied by the Reveal component */
+/* Reveal / entrance animations are OPT-IN, gated on the `js` class that the
+   inline script in <head> sets before first paint. Default state is fully
+   visible, so a JS failure, a blocked script or an odd scroll container can
+   never leave the page blank — the animation is an enhancement, never a
+   precondition for seeing the content. */
 .reveal {
+  opacity: 1;
+}
+html.js .reveal {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
   transition-delay: var(--reveal-delay, 0ms);
 }
-.reveal.is-visible {
+html.js .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
@@ -170,6 +178,9 @@ body {
   }
 }
 .rise {
+  opacity: 1;
+}
+html.js .rise {
   opacity: 0;
   animation: rise 0.8s var(--ease) forwards;
   animation-delay: var(--rise-delay, 0ms);
@@ -244,11 +255,13 @@ body {
   html {
     scroll-behavior: auto;
   }
+  html.js .reveal,
   .reveal {
     opacity: 1;
     transform: none;
     transition: none;
   }
+  html.js .rise,
   .rise,
   .sweep {
     opacity: 1;
@@ -316,47 +329,47 @@ body {
 
 @layer base {
   :root {
-    --background: 229 50% 6%;
+    --background: 226 64% 18%;
     --foreground: 224 100% 96%;
-    --card: 225 46% 10%;
+    --card: 225 60% 23%;
     --card-foreground: 224 100% 96%;
-    --popover: 225 46% 10%;
+    --popover: 225 60% 23%;
     --popover-foreground: 224 100% 96%;
     --primary: 55 92% 63%;
-    --primary-foreground: 229 50% 6%;
-    --secondary: 226 44% 15%;
+    --primary-foreground: 226 64% 18%;
+    --secondary: 224 57% 28%;
     --secondary-foreground: 224 100% 96%;
-    --muted: 226 44% 15%;
-    --muted-foreground: 221 31% 66%;
+    --muted: 224 57% 28%;
+    --muted-foreground: 220 50% 77%;
     --accent: 210 100% 77%;
-    --accent-foreground: 229 50% 6%;
+    --accent-foreground: 226 64% 18%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 224 100% 96%;
-    --border: 226 44% 18%;
-    --input: 226 44% 18%;
+    --border: 224 50% 34%;
+    --input: 224 50% 34%;
     --ring: 55 92% 63%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 229 50% 6%;
+    --background: 226 64% 18%;
     --foreground: 224 100% 96%;
-    --card: 225 46% 10%;
+    --card: 225 60% 23%;
     --card-foreground: 224 100% 96%;
-    --popover: 225 46% 10%;
+    --popover: 225 60% 23%;
     --popover-foreground: 224 100% 96%;
     --primary: 55 92% 63%;
-    --primary-foreground: 229 50% 6%;
-    --secondary: 226 44% 15%;
+    --primary-foreground: 226 64% 18%;
+    --secondary: 224 57% 28%;
     --secondary-foreground: 224 100% 96%;
-    --muted: 226 44% 15%;
-    --muted-foreground: 221 31% 66%;
+    --muted: 224 57% 28%;
+    --muted-foreground: 220 50% 77%;
     --accent: 210 100% 77%;
-    --accent-foreground: 229 50% 6%;
+    --accent-foreground: 226 64% 18%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 224 100% 96%;
-    --border: 226 44% 18%;
-    --input: 226 44% 18%;
+    --border: 224 50% 34%;
+    --input: 224 50% 34%;
     --ring: 55 92% 63%;
   }
 }
