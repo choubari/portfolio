@@ -1,66 +1,76 @@
-import { BrandButton } from "@/components/brand-button";
-import { BrandTag } from "@/components/brand-tag";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { BrandButton } from "@/components/brand-button";
+import { AsciiRocket } from "@/components/ascii-rocket";
+
+const STACK = ["React", "React Native", "TypeScript", "Next.js", "Node.js"];
 
 export function Hero() {
   return (
-    <section className="flex min-h-[calc(100svh-4rem)] w-full flex-col justify-center py-16">
-      {/* TODO(copy): confirm availability wording + status before launch. */}
-      <p
-        className="label-mono rise mb-8 inline-flex items-center gap-2.5"
-        style={{ "--rise-delay": "0ms" } as React.CSSProperties}
-      >
-        <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-[var(--gold)]" />
-        Paris, France — available for React Native work
-      </p>
+    <section className="py-14 sm:py-20">
+      <div className="flex flex-col-reverse items-start gap-10 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0 flex-1">
+          <p
+            className="comment rise"
+            style={{ "--rise-delay": "0ms" } as React.CSSProperties}
+          >
+            full stack engineer · react &amp; react native · paris
+          </p>
 
-      <h1
-        className="display rise max-w-4xl text-balance"
-        style={{ "--rise-delay": "90ms" } as React.CSSProperties}
-      >
-        Coding &amp; Storytelling<span className="tick">:</span>
-        <br />
-        <span className="text-[var(--muted)]">That&apos;s what I do</span>
-        <span className="tick">!</span>
-      </h1>
+          {/* TODO(copy): your line from the banner — edit freely. */}
+          <h1
+            className="display rise mt-4 text-balance"
+            style={{ "--rise-delay": "60ms" } as React.CSSProperties}
+          >
+            Engineer building systems from zero at startup speed
+            <span className="cursor ml-1.5" aria-hidden="true" />
+          </h1>
 
-      <p
-        className="rise mt-8 max-w-xl text-lg leading-relaxed text-[var(--muted)] sm:text-xl"
-        style={{ "--rise-delay": "170ms" } as React.CSSProperties}
-      >
-        I bring ambitious ideas to life with software engineering, and share my
-        expertise across conferences and social media.
-      </p>
+          <p
+            className="rise mt-5 max-w-xl leading-relaxed text-[var(--muted)]"
+            style={{ "--rise-delay": "120ms" } as React.CSSProperties}
+          >
+            I ship product end to end — web, backend and mobile — and I speak
+            about it on stage. Currently full stack engineer at Alobees in
+            Paris.
+          </p>
 
-      <div
-        className="rise mt-10 flex flex-wrap gap-3"
-        style={{ "--rise-delay": "250ms" } as React.CSSProperties}
-      >
-        <BrandTag>Engineering</BrandTag>
-        <BrandTag>Educating</BrandTag>
-        <BrandTag>Entertaining</BrandTag>
+          <ul
+            className="rise mt-6 flex flex-wrap gap-1.5"
+            style={{ "--rise-delay": "180ms" } as React.CSSProperties}
+          >
+            {STACK.map((tech) => (
+              <li key={tech} className="tag">
+                {tech}
+              </li>
+            ))}
+          </ul>
+
+          <div
+            className="rise mt-8 flex flex-wrap items-center gap-3"
+            style={{ "--rise-delay": "240ms" } as React.CSSProperties}
+          >
+            <Link href="/contact">
+              <BrandButton>Let&apos;s work together</BrandButton>
+            </Link>
+            <a href="mailto:contact@choubari.com?subject=Speaking%20invitation">
+              <BrandButton tone="ghost">Invite me to speak</BrandButton>
+            </a>
+          </div>
+        </div>
+
+        <div className="flex shrink-0 items-center gap-5 sm:flex-col sm:items-end">
+          <Image
+            src="/kawtar.png"
+            alt="Kawtar Choubari"
+            width={112}
+            height={112}
+            priority
+            className="h-20 w-20 rounded-full sm:h-28 sm:w-28"
+          />
+          <AsciiRocket className="hidden sm:block" />
+        </div>
       </div>
-
-      <div
-        className="rise mt-12 flex flex-wrap items-center gap-4"
-        style={{ "--rise-delay": "330ms" } as React.CSSProperties}
-      >
-        <Link href="/contact">
-          <BrandButton>
-            Let&apos;s CHAT!
-            <ArrowRight className="h-4 w-4 transition-transform duration-500 ease-ease group-hover:translate-x-1" />
-          </BrandButton>
-        </Link>
-        <Link href="/oss">
-          <BrandButton tone="ghost">See the work</BrandButton>
-        </Link>
-      </div>
-
-      <div
-        className="sweep mt-20 h-px w-full bg-[var(--rule)]"
-        style={{ "--rise-delay": "420ms" } as React.CSSProperties}
-      />
     </section>
   );
 }

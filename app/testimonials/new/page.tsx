@@ -1,25 +1,19 @@
 import PublicTestimonialForm from "@/components/forms/public-testimonial-form";
+import { PageTitle } from "@/components/section-title";
 
 export default function SubmitTestimonialPage() {
   return (
-    <div className="py-8">
-      <div className="flex flex-col items-center text-center mb-4">
-        <h1 className="text-4xl font-bold mb-2">
-          Submit Your Testimonial
-          <span
-            className="text-4xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            .
-          </span>
-        </h1>
+    <div className="py-14 sm:py-20">
+      <PageTitle
+        comment="testimonials / new"
+        lede="Thank you for considering to leave a testimonial! Your feedback is greatly appreciated and helps others understand the value I strive to provide."
+      >
+        Submit a testimonial
+      </PageTitle>
+
+      <div className="mt-12 max-w-xl">
+        <PublicTestimonialForm />
       </div>
-      <p className="text-center text-[var(--muted)] mb-8 max-w-xl mx-auto">
-        Thank you for considering to leave a testimonial! Your feedback is
-        greatly appreciated and helps others understand the value I strive to
-        provide.
-      </p>
-      <PublicTestimonialForm />
     </div>
   );
 }

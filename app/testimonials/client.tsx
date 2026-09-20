@@ -37,20 +37,21 @@ export default function TestimonialsClient({
 
   const getButtonClasses = (isActive: boolean) =>
     cn(
-      "hover:underline cursor-pointer",
-      isActive ? "text-[var(--color-accent)] underline" : "text-white"
+      "mono underline-offset-4 transition-colors",
+      isActive
+        ? "text-[var(--action)] underline"
+        : "text-[var(--muted)] hover:text-[var(--ink)]"
     );
 
   return (
     <>
-      <div className="text-center text-base my-6">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         <button
           onClick={() => setActiveCategoryKey(null)}
           className={getButtonClasses(!activeCategoryKey)}
         >
           All ({testimonials.length})
         </button>
-        <span className="mx-2 text-[var(--faint)]">|</span>
         {availableCategoryKeys.map((categoryKey, index, array) => {
           const categoryValue = TESTIMONIAL_CATEGORY[categoryKey];
           const count = testimonials.filter((testimonial) =>
@@ -64,20 +65,15 @@ export default function TestimonialsClient({
                     activeCategoryKey === categoryKey ? null : categoryKey
                   )
                 }
-                className={
-                  getButtonClasses(activeCategoryKey === categoryKey) + " ml-2"
-                }
+                className={getButtonClasses(activeCategoryKey === categoryKey)}
               >
                 {categoryValue} ({count})
               </button>
-              {index !== array.length - 1 && (
-                <span className="text-[var(--faint)]">, </span>
-              )}
             </span>
           );
         })}
       </div>
-      <div className="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
+      <div className="mt-10 columns-1 gap-10 sm:columns-2">
         {filteredTestimonials.map((testimonial) => (
           <TestimonialCard key={testimonial.id} testimonial={testimonial} />
         ))}

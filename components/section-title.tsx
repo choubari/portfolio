@@ -2,48 +2,32 @@ import { cn } from "@/lib/utils";
 
 interface PageTitleProps {
   children: React.ReactNode;
-  /** The accent glyph that closes the title — "." by default, sometimes "?" or "!". */
-  tick?: string;
-  /** Mono eyebrow above the title, e.g. "01 / Selected work". */
-  eyebrow?: string;
-  /** Supporting line below the title. */
+  /** The `// comment` line above the title. */
+  comment?: string;
   lede?: React.ReactNode;
   className?: string;
-  align?: "left" | "center";
 }
 
-/**
- * The page-level heading used across every route: a mono eyebrow, a large
- * tight display line closed by a gold glyph, and an optional lede.
- */
+/** Page heading: a `// comment` line, a tight display line, an optional lede. */
 export function PageTitle({
   children,
-  tick = ".",
-  eyebrow,
+  comment,
   lede,
   className,
-  align = "left",
 }: PageTitleProps) {
   return (
-    <header
-      className={cn(
-        "flex flex-col gap-4",
-        align === "center" && "items-center text-center",
-        className
-      )}
-    >
-      {eyebrow && <span className="label-mono rise">{eyebrow}</span>}
+    <header className={cn("flex flex-col gap-3", className)}>
+      {comment && <span className="comment rise">{comment}</span>}
       <h1
         className="display rise text-balance"
-        style={{ "--rise-delay": "70ms" } as React.CSSProperties}
+        style={{ "--rise-delay": "60ms" } as React.CSSProperties}
       >
         {children}
-        <span className="tick">{tick}</span>
       </h1>
       {lede && (
         <p
-          className="rise max-w-2xl text-lg leading-relaxed text-[var(--muted)]"
-          style={{ "--rise-delay": "140ms" } as React.CSSProperties}
+          className="rise mt-1 max-w-2xl text-lg leading-relaxed text-[var(--muted)]"
+          style={{ "--rise-delay": "120ms" } as React.CSSProperties}
         >
           {lede}
         </p>
@@ -54,34 +38,36 @@ export function PageTitle({
 
 interface SectionTitleProps {
   children: React.ReactNode;
-  tick?: string;
-  /** Two-digit section index, e.g. "02". */
-  index?: string;
-  kicker?: string;
+  /** Right-hand link, e.g. { label: "All talks", href: "/talks" } */
+  action?: { label: string; href: string };
   className?: string;
 }
 
-/** Section-level heading: a numbered mono rail plus a medium display line. */
+/**
+ * Section heading. A `// comment` label and an optional inline action on the
+ * same baseline — no big display type competing with the page title.
+ */
 export function SectionTitle({
   children,
-  tick = ".",
-  index,
-  kicker,
+  action,
   className,
 }: SectionTitleProps) {
   return (
-    <div className={cn("flex flex-col gap-3", className)}>
-      {(index || kicker) && (
-        <span className="label-mono">
-          {index && <span className="text-[var(--gold)]">{index}</span>}
-          {index && kicker && " / "}
-          {kicker}
-        </span>
+    <div
+      className={cn(
+        "flex items-baseline justify-between gap-4 border-b border-[var(--rule)] pb-3",
+        className
       )}
-      <h2 className="text-3xl font-semibold tracking-display sm:text-4xl">
-        {children}
-        <span className="tick">{tick}</span>
-      </h2>
+    >
+      <h2 className="comment">{children}</h2>
+      {action && (
+        <a
+          href={action.href}
+          className="mono text-[var(--action)] transition-colors hover:text-[var(--action-deep)]"
+        >
+          {action.label} →
+        </a>
+      )}
     </div>
   );
 }

@@ -1,74 +1,56 @@
-import { Calendar, MapPin } from "lucide-react";
 import type { Talk } from "@/types";
 
-const RESOURCES: {
-  key: keyof Talk;
-  icon: string;
-  label: string;
-  title: string;
-}[] = [
-  { key: "video", icon: "📽️", label: "Video", title: "Video Recording" },
-  { key: "slides", icon: "📝", label: "Slides", title: "Slides" },
-  { key: "docs", icon: "📖", label: "Docs", title: "Docs" },
-  { key: "demoCode", icon: "💻", label: "Code", title: "Open Source Code" },
-  { key: "demoLink", icon: "🔗", label: "Demo", title: "Demo Link" },
+const RESOURCES: { key: keyof Talk; label: string }[] = [
+  { key: "video", label: "video" },
+  { key: "slides", label: "slides" },
+  { key: "docs", label: "docs" },
+  { key: "demoCode", label: "code" },
+  { key: "demoLink", label: "demo" },
 ];
 
 export function TalkCard({ talk }: { talk: Talk }) {
   return (
-    <article className="card flex h-full flex-col p-6">
-      <div className="flex flex-wrap items-center gap-2">
-        {talk.duration && (
-          <span className="label-mono rounded-full border border-[var(--gold)]/40 px-3 py-1 text-[var(--gold)]">
-            {talk.duration}
-          </span>
-        )}
-        <span className="label-mono rounded-full border border-[var(--rule-strong)] px-3 py-1 text-[var(--sky)]">
+    <article className="row grid grid-cols-1 gap-x-8 gap-y-2 py-5 sm:grid-cols-[9rem_1fr]">
+      <div className="mono pt-0.5">
+        {talk.date}
+        <div className="mt-1">
           {talk.talkType}
-        </span>
-      </div>
-
-      <h4 className="mt-5 text-lg font-semibold leading-snug">{talk.title}</h4>
-
-      <div className="mt-3">
-        <a
-          href={talk.hostLink || "#"}
-          target="_blank"
-          rel="noreferrer"
-          className="link-underline text-base"
-        >
-          {talk.host}
-        </a>
-        <div className="label-mono mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="inline-flex items-center gap-1.5">
-            <Calendar className="h-3.5 w-3.5" />
-            {talk.date}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <MapPin className="h-3.5 w-3.5" />
-            <span className="font-sans">{talk.country}</span> {talk.city}
-          </span>
+          {talk.duration && ` · ${talk.duration}`}
         </div>
       </div>
 
-      <div className="mt-auto flex flex-wrap gap-4 pt-6">
-        {RESOURCES.map(({ key, icon, label, title }) => {
-          const href = talk[key] as string | undefined;
-          if (!href) return null;
-          return (
-            <a
-              key={key}
-              className="inline-flex items-center gap-1.5 text-sm text-[var(--muted)] transition-colors duration-500 ease-ease hover:text-[var(--gold)]"
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              title={title}
-            >
-              <span aria-hidden="true">{icon}</span>
-              {label}
-            </a>
-          );
-        })}
+      <div>
+        <h4 className="font-semibold leading-snug">{talk.title}</h4>
+        <p className="mono mt-1.5">
+          <a
+            href={talk.hostLink || "#"}
+            target="_blank"
+            rel="noreferrer"
+            className="text-[var(--action)] hover:text-[var(--action-deep)]"
+          >
+            {talk.host}
+          </a>
+          {" · "}
+          <span className="font-sans">{talk.country}</span> {talk.city}
+        </p>
+
+        <div className="mt-3 flex flex-wrap gap-3">
+          {RESOURCES.map(({ key, label }) => {
+            const href = talk[key] as string | undefined;
+            if (!href) return null;
+            return (
+              <a
+                key={key}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="mono text-[var(--muted)] underline underline-offset-2 hover:text-[var(--action)]"
+              >
+                {label}
+              </a>
+            );
+          })}
+        </div>
       </div>
     </article>
   );

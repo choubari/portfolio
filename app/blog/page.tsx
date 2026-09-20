@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { getAllPostsMetadata } from "@/lib/getAllPostsMetadata";
 import { PageTitle } from "@/components/section-title";
 import { Reveal } from "@/components/motion/reveal";
@@ -11,37 +10,38 @@ export default async function BlogIndexPage() {
   return (
     <>
       <PageTitle
-        eyebrow="00 / Writing"
-        lede="Unfrequent thoughts, ideas, and experiences"
+        comment="writing"
+        lede="Unfrequent thoughts, ideas, and experiences."
       >
-        Blog Posts
+        Blog
       </PageTitle>
 
-      <div className="mt-16">
+      <div className="mt-12">
         {publishedPosts.length > 0 ? (
-          <ul>
+          <ul className="border-t border-[var(--rule)]">
             {publishedPosts.map((post, i) => (
-              <Reveal as="li" key={post.slug} delay={(i % 4) * 80}>
+              <Reveal as="li" key={post.slug} delay={Math.min(i, 6) * 50}>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="group flex flex-col gap-2 border-b border-[var(--rule)] py-7 transition-colors duration-500 ease-ease hover:border-[var(--rule-strong)]"
+                  className="row group grid grid-cols-1 gap-x-8 gap-y-1 py-5 sm:grid-cols-[9rem_1fr]"
                 >
-                  <span className="label-mono">
+                  <span className="mono pt-1">
                     {new Date(post.date).toLocaleDateString("en-US", {
                       year: "numeric",
-                      month: "long",
+                      month: "short",
                       day: "numeric",
                     })}
                   </span>
-                  <h2 className="flex items-start gap-2 text-xl font-semibold transition-colors duration-500 ease-ease group-hover:text-[var(--gold)]">
-                    {post.title}
-                    <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 opacity-0 transition-all duration-500 ease-ease group-hover:translate-x-0.5 group-hover:opacity-100" />
-                  </h2>
-                  {post.description && (
-                    <p className="max-w-2xl leading-relaxed text-[var(--muted)]">
-                      {post.description}
-                    </p>
-                  )}
+                  <div>
+                    <h2 className="font-semibold transition-colors group-hover:text-[var(--action)]">
+                      {post.title}
+                    </h2>
+                    {post.description && (
+                      <p className="mt-1 leading-relaxed text-[var(--muted)]">
+                        {post.description}
+                      </p>
+                    )}
+                  </div>
                 </Link>
               </Reveal>
             ))}

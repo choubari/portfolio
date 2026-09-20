@@ -5,14 +5,12 @@ export function Logo() {
     <Link
       href="/"
       aria-label="Choubari — home"
-      className="group inline-flex items-baseline text-xl font-semibold tracking-display"
+      className="group font-mono text-sm font-medium tracking-tight text-[var(--ink)]"
     >
-      <span className="text-[var(--faint)] transition-colors duration-500 ease-ease group-hover:text-[var(--gold)]">
-        {"<"}
-      </span>
-      <span className="text-[var(--text)]">Choubari</span>
-      <span className="text-[var(--faint)] transition-colors duration-500 ease-ease group-hover:text-[var(--gold)]">
-        {"/>"}
+      <span className="text-[var(--action)]">~/</span>
+      choubari
+      <span className="text-[var(--faint)] transition-colors group-hover:text-[var(--action)]">
+        .com
       </span>
     </Link>
   );

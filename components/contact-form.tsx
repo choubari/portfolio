@@ -76,13 +76,13 @@ export default function ContactForm() {
   return (
     <div>
       <PageTitle
-        eyebrow="00 / Contact"
-        lede="Feel free to reach out if you're interested in working together"
+        comment="contact"
+        lede="Feel free to reach out if you're interested in working together."
       >
-        Let<span className="tick">&apos;</span>s Chat
+        Let&apos;s chat
       </PageTitle>
 
-      <div className="mt-16 max-w-2xl">
+      <div className="mt-12 max-w-xl">
         <form
           encType="multipart/form-data"
           onSubmit={handleSubmit}
@@ -97,7 +97,7 @@ export default function ContactForm() {
                 type="text"
                 id="fullname"
                 placeholder="John Doe"
-                className="w-full p-2.5 rounded-md border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
+                className="w-full p-2.5 rounded-sm border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
                 value={fullname}
                 onChange={(e) => setFullName(e.target.value)}
                 minLength={4}
@@ -113,7 +113,7 @@ export default function ContactForm() {
                 autoComplete="email"
                 placeholder="email@example.com"
                 id="email"
-                className="w-full p-2.5 rounded-md border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
+                className="w-full p-2.5 rounded-sm border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -140,7 +140,7 @@ export default function ContactForm() {
               id="message"
               rows={5}
               placeholder="Your message..."
-              className="w-full p-2.5 rounded-md border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
+              className="w-full p-2.5 rounded-sm border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
@@ -164,8 +164,8 @@ export default function ContactForm() {
           <button
             type="submit"
             className={cn(
-              loading ? "bg-[var(--raised)]" : "bg-[var(--color-accent)]",
-              "text-black font-medium rounded-md px-6 py-3 h-auto w-full md:w-auto"
+              loading ? "bg-[var(--rule)]" : "bg-[var(--color-accent)]",
+              "text-white font-medium rounded-sm px-6 py-3 h-auto w-full md:w-auto"
             )}
             disabled={loading}
           >

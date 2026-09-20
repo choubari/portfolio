@@ -11,13 +11,6 @@ const config = {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
@@ -33,26 +26,21 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        /* Palette sampled from the choubari.com banner */
+        /* LinkedIn palette */
         paper: "var(--paper)",
         surface: "var(--surface)",
-        raised: "var(--raised)",
-        ink: "var(--text)",
+        ink: "var(--ink)",
         faint: "var(--faint)",
-        rule: "var(--rule)",
-        gold: {
-          DEFAULT: "var(--gold)",
-          deep: "var(--gold-deep)",
+        action: {
+          DEFAULT: "var(--action)",
+          deep: "var(--action-deep)",
+          wash: "var(--action-wash)",
         },
-        sky: "var(--sky)",
-        azure: "var(--azure)",
-        indigo: "var(--indigo)",
         brand: {
-          light: "#71A9E2",
-          medium: "#4F75D5",
-          dark: "#1E3779",
-          text: "#8CC6FF",
-          gold: "#F7E84A",
+          light: "#4A9AE8",
+          medium: "#0A66C2",
+          dark: "#004182",
+          text: "#0A66C2",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -79,14 +67,10 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      letterSpacing: {
-        display: "-0.035em",
-        label: "0.14em",
-      },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "var(--radius)",
+        sm: "var(--radius)",
       },
       transitionTimingFunction: {
         ease: "cubic-bezier(0.22, 1, 0.36, 1)",

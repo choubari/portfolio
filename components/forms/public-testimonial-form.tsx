@@ -38,7 +38,7 @@ export default function PublicTestimonialForm() {
   }, []);
 
   const inputStyles =
-    "mt-1 block w-full px-3 py-2 bg-transparent border border-[var(--rule)] rounded-md shadow-sm focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] sm:text-sm text-white disabled:opacity-70 disabled:cursor-not-allowed";
+    "mt-1 block w-full px-3 py-2 bg-transparent border border-[var(--rule)] rounded-sm focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] sm:text-sm text-[var(--ink)] disabled:opacity-70 disabled:cursor-not-allowed";
   const labelStyles = "block text-sm font-medium text-[var(--muted)]";
 
   const handleChange = (
@@ -265,7 +265,7 @@ export default function PublicTestimonialForm() {
           {Object.entries(TESTIMONIAL_CATEGORY).map(([key, value]) => (
             <label
               key={key}
-              className="flex items-center space-x-2 text-[var(--muted)] hover:text-white cursor-pointer"
+              className="flex items-center space-x-2 text-[var(--muted)] hover:text-[var(--ink)] cursor-pointer"
             >
               <input
                 type="checkbox"
@@ -275,7 +275,7 @@ export default function PublicTestimonialForm() {
                   key as keyof typeof TESTIMONIAL_CATEGORY
                 )}
                 onChange={handleCategoryChange}
-                className="form-checkbox h-4 w-4 text-[var(--color-accent)] bg-[var(--raised)] border-[var(--rule)] rounded focus:ring-[var(--color-accent)] focus:ring-offset-[var(--paper)]"
+                className="form-checkbox h-4 w-4 text-[var(--color-accent)] bg-[var(--rule)] border-[var(--rule)] rounded focus:ring-[var(--color-accent)] focus:ring-offset-[var(--paper)]"
                 disabled={isLoading}
               />
               <span>{value}</span>
@@ -302,7 +302,7 @@ export default function PublicTestimonialForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-[var(--color-accent)] hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-accent)] focus:ring-offset-[var(--paper)] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-sm text-sm font-medium text-white bg-[var(--color-accent)] hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-accent)] focus:ring-offset-[var(--paper)] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? "Submitting..." : "Submit Testimonial"}
         </button>

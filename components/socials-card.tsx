@@ -1,6 +1,5 @@
 import { SocialPlatform } from "@/types";
 import { countFormatter, findSocialLinkHref } from "@/lib/utils";
-import SocialsIcon from "@/lib/socialsIconMap";
 
 interface PlatformProps {
   platform: SocialPlatform;
@@ -12,31 +11,21 @@ const SocialsCard: React.FC<PlatformProps> = ({
   platform,
   title,
   followersCount,
-}) => {
-  const SocialIcon =
-    SocialsIcon[platform.toLowerCase() as keyof typeof SocialsIcon] ||
-    SocialsIcon["none"];
-  const count = countFormatter(followersCount);
-  const href = findSocialLinkHref(platform);
-
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="card group flex h-full items-start gap-4 p-6"
-    >
-      <div className="flex-grow">
-        <p className="text-4xl font-semibold tracking-display transition-colors duration-500 ease-ease group-hover:text-[var(--gold)]">
-          {count}
-        </p>
-        <p className="label-mono mt-2">{title}</p>
-      </div>
-      <span className="text-3xl text-[var(--sky)] transition-colors duration-500 ease-ease group-hover:text-[var(--gold)]">
-        <SocialIcon />
+}) => (
+  <a
+    href={findSocialLinkHref(platform)}
+    target="_blank"
+    rel="noreferrer"
+    className="row group flex items-baseline justify-between gap-4 py-4"
+  >
+    <span className="mono">{platform}</span>
+    <span className="flex items-baseline gap-2">
+      <span className="text-xl font-semibold transition-colors group-hover:text-[var(--action)]">
+        {countFormatter(followersCount)}
       </span>
-    </a>
-  );
-};
+      <span className="mono">{title}</span>
+    </span>
+  </a>
+);
 
 export default SocialsCard;

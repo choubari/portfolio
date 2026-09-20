@@ -4,142 +4,81 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "./logo";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
 import { MainNav } from "@/config/navigation";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  // The bar is borderless at the top of the page and gains a rule + blur
-  // once the content starts sliding underneath it.
+  // Close the disclosure whenever the route changes.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Lock the page behind the mobile drawer, and let Escape close it.
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [menuOpen]);
+    setOpen(false);
+  }, [pathname]);
 
   const isActive = (path: string) =>
     path === "/" ? pathname === "/" : pathname.startsWith(path);
 
   return (
-    <nav
-      className={cn(
-        "fixed inset-x-0 top-0 z-40 transition-colors duration-500",
-        scrolled
-          ? "border-b border-[var(--rule)] bg-[rgba(16,30,74,0.78)] backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
-      )}
-    >
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-[var(--edge)]">
+    <nav className="fixed inset-x-0 top-0 z-40 border-b border-[var(--rule)] bg-[rgba(244,242,238,0.88)] backdrop-blur-sm">
+      <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-[var(--edge)]">
         <Logo />
 
-        {/* Desktop */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-6 sm:flex">
           {MainNav.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={cn(
-                  "group relative py-1 text-sm transition-colors",
+                  "mono transition-colors",
                   isActive(item.href)
-                    ? "text-[var(--gold)]"
-                    : "text-[var(--muted)] hover:text-[var(--text)]"
+                    ? "text-[var(--action)]"
+                    : "text-[var(--muted)] hover:text-[var(--ink)]"
                 )}
               >
                 {item.label}
-                <span
-                  className={cn(
-                    "absolute inset-x-0 -bottom-0.5 h-px origin-left bg-[var(--gold)] transition-transform duration-500 ease-ease",
-                    isActive(item.href)
-                      ? "scale-x-100"
-                      : "scale-x-0 group-hover:scale-x-100"
-                  )}
-                />
               </Link>
             </li>
           ))}
         </ul>
 
         <button
-          className="-mr-2 p-2 text-[var(--text)] md:hidden"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open navigation menu"
-          aria-expanded={menuOpen}
+          className="mono -mr-1 p-1 text-[var(--ink)] sm:hidden"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="mobile-nav"
         >
-          <Menu className="h-5 w-5" />
+          {open ? "[ close ]" : "[ menu ]"}
         </button>
       </div>
 
-      {/* Mobile drawer */}
-      <div
+      {/* Mobile: a plain disclosure, not a drawer */}
+      <ul
+        id="mobile-nav"
         className={cn(
-          "fixed inset-0 z-40 bg-[rgba(16,30,74,0.6)] backdrop-blur-sm transition-opacity duration-300 md:hidden",
-          menuOpen ? "opacity-100" : "pointer-events-none opacity-0"
+          "overflow-hidden bg-[var(--paper)] transition-[max-height] duration-300 ease-ease sm:hidden",
+          open ? "max-h-80 border-t border-[var(--rule)]" : "max-h-0"
         )}
-        onClick={() => setMenuOpen(false)}
-        aria-hidden="true"
-      />
-      <div
-        className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-4/5 max-w-xs flex-col border-l border-[var(--rule)] bg-[var(--surface)] p-8 transition-transform duration-500 ease-ease md:hidden",
-          menuOpen ? "translate-x-0" : "translate-x-full"
-        )}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Navigation"
       >
-        <button
-          className="self-end p-2 text-[var(--text)]"
-          aria-label="Close navigation menu"
-          onClick={() => setMenuOpen(false)}
-        >
-          <X className="h-5 w-5" />
-        </button>
-
-        <ul className="mt-6 flex flex-col gap-1">
-          {MainNav.map((item, i) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                aria-current={isActive(item.href) ? "page" : undefined}
-                className={cn(
-                  "flex items-baseline gap-3 border-b border-[var(--rule)] py-4 text-xl transition-all duration-500 ease-ease",
-                  isActive(item.href)
-                    ? "text-[var(--gold)]"
-                    : "text-[var(--text)]",
-                  menuOpen
-                    ? "translate-x-0 opacity-100"
-                    : "translate-x-4 opacity-0"
-                )}
-                style={{ transitionDelay: menuOpen ? `${80 + i * 55}ms` : "0ms" }}
-              >
-                <span className="label-mono">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+        {MainNav.map((item, i) => (
+          <li key={item.href} className="mx-[var(--edge)]">
+            <Link
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={cn(
+                "row flex items-baseline gap-3 py-3",
+                isActive(item.href)
+                  ? "text-[var(--action)]"
+                  : "text-[var(--ink)]"
+              )}
+            >
+              <span className="mono">{String(i + 1).padStart(2, "0")}</span>
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }

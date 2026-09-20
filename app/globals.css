@@ -3,41 +3,36 @@
 @tailwind utilities;
 
 /* ==========================================================================
-   Design tokens
-   Palette sampled from the choubari.com LinkedIn banner:
-   azure #71A9E2 -> indigo #1E3779 field, gold #F7E84A accent, sky #8CC6FF.
-   The site runs on a flat deep-indigo paper; gold carries the emphasis.
+   Design tokens — light, LinkedIn palette.
+   Flat by construction: hairline rules instead of card borders, 2px radius,
+   no shadows. Colour is carried by one action blue and nothing else.
    ========================================================================== */
 
 :root {
-  /* Paper & surfaces — the banner's own indigo field, deepened just enough
-     to carry body text. #1f3470 is the banner's dark end verbatim. */
-  --paper: #101e4a;
-  --surface: #17285c;
-  --raised: #1f3470;
+  /* Paper */
+  --paper: #f4f2ee; /* LinkedIn canvas */
+  --surface: #ffffff;
 
-  /* Rules & edges */
-  --rule: rgba(140, 198, 255, 0.18);
-  --rule-strong: rgba(140, 198, 255, 0.4);
+  /* Rules — hairlines, never card borders */
+  --rule: rgba(25, 25, 25, 0.12);
+  --rule-strong: rgba(25, 25, 25, 0.3);
 
-  /* Type */
-  --text: #ecf1ff;
-  --muted: #a9bce2;
-  --faint: #7f93c4;
+  /* Ink */
+  --ink: #191919;
+  --muted: #5e5e5e;
+  --faint: #8c8c8c;
 
-  /* Brand */
-  --gold: #f7e84a;
-  --gold-deep: #c9b93a;
-  --sky: #8cc6ff;
-  --azure: #71a9e2;
-  --indigo: #1e3779;
+  /* The single action colour */
+  --action: #0a66c2; /* LinkedIn blue */
+  --action-deep: #004182;
+  --action-wash: rgba(10, 102, 194, 0.07);
 
-  /* Motion */
+  --radius-flat: 2px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --edge: clamp(1.25rem, 4vw, 2.5rem);
+  --edge: clamp(1.25rem, 5vw, 2rem);
 
-  /* Legacy aliases — kept so untouched components keep rendering */
-  --color-accent: var(--gold);
+  /* Legacy aliases so any component not touched here still renders sanely */
+  --color-accent: var(--action);
   --color-background: var(--paper);
   --color-background-alt: var(--surface);
 }
@@ -48,117 +43,114 @@ html {
 
 body {
   background-color: var(--paper);
-  color: var(--text);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--gold);
-  color: var(--paper);
+  background: var(--action);
+  color: #fff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
 }
 
 .hover-accent:hover {
-  color: var(--gold);
+  color: var(--action);
 }
 
 /* ==========================================================================
-   Editorial primitives
+   Primitives
    ========================================================================== */
 
 @layer components {
-  /* Mono micro-label — the editorial anchor (section numbers, dates, meta) */
-  .label-mono {
+  /* Mono micro-label: dates, metadata */
+  .mono {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
     color: var(--faint);
   }
 
-  /* Display type: tight, large, negative tracking */
+  /* `// section name` — comment-style divider */
+  .comment {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.8125rem;
+    color: var(--faint);
+  }
+  .comment::before {
+    content: "// ";
+    color: var(--action);
+  }
+
+  /* Display type — tight, and deliberately not huge */
   .display {
-    font-size: var(--text-display, clamp(2.5rem, 7vw, 5.5rem));
-    line-height: 0.95;
-    letter-spacing: -0.035em;
+    font-size: clamp(2rem, 4.6vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
     font-weight: 600;
   }
 
-  /* The accent punctuation mark used across every page heading */
-  .tick {
-    color: var(--gold);
+  /* Inline link: underline always present, colour only on hover */
+  .link {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--rule-strong);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .link:hover {
+    color: var(--action);
+    text-decoration-color: var(--action);
   }
 
-  /* Link with an underline that draws in from the left */
-  .link-underline {
-    position: relative;
-    display: inline-block;
-    color: var(--sky);
+  /* Row — the list primitive that replaces cards: a hairline and a wash */
+  .row {
+    border-bottom: 1px solid var(--rule);
+    transition: background-color 0.2s var(--ease);
   }
-  .link-underline::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 1px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.45s var(--ease);
-  }
-  .link-underline:hover {
-    color: var(--gold);
-  }
-  .link-underline:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
+  .row:hover {
+    background-color: var(--action-wash);
   }
 
-  /* Break out of the centred measure to the full viewport width */
+  /* Panel — only where content genuinely needs a surface (forms, embeds) */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-flat);
+  }
+
+  .tag {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-flat);
+    padding: 0.125rem 0.4375rem;
+    white-space: nowrap;
+  }
+
   .bleed {
     width: 100vw;
     margin-inline: calc(50% - 50vw);
   }
-
-  /* Card surface with a gold edge on hover */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 0.75rem;
-    transition: border-color 0.35s var(--ease), transform 0.35s var(--ease),
-      background-color 0.35s var(--ease);
-  }
-  .card:hover {
-    border-color: var(--rule-strong);
-    background: var(--raised);
-    transform: translateY(-3px);
-  }
 }
 
 /* ==========================================================================
-   Motion — scroll reveal, staggered entrance, marquee
-   Every animation below collapses under prefers-reduced-motion.
+   Motion. Opt-in behind `html.js`, which an inline script sets before first
+   paint, so content is never invisible when JS does not run.
    ========================================================================== */
 
-/* Reveal / entrance animations are OPT-IN, gated on the `js` class that the
-   inline script in <head> sets before first paint. Default state is fully
-   visible, so a JS failure, a blocked script or an odd scroll container can
-   never leave the page blank — the animation is an enhancement, never a
-   precondition for seeing the content. */
 .reveal {
   opacity: 1;
 }
 html.js .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transform: translateY(10px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
   transition-delay: var(--reveal-delay, 0ms);
 }
 html.js .reveal.is-visible {
@@ -166,11 +158,10 @@ html.js .reveal.is-visible {
   transform: none;
 }
 
-/* Entrance: plays immediately on mount, for above-the-fold content */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(22px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -182,73 +173,79 @@ html.js .reveal.is-visible {
 }
 html.js .rise {
   opacity: 0;
-  animation: rise 0.8s var(--ease) forwards;
+  animation: rise 0.6s var(--ease) forwards;
   animation-delay: var(--rise-delay, 0ms);
 }
 
-@keyframes sweep-in {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-.sweep {
-  transform-origin: left;
-  animation: sweep-in 0.9s var(--ease) forwards;
-  animation-delay: var(--rise-delay, 0ms);
-}
-
-/* Marquee — duplicated track, masked edges, pauses on hover */
-.marquee {
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
-  mask-image: linear-gradient(
-    90deg,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee-scroll var(--marquee-duration, 38s) linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* Blinking availability dot */
-@keyframes pulse-dot {
+/* Terminal cursor */
+@keyframes blink {
   0%,
-  100% {
+  49% {
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(247, 232, 74, 0.5);
   }
-  50% {
-    opacity: 0.75;
-    box-shadow: 0 0 0 6px rgba(247, 232, 74, 0);
+  50%,
+  100% {
+    opacity: 0;
   }
 }
-.pulse-dot {
-  animation: pulse-dot 2.4s var(--ease) infinite;
+.cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  vertical-align: text-bottom;
+  background: var(--action);
+  animation: blink 1.1s steps(1) infinite;
+}
+
+/* ASCII animation — four frames stacked, one lit at a time. Pure CSS.
+   Frame 1 is the static fallback, so a failed animation shows art, not a gap. */
+.ascii {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: clamp(7px, 1.05vw, 11px);
+  line-height: 1.18;
+  color: var(--action);
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.ascii-frame {
+  margin: 0;
+}
+.ascii-frame:first-child {
+  position: relative;
+  opacity: 1;
+}
+.ascii-frame:not(:first-child) {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+html.js .ascii-frame {
+  opacity: 0;
+  animation: ascii-flick 1.25s steps(1, end) infinite;
+}
+html.js .ascii-frame:nth-child(1) {
+  animation-delay: 0s;
+}
+html.js .ascii-frame:nth-child(2) {
+  animation-delay: 0.3125s;
+}
+html.js .ascii-frame:nth-child(3) {
+  animation-delay: 0.625s;
+}
+html.js .ascii-frame:nth-child(4) {
+  animation-delay: 0.9375s;
+}
+@keyframes ascii-flick {
+  0% {
+    opacity: 1;
+  }
+  25%,
+  100% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -262,114 +259,72 @@ html.js .rise {
     transition: none;
   }
   html.js .rise,
-  .rise,
-  .sweep {
+  .rise {
     opacity: 1;
     transform: none;
     animation: none;
   }
-  .marquee-track {
+  .cursor {
     animation: none;
   }
-  .pulse-dot {
+  html.js .ascii-frame {
     animation: none;
+    opacity: 0;
   }
-  .card:hover {
-    transform: none;
-  }
-  .link-underline::after {
-    transition: none;
+  html.js .ascii-frame:first-child {
+    opacity: 1;
   }
 }
 
 /* ==========================================================================
-   MDX prose tables
+   MDX prose
    ========================================================================== */
 
-.prose.prose-invert table,
 .prose table {
   border-collapse: collapse !important;
-  border: 1px solid var(--rule) !important;
-  background-color: var(--surface) !important;
   width: 100% !important;
   margin: 1.5rem 0 !important;
 }
-
-.prose.prose-invert th,
-.prose th {
-  border: 1px solid var(--rule) !important;
-  padding: 12px 16px !important;
-  background-color: var(--raised) !important;
-  color: var(--text) !important;
-  font-weight: 600 !important;
-  text-align: left !important;
-}
-
-.prose.prose-invert td,
+.prose th,
 .prose td {
   border: 1px solid var(--rule) !important;
-  padding: 12px 16px !important;
-  color: var(--muted) !important;
+  padding: 10px 14px !important;
   text-align: left !important;
 }
-
-.prose.prose-invert tr:nth-child(even),
-.prose tr:nth-child(even) {
-  background-color: rgba(140, 198, 255, 0.03) !important;
+.prose th {
+  background-color: var(--paper) !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
 }
-
-.prose.prose-invert tbody tr,
-.prose tbody tr {
-  border-bottom: 1px solid var(--rule) !important;
+.prose td {
+  color: var(--muted) !important;
 }
 
 /* ==========================================================================
-   shadcn/ui token bridge — mapped onto the indigo palette
+   shadcn/ui token bridge — light
    ========================================================================== */
 
 @layer base {
   :root {
-    --background: 226 64% 18%;
-    --foreground: 224 100% 96%;
-    --card: 225 60% 23%;
-    --card-foreground: 224 100% 96%;
-    --popover: 225 60% 23%;
-    --popover-foreground: 224 100% 96%;
-    --primary: 55 92% 63%;
-    --primary-foreground: 226 64% 18%;
-    --secondary: 224 57% 28%;
-    --secondary-foreground: 224 100% 96%;
-    --muted: 224 57% 28%;
-    --muted-foreground: 220 50% 77%;
-    --accent: 210 100% 77%;
-    --accent-foreground: 226 64% 18%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 224 100% 96%;
-    --border: 224 50% 34%;
-    --input: 224 50% 34%;
-    --ring: 55 92% 63%;
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 226 64% 18%;
-    --foreground: 224 100% 96%;
-    --card: 225 60% 23%;
-    --card-foreground: 224 100% 96%;
-    --popover: 225 60% 23%;
-    --popover-foreground: 224 100% 96%;
-    --primary: 55 92% 63%;
-    --primary-foreground: 226 64% 18%;
-    --secondary: 224 57% 28%;
-    --secondary-foreground: 224 100% 96%;
-    --muted: 224 57% 28%;
-    --muted-foreground: 220 50% 77%;
-    --accent: 210 100% 77%;
-    --accent-foreground: 226 64% 18%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 224 100% 96%;
-    --border: 224 50% 34%;
-    --input: 224 50% 34%;
-    --ring: 55 92% 63%;
+    --background: 40 24% 95%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 209 90% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 16% 91%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 40 16% 91%;
+    --muted-foreground: 0 0% 37%;
+    --accent: 209 90% 40%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 209 90% 40%;
+    --radius: 2px;
   }
 }

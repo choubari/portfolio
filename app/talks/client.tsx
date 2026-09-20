@@ -30,25 +30,24 @@ export function TalksClient() {
     .map(Number)
     .sort((a, b) => b - a);
 
-  const availableTypes = TALK_TYPES.filter(
-    (type) => TalksData.filter((t) => t.talkType === type).length > 0
+  const availableTypes = TALK_TYPES.filter((type) =>
+    TalksData.some((t) => t.talkType === type)
   );
 
   return (
-    <div className="py-20 sm:py-28">
+    <div className="py-14 sm:py-20">
       <PageTitle
-        eyebrow="00 / Speaking"
+        comment="speaking"
         lede="Wearing my speaker hat because sharing is caring!"
       >
-        Public Talks
+        Talks &amp; Workshops
       </PageTitle>
 
-      {/* Filters */}
-      <div className="mt-12 flex flex-wrap items-center gap-2">
+      <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2">
         <FilterChip
           active={!activeType}
           onClick={() => setActiveType(null)}
-          label={`All (${TalksData.length})`}
+          label={`all (${TalksData.length})`}
         />
         {availableTypes.map((type) => {
           const count = TalksData.filter((t) => t.talkType === type).length;
@@ -57,21 +56,18 @@ export function TalksClient() {
               key={type}
               active={activeType === type}
               onClick={() => setActiveType(activeType === type ? null : type)}
-              label={`${type} (${count})`}
+              label={`${type.toLowerCase()} (${count})`}
             />
           );
         })}
       </div>
 
       {upcomingData.length > 0 && (
-        <section className="mt-16">
-          <h3 className="label-mono flex items-center gap-2.5">
-            <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-[var(--gold)]" />
-            Upcoming
-          </h3>
-          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+        <section className="mt-12">
+          <h3 className="comment">upcoming</h3>
+          <div className="mt-4 border-t border-[var(--rule)]">
             {upcomingData.map((talk, i) => (
-              <Reveal key={`${talk.title}-${i}`} delay={(i % 2) * 90}>
+              <Reveal key={`${talk.title}-${i}`} delay={i * 50}>
                 <TalkCard talk={talk} />
               </Reveal>
             ))}
@@ -79,31 +75,21 @@ export function TalksClient() {
         </section>
       )}
 
-      <div className="mt-16 space-y-16">
-        {sortedYears.map((year) => (
-          <section key={year}>
-            <h3 className="flex items-baseline gap-4 text-2xl font-semibold tracking-display">
-              {year}
-              <span className="label-mono">
-                {talksByYear[year].length}{" "}
-                {talksByYear[year].length === 1 ? "talk" : "talks"}
-              </span>
-            </h3>
-            <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
-              {talksByYear[year].map((talk, i) => (
-                <Reveal key={`${talk.title}-${i}`} delay={(i % 2) * 90}>
-                  <TalkCard talk={talk} />
-                </Reveal>
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
+      {sortedYears.map((year) => (
+        <section key={year} className="mt-12">
+          <h3 className="comment">{year}</h3>
+          <div className="mt-4 border-t border-[var(--rule)]">
+            {talksByYear[year].map((talk, i) => (
+              <Reveal key={`${talk.title}-${i}`} delay={Math.min(i, 5) * 50}>
+                <TalkCard talk={talk} />
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      ))}
 
       {filteredData.length === 0 && (
-        <p className="mt-16 text-[var(--muted)]">
-          No talks of that kind — yet.
-        </p>
+        <p className="mt-12 text-[var(--muted)]">No talks of that kind yet.</p>
       )}
     </div>
   );
@@ -123,10 +109,10 @@ function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "label-mono rounded-full border px-4 py-2 transition-all duration-500 ease-ease",
+        "mono underline-offset-4 transition-colors",
         active
-          ? "border-[var(--gold)] bg-[var(--gold)]/10 text-[var(--gold)]"
-          : "border-[var(--rule)] text-[var(--muted)] hover:border-[var(--rule-strong)] hover:text-[var(--text)]"
+          ? "text-[var(--action)] underline"
+          : "text-[var(--muted)] hover:text-[var(--ink)]"
       )}
     >
       {label}

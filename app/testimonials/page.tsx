@@ -6,40 +6,31 @@ import { BrandButton } from "@/components/brand-button";
 import Link from "next/link";
 import { PageTitle } from "@/components/section-title";
 
-// export const dynamic = "force-dynamic"; // Disable caching for this page
-
 export default async function TestimonialsPage() {
-  // Fetch testimonials on the server
   const testimonials = await getTestimonials();
 
   return (
-    <div className="py-20 sm:py-28">
-      {/* Client component for handling toasts */}
+    <div className="py-14 sm:py-20">
       <Suspense fallback={null}>
         <ToastClient />
       </Suspense>
 
-      <PageTitle eyebrow="00 / Kind words" lede="What They're Saying!">
-        Testimonials
+      <PageTitle comment="testimonials" lede="What they're saying.">
+        Kind words
       </PageTitle>
 
-      <div className="mt-16">
+      <div className="mt-10">
         {testimonials.length === 0 ? (
-          <div className="card p-8">
-            <p className="text-lg font-medium">
-              Testimonials are temporarily unavailable (probaby the CMS server
-              is down)
-            </p>
-            <p className="mt-2 text-[var(--muted)]">
-              Please try again in a few seconds
-            </p>
-          </div>
+          <p className="text-[var(--muted)]">
+            Testimonials are temporarily unavailable (probably the CMS server is
+            down). Please try again in a few seconds.
+          </p>
         ) : (
           <TestimonialsClient testimonials={testimonials} />
         )}
       </div>
 
-      <div className="mt-16 border-t border-[var(--rule)] pt-12">
+      <div className="mt-12 border-t border-[var(--rule)] pt-10">
         <Link href="/testimonials/new">
           <BrandButton>Share your testimonial</BrandButton>
         </Link>

@@ -1,123 +1,115 @@
 import Link from "next/link";
+import Image from "next/image";
 import { BrandButton } from "@/components/brand-button";
 import { PageTitle, SectionTitle } from "@/components/section-title";
 import { Reveal } from "@/components/motion/reveal";
-
-const HELP_WITH = [
-  "Software Development",
-  "Public Speaking",
-  "Content Creation",
-  "Community Building",
-  "Partnership & Collaboration",
-  "Student life, Career Advice",
-  "...",
-];
+import { WorkTimeline } from "@/components/work-timeline";
+import { EducationHistory } from "@/config/experience";
 
 export default function AboutPage() {
   return (
-    <div className="py-20 sm:py-28">
-      <PageTitle
-        eyebrow="00 / About"
-        lede="A talented Software Engineer with multiple skills!"
-      >
-        Meet Kawtar
-      </PageTitle>
+    <div className="py-14 sm:py-20">
+      <div className="flex items-start justify-between gap-8">
+        <PageTitle comment="about" lede="Engineering, Educating, Entertaining.">
+          Meet Kawtar
+        </PageTitle>
+        <Image
+          src="/kawtar.png"
+          alt="Kawtar Choubari"
+          width={96}
+          height={96}
+          className="hidden h-24 w-24 shrink-0 rounded-full sm:block"
+        />
+      </div>
 
-      <section className="mt-20 max-w-2xl space-y-5 text-lg leading-relaxed text-[var(--muted)]">
+      <section className="mt-12 max-w-2xl space-y-4 leading-relaxed text-[var(--muted)]">
         <Reveal>
           <p>
             Hey! I&apos;m{" "}
-            <span className="font-semibold text-[var(--text)]">
+            <span className="font-semibold text-[var(--ink)]">
               Kawtar CHOUBARI
             </span>
-            , a Software Engineer and Content Creator from Morocco, currently
-            living in Paris, France.
+            , a software engineer from Morocco, living in Paris. I specialise in
+            the React ecosystem — JavaScript, TypeScript, React, Next.js,
+            Node.js — and on mobile, React Native and Expo.
           </p>
         </Reveal>
-        <Reveal delay={80}>
+        <Reveal delay={60}>
           <p>
-            I mainly work on Front-End development on a daily basis, with
-            JavaScript / TypeScript and frameworks like ReactJS, Next.js, and
-            also React Native. I&apos;m currently looking into learning Back-End
-            JS development with NodeJS and NestJS.
-          </p>
-        </Reveal>
-        <Reveal delay={160}>
-          <p>
-            I have been able to put my knowledge in good use by giving back to
-            the community: volunteering on organizing tech events, creating
-            educational content on{" "}
-            <Link href="/creator" className="link-underline">
-              social media
+            I&apos;ve delivered 10+ talks and workshops with organisers
+            including O&apos;Reilly Media, Devoxx, BeJS and Reactjs Day, and was
+            featured at Next.js Conf (2023) and React Conf (2024). I mentor
+            students, create{" "}
+            <Link href="/creator" className="link">
+              educational content
             </Link>
-            , sharing{" "}
-            <Link href="/oss" className="link-underline">
+            , and share{" "}
+            <Link href="/oss" className="link">
               open source
             </Link>{" "}
-            projects and actively delivering{" "}
-            <Link href="/talks" className="link-underline">
-              workshops &amp; conferences
-            </Link>
-            .
+            work.
           </p>
         </Reveal>
-        <Reveal delay={240}>
+        <Reveal delay={120}>
           <p>
-            When I don&apos;t code, I&apos;m usually planning and working on my
-            next piece of content, playing on{" "}
+            When I don&apos;t code, I&apos;m planning my next piece of content,
+            playing on{" "}
             <a
               href="https://www.chess.com/member/choubari"
               target="_blank"
               rel="noopener noreferrer"
-              className="link-underline"
+              className="link"
             >
               chess.com
-            </a>{" "}
-            (just started btw), or taking care of my brand-new balcony garden.
+            </a>
+            , or taking care of my balcony garden.
           </p>
         </Reveal>
       </section>
 
-      <section className="mt-24 border-t border-[var(--rule)] pt-16">
+      <section className="mt-16">
         <Reveal>
-          <SectionTitle index="01" kicker="Services" tick="?">
-            What can I help you with
+          <SectionTitle
+            action={{ label: "LinkedIn", href: "https://linkedin.com/in/choubari" }}
+          >
+            experience
           </SectionTitle>
         </Reveal>
-        <ul className="mt-10 max-w-2xl">
-          {HELP_WITH.map((item, i) => (
-            <Reveal as="li" key={item} delay={i * 60}>
-              <div className="flex items-baseline gap-5 border-b border-[var(--rule)] py-4">
-                <span className="label-mono text-[var(--gold)]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="text-lg">{item}</span>
+        <div className="mt-6">
+          <WorkTimeline />
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <Reveal>
+          <SectionTitle>education</SectionTitle>
+        </Reveal>
+        <ul className="mt-6 border-t border-[var(--rule)]">
+          {EducationHistory.map((item, i) => (
+            <Reveal as="li" key={item.school} delay={i * 60}>
+              <div className="row grid grid-cols-1 gap-x-8 gap-y-1 py-5 sm:grid-cols-[9rem_1fr]">
+                <span className="mono pt-0.5">{item.period}</span>
+                <div>
+                  <h3 className="font-semibold">{item.school}</h3>
+                  <p className="mt-1 text-[var(--muted)]">{item.degree}</p>
+                </div>
               </div>
             </Reveal>
           ))}
         </ul>
       </section>
 
-      <section className="mt-24 border-t border-[var(--rule)] pt-16">
-        <Reveal>
-          <SectionTitle index="02" kicker="Elsewhere">
-            Follow Me on Socials
-          </SectionTitle>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--muted)]">
-            You will find me on major social media platforms under the username
-            @choubari, or @choubari_ if the first one is taken.
-          </p>
-        </Reveal>
-      </section>
-
-      <section className="mt-24 border-t border-[var(--rule)] pt-16">
-        <Reveal className="flex flex-col items-start gap-8">
-          <SectionTitle index="03" kicker="Next" tick="!">
-            Let&apos;s build something cool together
-          </SectionTitle>
-          <Link href="/contact">
-            <BrandButton>Let&apos;s CHAT!</BrandButton>
-          </Link>
+      <section className="mt-16">
+        <Reveal className="flex flex-col items-start gap-5">
+          <SectionTitle className="w-full">get in touch</SectionTitle>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link href="/contact">
+              <BrandButton>Let&apos;s work together</BrandButton>
+            </Link>
+            <a href="mailto:contact@choubari.com?subject=Speaking%20invitation">
+              <BrandButton tone="ghost">Invite me to speak</BrandButton>
+            </a>
+          </div>
         </Reveal>
       </section>
     </div>

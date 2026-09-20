@@ -3,14 +3,11 @@ import { Button, type ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface BrandButtonProps extends ButtonProps {
-  /** "solid" is the gold primary CTA; "ghost" is the outlined secondary. */
+  /** "solid" is the LinkedIn-blue primary; "ghost" is the outlined secondary. */
   tone?: "solid" | "ghost";
 }
 
-/**
- * Primary call to action. Gold fill on ink, with a sheen that wipes across
- * on hover — the one loud element on an otherwise restrained page.
- */
+/** Flat pill CTA. No shadow, no gradient, no sheen. */
 export function BrandButton({
   className,
   children,
@@ -20,24 +17,15 @@ export function BrandButton({
   return (
     <Button
       className={cn(
-        "group relative h-auto overflow-hidden rounded-full px-7 py-3 text-base font-medium",
-        "transition-all duration-500 ease-ease hover:-translate-y-0.5",
+        "h-auto rounded-full px-5 py-2.5 text-sm font-semibold shadow-none transition-colors duration-200",
         tone === "solid"
-          ? "bg-[var(--gold)] text-[var(--paper)] hover:bg-[var(--gold)] hover:shadow-[0_8px_30px_-8px_rgba(247,232,74,0.45)]"
-          : "border border-[var(--rule-strong)] bg-transparent text-[var(--text)] hover:border-[var(--gold)] hover:bg-transparent hover:text-[var(--gold)]",
+          ? "bg-[var(--action)] text-white hover:bg-[var(--action-deep)]"
+          : "border border-[var(--rule-strong)] bg-transparent text-[var(--ink)] hover:border-[var(--action)] hover:bg-transparent hover:text-[var(--action)]",
         className
       )}
       {...props}
     >
-      <span className="relative z-10 inline-flex items-center gap-2">
-        {children}
-      </span>
-      {tone === "solid" && (
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-ease group-hover:translate-x-full motion-reduce:hidden"
-        />
-      )}
+      {children}
     </Button>
   );
 }

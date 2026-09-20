@@ -7,17 +7,17 @@ export default async function OSS() {
   const repos = await fetchGithubRepos();
 
   return (
-    <div className="py-20 sm:py-28">
+    <div className="py-14 sm:py-20">
       <PageTitle
-        eyebrow="00 / Open source"
-        lede="Here are some of the open sourced projects I've worked on."
+        comment="open source"
+        lede="Projects I've built and shared publicly."
       >
-        Open Source Contributions
+        Open Source
       </PageTitle>
 
-      <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 border-t border-[var(--rule)]">
         {repos.map((repo, i) => (
-          <Reveal key={repo.id} delay={(i % 3) * 90}>
+          <Reveal key={repo.id} delay={Math.min(i, 6) * 50}>
             <RepoCard repo={repo} />
           </Reveal>
         ))}
