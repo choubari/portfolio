@@ -1,4 +1,6 @@
 import SocialsCard from "@/components/socials-card";
+import { PageTitle } from "@/components/section-title";
+import { Reveal } from "@/components/motion/reveal";
 import {
   getFacebookFollowers,
   getGithubFollowers,
@@ -47,35 +49,28 @@ export default async function Creator() {
   const platforms = await followersByPlatform();
 
   return (
-    <div className="mx-5 my-10">
-      <div className="flex flex-col items-center text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">
-          Content Creation
-          <span
-            className="text-4xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            .
-          </span>
-        </h1>
-        <p className="italic">Tech Influencer to be XD</p>
-        <p className="mt-7 mb-2">
-          Part-Time Content Creator, present in almost all social media
-          platforms.
-          <br />
-          In a mission to deliver educating yet entertaining content for the dev
-          community.
-        </p>
-      </div>
+    <div className="py-20 sm:py-28">
+      <PageTitle eyebrow="00 / Creator" lede="Tech Influencer to be XD">
+        Content Creation
+      </PageTitle>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
-        {platforms.map((platform) => (
-          <SocialsCard
-            key={platform.name}
-            platform={platform.name}
-            title={platform.label}
-            followersCount={platform.count}
-          />
+      <Reveal>
+        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[var(--muted)]">
+          Part-Time Content Creator, present in almost all social media
+          platforms. In a mission to deliver educating yet entertaining content
+          for the dev community.
+        </p>
+      </Reveal>
+
+      <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {platforms.map((platform, i) => (
+          <Reveal key={platform.name} delay={(i % 4) * 80}>
+            <SocialsCard
+              platform={platform.name}
+              title={platform.label}
+              followersCount={platform.count}
+            />
+          </Reveal>
         ))}
       </div>
     </div>

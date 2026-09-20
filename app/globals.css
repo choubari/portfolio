@@ -2,106 +2,361 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   Design tokens
+   Palette sampled from the choubari.com LinkedIn banner:
+   azure #71A9E2 -> indigo #1E3779 field, gold #F7E84A accent, sky #8CC6FF.
+   The site runs on a flat deep-indigo paper; gold carries the emphasis.
+   ========================================================================== */
+
+:root {
+  /* Paper & surfaces — near-black with an indigo cast, not neutral grey */
+  --paper: #080b18;
+  --surface: #0e1426;
+  --raised: #161e38;
+
+  /* Rules & edges */
+  --rule: rgba(140, 198, 255, 0.12);
+  --rule-strong: rgba(140, 198, 255, 0.28);
+
+  /* Type */
+  --text: #ecf1ff;
+  --muted: #8fa0c4;
+  --faint: #5d6c8f;
+
+  /* Brand */
+  --gold: #f7e84a;
+  --gold-deep: #c9b93a;
+  --sky: #8cc6ff;
+  --azure: #71a9e2;
+  --indigo: #1e3779;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --edge: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* Legacy aliases — kept so untouched components keep rendering */
+  --color-accent: var(--gold);
+  --color-background: var(--paper);
+  --color-background-alt: var(--surface);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-:root {
-  --color-accent: #63a1dd; /* blue primary */
-  --color-background: #282d34; /* Lighter color for navbar/footer */
-  --color-background-alt: #1f2329; /* Darker color for main content */
+body {
+  background-color: var(--paper);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-body {
-  background-color: var(--color-background);
-  color: white;
+::selection {
+  background: var(--gold);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 .hover-accent:hover {
-  color: var(--color-accent);
+  color: var(--gold);
 }
 
-/* MDX Table Styling - Force override for prose */
+/* ==========================================================================
+   Editorial primitives
+   ========================================================================== */
+
+@layer components {
+  /* Mono micro-label — the editorial anchor (section numbers, dates, meta) */
+  .label-mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* Display type: tight, large, negative tracking */
+  .display {
+    font-size: var(--text-display, clamp(2.5rem, 7vw, 5.5rem));
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+  }
+
+  /* The accent punctuation mark used across every page heading */
+  .tick {
+    color: var(--gold);
+  }
+
+  /* Link with an underline that draws in from the left */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+    color: var(--sky);
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease);
+  }
+  .link-underline:hover {
+    color: var(--gold);
+  }
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Break out of the centred measure to the full viewport width */
+  .bleed {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
+
+  /* Card surface with a gold edge on hover */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 0.75rem;
+    transition: border-color 0.35s var(--ease), transform 0.35s var(--ease),
+      background-color 0.35s var(--ease);
+  }
+  .card:hover {
+    border-color: var(--rule-strong);
+    background: var(--raised);
+    transform: translateY(-3px);
+  }
+}
+
+/* ==========================================================================
+   Motion — scroll reveal, staggered entrance, marquee
+   Every animation below collapses under prefers-reduced-motion.
+   ========================================================================== */
+
+/* Reveal: starts hidden, .is-visible is applied by the Reveal component */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Entrance: plays immediately on mount, for above-the-fold content */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  opacity: 0;
+  animation: rise 0.8s var(--ease) forwards;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes sweep-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.sweep {
+  transform-origin: left;
+  animation: sweep-in 0.9s var(--ease) forwards;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/* Marquee — duplicated track, masked edges, pauses on hover */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll var(--marquee-duration, 38s) linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Blinking availability dot */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(247, 232, 74, 0.5);
+  }
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 6px rgba(247, 232, 74, 0);
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 2.4s var(--ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .rise,
+  .sweep {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .pulse-dot {
+    animation: none;
+  }
+  .card:hover {
+    transform: none;
+  }
+  .link-underline::after {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   MDX prose tables
+   ========================================================================== */
+
 .prose.prose-invert table,
 .prose table {
   border-collapse: collapse !important;
-  border: 1px solid #374151 !important;
-  background-color: rgba(17, 24, 39, 0.5) !important;
+  border: 1px solid var(--rule) !important;
+  background-color: var(--surface) !important;
   width: 100% !important;
   margin: 1.5rem 0 !important;
 }
 
 .prose.prose-invert th,
 .prose th {
-  border: 1px solid #374151 !important;
+  border: 1px solid var(--rule) !important;
   padding: 12px 16px !important;
-  background-color: rgba(31, 41, 55, 0.5) !important;
-  color: white !important;
+  background-color: var(--raised) !important;
+  color: var(--text) !important;
   font-weight: 600 !important;
   text-align: left !important;
 }
 
 .prose.prose-invert td,
 .prose td {
-  border: 1px solid #374151 !important;
+  border: 1px solid var(--rule) !important;
   padding: 12px 16px !important;
-  color: #e5e7eb !important;
+  color: var(--muted) !important;
   text-align: left !important;
 }
 
 .prose.prose-invert tr:nth-child(even),
 .prose tr:nth-child(even) {
-  background-color: rgba(31, 41, 55, 0.3) !important;
+  background-color: rgba(140, 198, 255, 0.03) !important;
 }
 
 .prose.prose-invert tbody tr,
 .prose tbody tr {
-  border-bottom: 1px solid #374151 !important;
+  border-bottom: 1px solid var(--rule) !important;
 }
+
+/* ==========================================================================
+   shadcn/ui token bridge — mapped onto the indigo palette
+   ========================================================================== */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 218 65% 63%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 218 65% 63%;
+    --background: 229 50% 6%;
+    --foreground: 224 100% 96%;
+    --card: 225 46% 10%;
+    --card-foreground: 224 100% 96%;
+    --popover: 225 46% 10%;
+    --popover-foreground: 224 100% 96%;
+    --primary: 55 92% 63%;
+    --primary-foreground: 229 50% 6%;
+    --secondary: 226 44% 15%;
+    --secondary-foreground: 224 100% 96%;
+    --muted: 226 44% 15%;
+    --muted-foreground: 221 31% 66%;
+    --accent: 210 100% 77%;
+    --accent-foreground: 229 50% 6%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 224 100% 96%;
+    --border: 226 44% 18%;
+    --input: 226 44% 18%;
+    --ring: 55 92% 63%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 218 65% 63%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 218 65% 63%;
+    --background: 229 50% 6%;
+    --foreground: 224 100% 96%;
+    --card: 225 46% 10%;
+    --card-foreground: 224 100% 96%;
+    --popover: 225 46% 10%;
+    --popover-foreground: 224 100% 96%;
+    --primary: 55 92% 63%;
+    --primary-foreground: 229 50% 6%;
+    --secondary: 226 44% 15%;
+    --secondary-foreground: 224 100% 96%;
+    --muted: 226 44% 15%;
+    --muted-foreground: 221 31% 66%;
+    --accent: 210 100% 77%;
+    --accent-foreground: 229 50% 6%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 224 100% 96%;
+    --border: 226 44% 18%;
+    --input: 226 44% 18%;
+    --ring: 55 92% 63%;
   }
 }

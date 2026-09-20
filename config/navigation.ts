@@ -10,3 +10,20 @@ export const FooterSocials: { label: SocialPlatform; href: string }[] = [
   { label: "TikTok", href: "https://www.tiktok.com/@choubari" },
   { label: "Newsletter", href: "/newsletter" },
 ];
+
+export const MainNav: { label: string; href: string }[] = [
+  { label: "About", href: "/about" },
+  { label: "Work", href: "/oss" },
+  { label: "Talks", href: "/talks" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
+
+export const FooterLinks: { label: string; href: string }[] = [
+  { label: "About", href: "/about" },
+  { label: "Open Source", href: "/oss" },
+  { label: "Talks", href: "/talks" },
+  { label: "Testimonials", href: "/testimonials" },
+  { label: "Creator", href: "/creator" },
+  { label: "Contact", href: "/contact" },
+];

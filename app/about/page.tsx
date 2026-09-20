@@ -1,140 +1,125 @@
 import Link from "next/link";
 import { BrandButton } from "@/components/brand-button";
+import { PageTitle, SectionTitle } from "@/components/section-title";
+import { Reveal } from "@/components/motion/reveal";
+
+const HELP_WITH = [
+  "Software Development",
+  "Public Speaking",
+  "Content Creation",
+  "Community Building",
+  "Partnership & Collaboration",
+  "Student life, Career Advice",
+  "...",
+];
 
 export default function AboutPage() {
   return (
-    <div className="py-8">
-      <div className="flex flex-col items-center text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">
-          Meet Kawtar
-          <span
-            className="text-4xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
+    <div className="py-20 sm:py-28">
+      <PageTitle
+        eyebrow="00 / About"
+        lede="A talented Software Engineer with multiple skills!"
+      >
+        Meet Kawtar
+      </PageTitle>
+
+      <section className="mt-20 max-w-2xl space-y-5 text-lg leading-relaxed text-[var(--muted)]">
+        <Reveal>
+          <p>
+            Hey! I&apos;m{" "}
+            <span className="font-semibold text-[var(--text)]">
+              Kawtar CHOUBARI
+            </span>
+            , a Software Engineer and Content Creator from Morocco, currently
+            living in Paris, France.
+          </p>
+        </Reveal>
+        <Reveal delay={80}>
+          <p>
+            I mainly work on Front-End development on a daily basis, with
+            JavaScript / TypeScript and frameworks like ReactJS, Next.js, and
+            also React Native. I&apos;m currently looking into learning Back-End
+            JS development with NodeJS and NestJS.
+          </p>
+        </Reveal>
+        <Reveal delay={160}>
+          <p>
+            I have been able to put my knowledge in good use by giving back to
+            the community: volunteering on organizing tech events, creating
+            educational content on{" "}
+            <Link href="/creator" className="link-underline">
+              social media
+            </Link>
+            , sharing{" "}
+            <Link href="/oss" className="link-underline">
+              open source
+            </Link>{" "}
+            projects and actively delivering{" "}
+            <Link href="/talks" className="link-underline">
+              workshops &amp; conferences
+            </Link>
             .
-          </span>
-        </h1>
-        <p className="mb-3">
-          A talented Software Engineer with multiple skills!
-        </p>
-      </div>
-      <div className="lg:mx-16">
-        <h2 className="text-2xl font-bold mb-4">
-          About Me
-          <span
-            className="text-2xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            .
-          </span>
-        </h2>
-        <p className="mb-4">
-          Hey! I'm <span className="font-bold">Kawtar CHOUBARI</span>, a
-          Software Engineer and Content Creator from Morocco, currently living
-          in Paris, France.
-        </p>
-        <p className="mb-4">
-          I mainly work on Front-End development on a daily basis, with
-          JavaScript / TypeScript and frameworks like ReactJS, Next.js, and also
-          React Native. I'm currently looking into learning Back-End JS
-          development with NodeJS and NestJS.
-        </p>
-        <p className="mb-4">
-          I have been able to put my knowledge in good use by giving back to the
-          community: volunteering on organizing tech events, creating
-          educational content on{" "}
-          <a
-            href="creator"
-            className="hover-accent"
-            style={{ color: "var(--color-accent)" }}
-          >
-            social media
-          </a>
-          , sharing{" "}
-          <a
-            href="oss"
-            className="hover-accent"
-            style={{ color: "var(--color-accent)" }}
-          >
-            open source
-          </a>{" "}
-          projects and actively delivering{" "}
-          <Link
-            href="/talks"
-            className="hover-accent"
-            style={{ color: "var(--color-accent)" }}
-          >
-            workshops & conferences
-          </Link>
-          .
-        </p>
-        <p className="mb-4">
-          When I don't code, I'm usually planning and working on my next piece
-          of content, playing on{" "}
-          <a
-            href="https://www.chess.com/member/choubari"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover-accent"
-            style={{ color: "var(--color-accent)" }}
-          >
-            chess.com
-          </a>{" "}
-          (just started btw), or taking care of my brand-new balcony garden.
-        </p>
-        <h2 className="text-2xl font-bold mt-12 mb-4">
-          What can I help you with
-          <span
-            className="text-2xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            ?
-          </span>
-        </h2>
-        <ul className="list-disc ml-4">
-          <li>Software Development</li>
-          <li>Public Speaking</li>
-          <li>Content Creation</li>
-          <li>Community Building</li>
-          <li>Partnership & Collaboration</li>
-          <li>Student life, Career Advice</li>
-          <li>...</li>
+          </p>
+        </Reveal>
+        <Reveal delay={240}>
+          <p>
+            When I don&apos;t code, I&apos;m usually planning and working on my
+            next piece of content, playing on{" "}
+            <a
+              href="https://www.chess.com/member/choubari"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline"
+            >
+              chess.com
+            </a>{" "}
+            (just started btw), or taking care of my brand-new balcony garden.
+          </p>
+        </Reveal>
+      </section>
+
+      <section className="mt-24 border-t border-[var(--rule)] pt-16">
+        <Reveal>
+          <SectionTitle index="01" kicker="Services" tick="?">
+            What can I help you with
+          </SectionTitle>
+        </Reveal>
+        <ul className="mt-10 max-w-2xl">
+          {HELP_WITH.map((item, i) => (
+            <Reveal as="li" key={item} delay={i * 60}>
+              <div className="flex items-baseline gap-5 border-b border-[var(--rule)] py-4">
+                <span className="label-mono text-[var(--gold)]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-lg">{item}</span>
+              </div>
+            </Reveal>
+          ))}
         </ul>
-        <h2 className="text-2xl font-bold mt-12 mb-4">
-          Follow Me on Socials
-          <span
-            className="text-2xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            .
-          </span>
-        </h2>
-        <p>
-          You will find me on major social media platforms under the username
-          @choubari, or @choubari_ if the first one is taken.
-        </p>
-        <h2 className="text-2xl font-bold mt-12 mb-6">
-          Let
-          <span
-            className="text-2xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            '
-          </span>
-          s build something cool together
-          <span
-            className="text-2xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            !
-          </span>
-        </h2>
-        <div className="mt-6">
+      </section>
+
+      <section className="mt-24 border-t border-[var(--rule)] pt-16">
+        <Reveal>
+          <SectionTitle index="02" kicker="Elsewhere">
+            Follow Me on Socials
+          </SectionTitle>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--muted)]">
+            You will find me on major social media platforms under the username
+            @choubari, or @choubari_ if the first one is taken.
+          </p>
+        </Reveal>
+      </section>
+
+      <section className="mt-24 border-t border-[var(--rule)] pt-16">
+        <Reveal className="flex flex-col items-start gap-8">
+          <SectionTitle index="03" kicker="Next" tick="!">
+            Let&apos;s build something cool together
+          </SectionTitle>
           <Link href="/contact">
             <BrandButton>Let&apos;s CHAT!</BrandButton>
           </Link>
-        </div>
-      </div>
+        </Reveal>
+      </section>
     </div>
   );
 }

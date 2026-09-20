@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import TestimonialsClient from "./client";
 import { BrandButton } from "@/components/brand-button";
 import Link from "next/link";
+import { PageTitle } from "@/components/section-title";
 
 // export const dynamic = "force-dynamic"; // Disable caching for this page
 
@@ -12,40 +13,33 @@ export default async function TestimonialsPage() {
   const testimonials = await getTestimonials();
 
   return (
-    <div className="w-full space-y-10 py-10">
+    <div className="py-20 sm:py-28">
       {/* Client component for handling toasts */}
       <Suspense fallback={null}>
         <ToastClient />
       </Suspense>
 
-      <div className="flex flex-col items-center text-center mb-4">
-        <h1 className="text-4xl font-bold mb-2">
-          Testimonials
-          <span
-            className="text-4xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            .
-          </span>
-        </h1>
-        <p>What They're Saying!</p>
+      <PageTitle eyebrow="00 / Kind words" lede="What They're Saying!">
+        Testimonials
+      </PageTitle>
+
+      <div className="mt-16">
+        {testimonials.length === 0 ? (
+          <div className="card p-8">
+            <p className="text-lg font-medium">
+              Testimonials are temporarily unavailable (probaby the CMS server
+              is down)
+            </p>
+            <p className="mt-2 text-[var(--muted)]">
+              Please try again in a few seconds
+            </p>
+          </div>
+        ) : (
+          <TestimonialsClient testimonials={testimonials} />
+        )}
       </div>
 
-      {testimonials.length === 0 ? (
-        <div className="text-center py-10 space-y-3">
-          <p className="text-lg font-medium">
-            Testimonials are temporarily unavailable (probaby the CMS server is
-            down)
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Please try again in a few seconds
-          </p>
-        </div>
-      ) : (
-        <TestimonialsClient testimonials={testimonials} />
-      )}
-
-      <div className="flex justify-center">
+      <div className="mt-16 border-t border-[var(--rule)] pt-12">
         <Link href="/testimonials/new">
           <BrandButton>Share your testimonial</BrandButton>
         </Link>

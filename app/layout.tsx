@@ -1,6 +1,6 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Footer } from "@/components/footer";
@@ -11,12 +11,23 @@ import AuthProvider from "@/components/auth-provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sonner";
 
-const inter = Inter({ subsets: ["latin"] });
+const sans = Instrument_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
   keywords: [
+    "React Native",
     "Next.js",
     "React",
     "TypeScript",
@@ -67,9 +78,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head />
-      <body className={inter.className}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${sans.variable} ${mono.variable}`}
+    >
+      <head>
+        {/* Scroll-reveal is JS-driven; without it the content must still show. */}
+        <noscript>
+          <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+      </head>
+      <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -77,23 +97,23 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            <div
-              className="flex flex-col min-h-screen text-white"
-              style={{ backgroundColor: "var(--color-background)" }}
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-[var(--gold)] focus:px-4 focus:py-2 focus:font-medium focus:text-[var(--paper)]"
             >
+              Skip to content
+            </a>
+            <div className="flex min-h-screen flex-col bg-[var(--paper)] text-[var(--text)]">
               <Navbar />
-              <main
-                className="flex-1 flex flex-col mt-16 border-y border-gray-800"
-                style={{ backgroundColor: "var(--color-background-alt)" }}
-              >
+              <main id="main" className="flex flex-1 flex-col pt-16">
                 <SpeedInsight />
-                <div className="container mx-auto px-4 py-4 max-w-5xl flex-1 flex flex-col">
+                <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-[var(--edge)]">
                   {children}
                 </div>
               </main>
               <Footer />
             </div>
-            <Toaster richColors />
+            <Toaster richColors theme="dark" />
             <SpeedInsights />
           </AuthProvider>
         </ThemeProvider>

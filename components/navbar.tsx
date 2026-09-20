@@ -3,169 +3,141 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "./logo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { MainNav } from "@/config/navigation";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const getIsActive = (path: string) => {
-    if (path === "/" && pathname === "/") return true;
-    if (path !== "/" && pathname === path) return true;
-    return false;
-  };
+  // The bar is borderless at the top of the page and gains a rule + blur
+  // once the content starts sliding underneath it.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const linkStyle = (path: string) => {
-    return {
-      color: getIsActive(path) ? "var(--color-accent)" : "",
+  // Lock the page behind the mobile drawer, and let Escape close it.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
     };
-  };
+  }, [menuOpen]);
 
-  const handleMenuToggle = () => setMenuOpen((open) => !open);
-  const handleLinkClick = () => setMenuOpen(false);
+  const isActive = (path: string) =>
+    path === "/" ? pathname === "/" : pathname.startsWith(path);
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-10 border-b border-gray-800"
-      style={{
-        backgroundColor: "var(--color-background)",
-        backdropFilter: "blur(8px)",
-      }}
+      className={cn(
+        "fixed inset-x-0 top-0 z-40 transition-colors duration-500",
+        scrolled
+          ? "border-b border-[var(--rule)] bg-[rgba(8,11,24,0.72)] backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      )}
     >
-      <div className="container mx-auto px-4 max-w-5xl">
-        <div className="flex justify-between items-center h-16">
-          <Logo />
-          <button
-            className="md:hidden ml-2 p-2 rounded text-accent focus:outline-none focus:ring-2 focus:ring-accent"
-            onClick={handleMenuToggle}
-            aria-label={
-              menuOpen ? "Close navigation menu" : "Open navigation menu"
-            }
-          >
-            {menuOpen ? (
-              <X
-                className="h-6 w-6 text-accent"
-                style={{
-                  color: "var(--color-accent)",
-                }}
-              />
-            ) : (
-              <Menu
-                className="h-6 w-6 text-accent"
-                style={{
-                  color: "var(--color-accent)",
-                }}
-              />
-            )}
-          </button>
-          <ul className="hidden md:flex space-x-8">
-            <li>
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-[var(--edge)]">
+        <Logo />
+
+        {/* Desktop */}
+        <ul className="hidden items-center gap-8 md:flex">
+          {MainNav.map((item) => (
+            <li key={item.href}>
               <Link
-                href="/about"
-                className="capitalize transition-colors hover-accent"
-                style={linkStyle("/about")}
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={cn(
+                  "group relative py-1 text-sm transition-colors",
+                  isActive(item.href)
+                    ? "text-[var(--gold)]"
+                    : "text-[var(--muted)] hover:text-[var(--text)]"
+                )}
               >
-                About
+                {item.label}
+                <span
+                  className={cn(
+                    "absolute inset-x-0 -bottom-0.5 h-px origin-left bg-[var(--gold)] transition-transform duration-500 ease-ease",
+                    isActive(item.href)
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  )}
+                />
               </Link>
             </li>
-            <li>
-              <Link
-                href="/talks"
-                className="capitalize transition-colors hover-accent"
-                style={linkStyle("/talks")}
-              >
-                Talks
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/blog"
-                className="capitalize transition-colors hover-accent"
-                style={linkStyle("/blog")}
-              >
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact"
-                className="capitalize transition-colors hover-accent"
-                style={linkStyle("/contact")}
-              >
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div
-          className={`md:hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-20 transition-opacity duration-200 ${
-            menuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          }`}
-          onClick={handleMenuToggle}
-          aria-hidden={!menuOpen}
-        />
-        <ul
-          className={`md:hidden fixed top-0 right-0 h-auto w-3/4 max-w-xs bg-gray-800 z-30 shadow-lg p-8 space-y-6 transform transition-transform duration-200 ${
-            menuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-          role="menu"
-          aria-label="Mobile navigation"
+          ))}
+        </ul>
+
+        <button
+          className="-mr-2 p-2 text-[var(--text)] md:hidden"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Open navigation menu"
+          aria-expanded={menuOpen}
         >
-          <button
-            className="absolute top-4 right-4 p-2 rounded focus:outline-none focus:ring-2 focus:ring-accent"
-            aria-label="Close navigation menu"
-            onClick={handleMenuToggle}
-          >
-            <X
-              className="h-6 w-6 text-accent"
-              style={{
-                color: "var(--color-accent)",
-              }}
-            />
-          </button>
-          <li>
-            <Link
-              href="/about"
-              className="block text-lg capitalize"
-              style={linkStyle("/about")}
-              onClick={handleLinkClick}
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/talks"
-              className="block text-lg capitalize"
-              style={linkStyle("/talks")}
-              onClick={handleLinkClick}
-            >
-              Talks
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/blog"
-              className="block text-lg capitalize"
-              style={linkStyle("/blog")}
-              onClick={handleLinkClick}
-            >
-              Blog
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/contact"
-              className="block text-lg capitalize"
-              style={linkStyle("/contact")}
-              onClick={handleLinkClick}
-            >
-              Contact
-            </Link>
-          </li>
+          <Menu className="h-5 w-5" />
+        </button>
+      </div>
+
+      {/* Mobile drawer */}
+      <div
+        className={cn(
+          "fixed inset-0 z-40 bg-[rgba(8,11,24,0.6)] backdrop-blur-sm transition-opacity duration-300 md:hidden",
+          menuOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        )}
+        onClick={() => setMenuOpen(false)}
+        aria-hidden="true"
+      />
+      <div
+        className={cn(
+          "fixed inset-y-0 right-0 z-50 flex w-4/5 max-w-xs flex-col border-l border-[var(--rule)] bg-[var(--surface)] p-8 transition-transform duration-500 ease-ease md:hidden",
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        )}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation"
+      >
+        <button
+          className="self-end p-2 text-[var(--text)]"
+          aria-label="Close navigation menu"
+          onClick={() => setMenuOpen(false)}
+        >
+          <X className="h-5 w-5" />
+        </button>
+
+        <ul className="mt-6 flex flex-col gap-1">
+          {MainNav.map((item, i) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={cn(
+                  "flex items-baseline gap-3 border-b border-[var(--rule)] py-4 text-xl transition-all duration-500 ease-ease",
+                  isActive(item.href)
+                    ? "text-[var(--gold)]"
+                    : "text-[var(--text)]",
+                  menuOpen
+                    ? "translate-x-0 opacity-100"
+                    : "translate-x-4 opacity-0"
+                )}
+                style={{ transitionDelay: menuOpen ? `${80 + i * 55}ms` : "0ms" }}
+              >
+                <span className="label-mono">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>

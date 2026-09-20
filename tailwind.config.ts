@@ -19,6 +19,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -29,11 +33,26 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        /* Palette sampled from the choubari.com banner */
+        paper: "var(--paper)",
+        surface: "var(--surface)",
+        raised: "var(--raised)",
+        ink: "var(--text)",
+        faint: "var(--faint)",
+        rule: "var(--rule)",
+        gold: {
+          DEFAULT: "var(--gold)",
+          deep: "var(--gold-deep)",
+        },
+        sky: "var(--sky)",
+        azure: "var(--azure)",
+        indigo: "var(--indigo)",
         brand: {
-          light: "#63A1DD",
+          light: "#71A9E2",
           medium: "#4F75D5",
-          dark: "#1C3677",
+          dark: "#1E3779",
           text: "#8CC6FF",
+          gold: "#F7E84A",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -60,10 +79,17 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      letterSpacing: {
+        display: "-0.035em",
+        label: "0.14em",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      transitionTimingFunction: {
+        ease: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
       keyframes: {
         "accordion-down": {

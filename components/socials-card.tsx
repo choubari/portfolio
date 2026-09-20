@@ -20,16 +20,21 @@ const SocialsCard: React.FC<PlatformProps> = ({
   const href = findSocialLinkHref(platform);
 
   return (
-    <a href={href} target="_blank" rel="noreferrer">
-      <div className="flex h-full border border-gray-800 rounded-lg p-5 bg-[#17191d] text-white transform transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-accent">
-        <div className="flex-grow">
-          <h2 className="text-4xl font-bold mb-2">{count}</h2>
-          <p className="text-sm text-gray-300">{title}</p>
-        </div>
-        <div className="text-[var(--color-accent)] text-4xl">
-          <SocialIcon />
-        </div>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="card group flex h-full items-start gap-4 p-6"
+    >
+      <div className="flex-grow">
+        <p className="text-4xl font-semibold tracking-display transition-colors duration-500 ease-ease group-hover:text-[var(--gold)]">
+          {count}
+        </p>
+        <p className="label-mono mt-2">{title}</p>
       </div>
+      <span className="text-3xl text-[var(--sky)] transition-colors duration-500 ease-ease group-hover:text-[var(--gold)]">
+        <SocialIcon />
+      </span>
     </a>
   );
 };

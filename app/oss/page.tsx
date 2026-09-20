@@ -1,26 +1,25 @@
 import RepoCard from "@/components/repo-card";
 import { fetchGithubRepos } from "@/lib/utils";
+import { PageTitle } from "@/components/section-title";
+import { Reveal } from "@/components/motion/reveal";
 
 export default async function OSS() {
   const repos = await fetchGithubRepos();
 
   return (
-    <div className="mx-5 my-10">
-      <div className="flex flex-col items-center text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">
-          Open Source Contributions
-          <span
-            className="text-4xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            .
-          </span>
-        </h1>
-        <p>Here are some of the open sourced projects I've worked on.</p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-        {repos.map((repo) => (
-          <RepoCard key={repo.id} repo={repo} />
+    <div className="py-20 sm:py-28">
+      <PageTitle
+        eyebrow="00 / Open source"
+        lede="Here are some of the open sourced projects I've worked on."
+      >
+        Open Source Contributions
+      </PageTitle>
+
+      <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {repos.map((repo, i) => (
+          <Reveal key={repo.id} delay={(i % 3) * 90}>
+            <RepoCard repo={repo} />
+          </Reveal>
         ))}
       </div>
     </div>

@@ -20,19 +20,31 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
     <>
       {IconElement && (
         <span
-          className={`absolute top-4 right-4 text-xl transition-colors ${
-            testimonial_link ? "text-[var(--color-accent)]" : "text-gray-500"
+          className={`absolute right-5 top-5 text-lg transition-colors duration-500 ease-ease ${
+            testimonial_link
+              ? "text-[var(--sky)] group-hover:text-[var(--gold)]"
+              : "text-[var(--faint)]"
           }`}
         >
           {IconElement}
         </span>
       )}
-      <p className={`text-gray-300 mb-3 ${IconElement ? "mr-6" : ""}`}>
-        "{message}"
+      <span
+        aria-hidden="true"
+        className="block font-mono text-3xl leading-none text-[var(--gold)]/50"
+      >
+        &ldquo;
+      </span>
+      <p
+        className={`mt-2 leading-relaxed text-[var(--muted)] ${
+          IconElement ? "mr-6" : ""
+        }`}
+      >
+        {message}
       </p>
-      <div className="mt-auto">
-        <p className="font-semibold text-white">{name}</p>
-        <p className="text-sm text-gray-400">
+      <div className="mt-5 border-t border-[var(--rule)] pt-4">
+        <p className="font-medium text-[var(--text)]">{name}</p>
+        <p className="label-mono mt-1 normal-case tracking-normal">
           {position}
           {company && `, ${company}`}
         </p>
@@ -41,7 +53,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
   );
 
   const commonClasses =
-    "block mb-4 break-inside-avoid rounded-lg border border-gray-800 bg-[#17191d] p-5 relative transition-colors";
+    "card group relative mb-5 block break-inside-avoid p-6";
 
   if (testimonial_link) {
     return (
@@ -49,7 +61,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
         href={testimonial_link}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${commonClasses} hover:border-[var(--color-accent)] cursor-pointer`}
+        className={`${commonClasses} cursor-pointer`}
       >
         {cardInnerContent}
       </a>

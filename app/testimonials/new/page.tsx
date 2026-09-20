@@ -14,7 +14,7 @@ export default function SubmitTestimonialPage() {
           </span>
         </h1>
       </div>
-      <p className="text-center text-gray-400 mb-8 max-w-xl mx-auto">
+      <p className="text-center text-[var(--muted)] mb-8 max-w-xl mx-auto">
         Thank you for considering to leave a testimonial! Your feedback is
         greatly appreciated and helps others understand the value I strive to
         provide.

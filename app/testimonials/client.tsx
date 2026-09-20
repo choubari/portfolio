@@ -50,7 +50,7 @@ export default function TestimonialsClient({
         >
           All ({testimonials.length})
         </button>
-        <span className="mx-2 text-gray-500">|</span>
+        <span className="mx-2 text-[var(--faint)]">|</span>
         {availableCategoryKeys.map((categoryKey, index, array) => {
           const categoryValue = TESTIMONIAL_CATEGORY[categoryKey];
           const count = testimonials.filter((testimonial) =>
@@ -71,7 +71,7 @@ export default function TestimonialsClient({
                 {categoryValue} ({count})
               </button>
               {index !== array.length - 1 && (
-                <span className="text-gray-500">, </span>
+                <span className="text-[var(--faint)]">, </span>
               )}
             </span>
           );

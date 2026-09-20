@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { getAllPostsMetadata } from "@/lib/getAllPostsMetadata";
+import { PageTitle } from "@/components/section-title";
+import { Reveal } from "@/components/motion/reveal";
 
 export default async function BlogIndexPage() {
   const posts = await getAllPostsMetadata();
@@ -7,43 +10,44 @@ export default async function BlogIndexPage() {
 
   return (
     <>
-      <div className="flex flex-col items-center text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">
-          Blog Posts
-          <span
-            className="text-4xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            .
-          </span>
-        </h1>
-        <p className="mb-3">Unfrequent thoughts, ideas, and experiences</p>
-      </div>
-      <div className="max-w-2xl mx-auto">
+      <PageTitle
+        eyebrow="00 / Writing"
+        lede="Unfrequent thoughts, ideas, and experiences"
+      >
+        Blog Posts
+      </PageTitle>
+
+      <div className="mt-16">
         {publishedPosts.length > 0 ? (
-          publishedPosts.map((post) => (
-            <div
-              key={post.slug}
-              className="mb-4 p-4 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              <Link href={`/blog/${post.slug}`}>
-                <h2
-                  className="text-xl font-semibold mb-1 text-accent hover:underline"
-                  style={{ color: "var(--color-accent)" }}
+          <ul>
+            {publishedPosts.map((post, i) => (
+              <Reveal as="li" key={post.slug} delay={(i % 4) * 80}>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="group flex flex-col gap-2 border-b border-[var(--rule)] py-7 transition-colors duration-500 ease-ease hover:border-[var(--rule-strong)]"
                 >
-                  {post.title}
-                </h2>
-              </Link>
-              <p className="text-sm text-gray-400 mb-2">
-                {new Date(post.date).toLocaleDateString()}
-              </p>
-              {post.description && (
-                <p className="text-gray-300">{post.description}</p>
-              )}
-            </div>
-          ))
+                  <span className="label-mono">
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                  <h2 className="flex items-start gap-2 text-xl font-semibold transition-colors duration-500 ease-ease group-hover:text-[var(--gold)]">
+                    {post.title}
+                    <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 opacity-0 transition-all duration-500 ease-ease group-hover:translate-x-0.5 group-hover:opacity-100" />
+                  </h2>
+                  {post.description && (
+                    <p className="max-w-2xl leading-relaxed text-[var(--muted)]">
+                      {post.description}
+                    </p>
+                  )}
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
         ) : (
-          <p className="text-center text-gray-500">No posts published yet.</p>
+          <p className="text-[var(--muted)]">No posts published yet.</p>
         )}
       </div>
     </>

@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export async function generateStaticParams() {
   const postsDir = path.join(process.cwd(), "content/blog");
@@ -23,29 +24,47 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <article className="prose prose-invert mx-auto py-8">
-      <Link href="/blog" className="font-thin hover:underline">
-        &#8592; Back to all posts
-      </Link>
-      <h1
-        className="text-accent text-2xl font-medium mt-10"
-        style={{ color: "var(--color-accent)" }}
+    <article className="mx-auto max-w-2xl">
+      <Link
+        href="/blog"
+        className="label-mono inline-flex items-center gap-2 transition-colors duration-500 ease-ease hover:text-[var(--gold)]"
       >
-        {metadata.title}
-      </h1>
-      <p className="text-sm text-gray-400 mb-2">
-        {new Date(metadata.date).toLocaleDateString()}
-      </p>
-      {metadata.description && <p className="mb-6">{metadata.description}</p>}
+        <ArrowLeft className="h-3.5 w-3.5" />
+        Back to all posts
+      </Link>
+
+      <header className="mt-10 border-b border-[var(--rule)] pb-10">
+        <p className="label-mono">
+          {new Date(metadata.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
+        <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-display sm:text-4xl">
+          {metadata.title}
+          <span className="tick">.</span>
+        </h1>
+        {metadata.description && (
+          <p className="mt-5 text-lg leading-relaxed text-[var(--muted)]">
+            {metadata.description}
+          </p>
+        )}
+      </header>
+
       {metadata.image && (
         <Image
           src={metadata.image}
           alt={metadata.title}
           width={1000}
           height={1000}
+          className="mt-10 w-full rounded-xl border border-[var(--rule)]"
         />
       )}
-      <PostContent />
+
+      <div className="prose prose-invert mt-10 max-w-none prose-headings:tracking-display prose-a:text-[var(--sky)] hover:prose-a:text-[var(--gold)] prose-code:text-[var(--gold)]">
+        <PostContent />
+      </div>
     </article>
   );
 }
