@@ -64,7 +64,10 @@ export function TalksClient() {
 
       {upcomingData.length > 0 && (
         <section className="mt-12">
-          <h3 className="comment">upcoming</h3>
+          <h3 className="comment flex items-baseline gap-2">
+            upcoming
+            <span className="text-[var(--faint)]">({upcomingData.length})</span>
+          </h3>
           <div className="mt-4 border-t border-[var(--rule)]">
             {upcomingData.map((talk, i) => (
               <Reveal key={`${talk.title}-${i}`} delay={i * 50}>
@@ -77,7 +80,13 @@ export function TalksClient() {
 
       {sortedYears.map((year) => (
         <section key={year} className="mt-12">
-          <h3 className="comment">{year}</h3>
+          <h3 className="comment flex items-baseline gap-2">
+            {year}
+            <span className="text-[var(--faint)]">
+              ({talksByYear[year].length}{" "}
+              {talksByYear[year].length === 1 ? "talk" : "talks"})
+            </span>
+          </h3>
           <div className="mt-4 border-t border-[var(--rule)]">
             {talksByYear[year].map((talk, i) => (
               <Reveal key={`${talk.title}-${i}`} delay={Math.min(i, 5) * 50}>

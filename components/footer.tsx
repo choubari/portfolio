@@ -1,31 +1,54 @@
 import Link from "next/link";
-import { FooterSocials } from "@/config/navigation";
+import { FooterGroups, FooterSocials } from "@/config/navigation";
 
-/** Minimal footer: one line of links, one line of credit. */
+/** Every route that is not in the header is reachable from here. */
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-[var(--rule)]">
-      <div className="mx-auto flex max-w-3xl flex-col gap-3 px-[var(--edge)] py-8 sm:flex-row sm:items-center sm:justify-between">
-        <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          {FooterSocials.map((social) => (
-            <li key={social.label}>
-              <a
-                href={social.href}
-                target={social.href.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  social.href.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
-                className="mono transition-colors hover:text-[var(--action)]"
-              >
-                {social.label}
-              </a>
-            </li>
+    <footer className="mt-28 border-t border-[var(--rule)]">
+      <div className="mx-auto max-w-5xl px-[var(--edge)] py-12">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+          {FooterGroups.map((group) => (
+            <div key={group.title}>
+              <h2 className="comment">{group.title}</h2>
+              <ul className="mt-4 space-y-2.5">
+                {group.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-[var(--muted)] transition-colors hover:text-[var(--action)]"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
 
-        <p className="mono">
+          <div>
+            <h2 className="comment">social</h2>
+            <ul className="mt-4 space-y-2.5">
+              {FooterSocials.map((social) => (
+                <li key={social.label}>
+                  <a
+                    href={social.href}
+                    target={social.href.startsWith("http") ? "_blank" : undefined}
+                    rel={
+                      social.href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="text-sm text-[var(--muted)] transition-colors hover:text-[var(--action)]"
+                  >
+                    {social.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <p className="mono mt-12 border-t border-[var(--rule)] pt-6">
           © {new Date().getFullYear()} Kawtar Choubari ·{" "}
           <a
             href="https://github.com/choubari/portfolio"

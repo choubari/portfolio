@@ -21,7 +21,7 @@ export function Navbar() {
 
   return (
     <nav className="fixed inset-x-0 top-0 z-40 border-b border-[var(--rule)] bg-[rgba(244,242,238,0.88)] backdrop-blur-sm">
-      <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-[var(--edge)]">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-[var(--edge)]">
         <Logo />
 
         <ul className="hidden items-center gap-6 sm:flex">

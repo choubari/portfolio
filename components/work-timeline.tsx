@@ -1,43 +1,51 @@
 import { Experience } from "@/config/experience";
 import { Reveal } from "@/components/motion/reveal";
+import { CompanyLogo } from "@/components/company-logo";
 
-/**
- * Work history as a list, not cards: company, one line, stack, dates.
- * Deliberately shallow — the detail lives on LinkedIn.
- */
+/** Roles as a list, with the company mark doing the visual work. */
 export function WorkTimeline({ limit }: { limit?: number }) {
   const roles = limit ? Experience.slice(0, limit) : Experience;
 
   return (
     <ul className="border-t border-[var(--rule)]">
       {roles.map((role, i) => (
-        <Reveal as="li" key={`${role.company}-${role.start}`} delay={i * 60}>
-          <div className="row grid grid-cols-1 gap-x-8 gap-y-2 py-6 sm:grid-cols-[9rem_1fr]">
-            <div className="mono flex items-baseline gap-2 pt-1">
-              {role.current && (
-                <span
-                  className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--action)]"
-                  aria-label="Current role"
-                />
-              )}
-              <span>{role.period}</span>
-            </div>
+        <Reveal as="li" key={`${role.company}-${role.start}`} delay={i * 50}>
+          <div className="row flex gap-4 py-6">
+            <CompanyLogo name={role.company} logo={role.logo} />
 
-            <div>
-              <h3 className="flex flex-wrap items-baseline gap-x-2 text-base font-semibold">
-                {role.href ? (
-                  <a href={role.href} target="_blank" rel="noreferrer" className="link">
-                    {role.company}
-                  </a>
-                ) : (
-                  <span>{role.company}</span>
-                )}
-                <span className="font-normal text-[var(--muted)]">
-                  · {role.title}
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 className="flex flex-wrap items-baseline gap-x-2">
+                  {role.href ? (
+                    <a
+                      href={role.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link font-semibold"
+                    >
+                      {role.company}
+                    </a>
+                  ) : (
+                    <span className="font-semibold">{role.company}</span>
+                  )}
+                  <span className="text-[var(--muted)]">{role.title}</span>
+                </h3>
+                <span className="mono flex items-center gap-2">
+                  {role.current && (
+                    <span
+                      className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--action)]"
+                      aria-label="Current role"
+                    />
+                  )}
+                  {role.period}
                 </span>
-              </h3>
+              </div>
 
-              <p className="mt-1.5 max-w-2xl leading-relaxed text-[var(--muted)]">
+              {role.note && (
+                <p className="mono mt-1.5 text-[var(--action)]">{role.note}</p>
+              )}
+
+              <p className="mt-2 max-w-2xl leading-relaxed text-[var(--muted)]">
                 {role.summary}
               </p>
 

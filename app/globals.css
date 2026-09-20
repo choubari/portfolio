@@ -22,14 +22,19 @@
   --muted: #5e5e5e;
   --faint: #8c8c8c;
 
-  /* The single action colour */
-  --action: #0a66c2; /* LinkedIn blue */
-  --action-deep: #004182;
-  --action-wash: rgba(10, 102, 194, 0.07);
+  /* Action colour, sampled from the gradient behind the profile photo:
+     #64A6E0 (light end) -> #486CD2 (deep end). --action is darkened to
+     #3F5FC4 so links clear 5.2:1 on paper; --action-soft is the photo's
+     light end, used for ASCII art and decoration only. */
+  --action: #3f5fc4;
+  --action-deep: #2b449b;
+  --action-soft: #64a6e0;
+  --action-mid: #486cd2;
+  --action-wash: rgba(63, 95, 196, 0.07);
 
   --radius-flat: 2px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --edge: clamp(1.25rem, 5vw, 2rem);
+  --edge: clamp(1.25rem, 5vw, 2.5rem);
 
   /* Legacy aliases so any component not touched here still renders sanely */
   --color-accent: var(--action);
@@ -197,55 +202,14 @@ html.js .rise {
   animation: blink 1.1s steps(1) infinite;
 }
 
-/* ASCII animation — four frames stacked, one lit at a time. Pure CSS.
-   Frame 1 is the static fallback, so a failed animation shows art, not a gap. */
-.ascii {
-  position: relative;
-  display: inline-block;
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: clamp(7px, 1.05vw, 11px);
-  line-height: 1.18;
-  color: var(--action);
+/* Interactive ASCII field (components/ascii-field.tsx). The element is
+   sized in ch/line-height units so the JS grid measurement is stable. */
+.ascii-live {
+  font-size: clamp(8px, 1.15vw, 13px);
+  line-height: 1.15;
   white-space: pre;
   -webkit-user-select: none;
   user-select: none;
-}
-.ascii-frame {
-  margin: 0;
-}
-.ascii-frame:first-child {
-  position: relative;
-  opacity: 1;
-}
-.ascii-frame:not(:first-child) {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-html.js .ascii-frame {
-  opacity: 0;
-  animation: ascii-flick 1.25s steps(1, end) infinite;
-}
-html.js .ascii-frame:nth-child(1) {
-  animation-delay: 0s;
-}
-html.js .ascii-frame:nth-child(2) {
-  animation-delay: 0.3125s;
-}
-html.js .ascii-frame:nth-child(3) {
-  animation-delay: 0.625s;
-}
-html.js .ascii-frame:nth-child(4) {
-  animation-delay: 0.9375s;
-}
-@keyframes ascii-flick {
-  0% {
-    opacity: 1;
-  }
-  25%,
-  100% {
-    opacity: 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -266,13 +230,6 @@ html.js .ascii-frame:nth-child(4) {
   }
   .cursor {
     animation: none;
-  }
-  html.js .ascii-frame {
-    animation: none;
-    opacity: 0;
-  }
-  html.js .ascii-frame:first-child {
-    opacity: 1;
   }
 }
 

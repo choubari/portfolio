@@ -100,7 +100,7 @@ export default function RootLayout({
               <Navbar />
               <main id="main" className="flex flex-1 flex-col pt-14">
                 <SpeedInsight />
-                <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-[var(--edge)]">
+                <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-[var(--edge)]">
                   {children}
                 </div>
               </main>

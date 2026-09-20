@@ -1,10 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { BrandButton } from "@/components/brand-button";
-import { PageTitle, SectionTitle } from "@/components/section-title";
+import { PageTitle } from "@/components/section-title";
 import { Reveal } from "@/components/motion/reveal";
-import { WorkTimeline } from "@/components/work-timeline";
-import { EducationHistory } from "@/config/experience";
 
 export default function AboutPage() {
   return (
@@ -16,9 +14,9 @@ export default function AboutPage() {
         <Image
           src="/kawtar.png"
           alt="Kawtar Choubari"
-          width={96}
-          height={96}
-          className="hidden h-24 w-24 shrink-0 rounded-full sm:block"
+          width={112}
+          height={112}
+          className="hidden h-28 w-28 shrink-0 rounded-full sm:block"
         />
       </div>
 
@@ -43,11 +41,11 @@ export default function AboutPage() {
             <Link href="/creator" className="link">
               educational content
             </Link>
-            , and share{" "}
-            <Link href="/oss" className="link">
-              open source
-            </Link>{" "}
-            work.
+            , and build things in the open — see{" "}
+            <Link href="/work" className="link">
+              my work
+            </Link>
+            .
           </p>
         </Reveal>
         <Reveal delay={120}>
@@ -67,50 +65,13 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      <section className="mt-16">
-        <Reveal>
-          <SectionTitle
-            action={{ label: "LinkedIn", href: "https://linkedin.com/in/choubari" }}
-          >
-            experience
-          </SectionTitle>
-        </Reveal>
-        <div className="mt-6">
-          <WorkTimeline />
-        </div>
-      </section>
-
-      <section className="mt-16">
-        <Reveal>
-          <SectionTitle>education</SectionTitle>
-        </Reveal>
-        <ul className="mt-6 border-t border-[var(--rule)]">
-          {EducationHistory.map((item, i) => (
-            <Reveal as="li" key={item.school} delay={i * 60}>
-              <div className="row grid grid-cols-1 gap-x-8 gap-y-1 py-5 sm:grid-cols-[9rem_1fr]">
-                <span className="mono pt-0.5">{item.period}</span>
-                <div>
-                  <h3 className="font-semibold">{item.school}</h3>
-                  <p className="mt-1 text-[var(--muted)]">{item.degree}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-16">
-        <Reveal className="flex flex-col items-start gap-5">
-          <SectionTitle className="w-full">get in touch</SectionTitle>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href="/contact">
-              <BrandButton>Let&apos;s work together</BrandButton>
-            </Link>
-            <a href="mailto:contact@choubari.com?subject=Speaking%20invitation">
-              <BrandButton tone="ghost">Invite me to speak</BrandButton>
-            </a>
-          </div>
-        </Reveal>
+      <section className="mt-14 flex flex-wrap items-center gap-3">
+        <Link href="/contact">
+          <BrandButton>Let&apos;s work together</BrandButton>
+        </Link>
+        <a href="mailto:contact@choubari.com?subject=Speaking%20invitation">
+          <BrandButton tone="ghost">Invite me to speak</BrandButton>
+        </a>
       </section>
     </div>
   );

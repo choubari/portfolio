@@ -1,21 +1,22 @@
 /**
- * Work history. Facts are taken from the LinkedIn profile export; the
- * one-liners are deliberately short — the detail lives on LinkedIn.
+ * Work history, from the LinkedIn profile export. One line each — the
+ * detail lives on LinkedIn. Logos are local files in /public/logos;
+ * companies without one fall back to a monogram.
  */
 
 export type Role = {
   company: string;
   title: string;
-  /** Short display range, e.g. "2023 — now" */
   period: string;
-  /** Sort key: ISO start date */
   start: string;
   location: string;
-  /** One line. Resist making it two. */
   summary: string;
   stack: string[];
+  logo?: string;
   href?: string;
   current?: boolean;
+  /** Acquisition / corporate change worth surfacing. */
+  note?: string;
 };
 
 export const Experience: Role[] = [
@@ -24,12 +25,14 @@ export const Experience: Role[] = [
     title: "Full Stack Engineer",
     period: "Oct 2023 — now",
     start: "2023-10-01",
-    location: "Paris, France",
+    location: "Paris",
     summary:
-      "Construction-management SaaS — joined the early team and shipped 20+ features end to end across web, backend and mobile.",
+      "Construction-management SaaS. Joined the early team; shipped 20+ features across web, backend and mobile, and cut TypeScript build time by 93%.",
     stack: ["TypeScript", "React", "Next.js", "Node.js", "React Native"],
-    href: "https://www.linkedin.com/in/choubari",
+    logo: "/logos/alobees.png",
+    href: "https://alobees.com",
     current: true,
+    note: "Acquired — merged with Traxxeo to form Eternia Group",
   },
   {
     company: "O'Reilly Media",
@@ -40,27 +43,29 @@ export const Experience: Role[] = [
     summary:
       "Taught a 3-hour live course on React Server Components — App Router, streaming SSR and rendering strategies.",
     stack: ["React", "Next.js", "RSC"],
-    href: "https://www.linkedin.com/in/choubari",
+    logo: "/logos/oreilly.png",
+    href: "https://www.oreilly.com",
   },
   {
     company: "Zenpark",
     title: "R&D Software Engineer",
     period: "Feb — Aug 2022",
     start: "2022-02-01",
-    location: "Paris, France",
+    location: "Paris",
     summary:
-      "Urban parking apps serving 430,000+ users; two-developer mobile squad shipping GDPR work, onboarding and an Apple CarPlay integration.",
+      "Urban parking apps for 430,000+ users. Two-person mobile squad; shipped GDPR work, a new onboarding flow and an Apple CarPlay integration.",
     stack: ["React Native", "TypeScript", "CI/CD"],
-    href: "https://www.linkedin.com/in/choubari",
+    logo: "/logos/zenpark.png",
+    href: "https://www.zenpark.com",
   },
   {
     company: "RifTech",
     title: "Mobile Application Developer",
     period: "Aug — Oct 2021",
     start: "2021-08-01",
-    location: "New Jersey, US (remote)",
+    location: "New Jersey (remote)",
     summary:
-      "Built the Avicenne healthcare app from scratch — Figma prototypes through to a shipped React Native client on their existing APIs.",
+      "Built Avicenne, a healthcare app, from Figma prototype to a shipped React Native client on their existing APIs.",
     stack: ["React Native", "Figma", "REST"],
   },
   {
@@ -68,10 +73,12 @@ export const Experience: Role[] = [
     title: "Frontend Developer",
     period: "Jul — Aug 2021",
     start: "2021-07-01",
-    location: "Rabat, Morocco",
+    location: "Rabat",
     summary:
-      "Accessibility platform translating between sign language and text/voice, wiring a React frontend to ML APIs and a Raspberry Pi camera rig.",
+      "Accessibility platform translating between sign language and text/voice — React frontend wired to ML APIs and a Raspberry Pi camera rig.",
     stack: ["React", "JavaScript", "ML APIs", "Raspberry Pi"],
+    logo: "/logos/orange.png",
+    href: "https://www.orange.ma",
   },
   {
     company: "Daba'Go",
@@ -82,24 +89,5 @@ export const Experience: Role[] = [
     summary:
       "Multi-modal journey planner — built its design system, shared services layer and modular architecture.",
     stack: ["Flutter", "Dart"],
-  },
-];
-
-export type Education = {
-  school: string;
-  degree: string;
-  period: string;
-};
-
-export const EducationHistory: Education[] = [
-  {
-    school: "ENSIAS",
-    degree: "Engineer's degree (MSc), Web & Mobile Engineering",
-    period: "2019 — 2022",
-  },
-  {
-    school: "CPGE — Lycée Mohammed VI, Kénitra",
-    degree: "Mathematics, Physics & Computer Science",
-    period: "2017 — 2019",
   },
 ];

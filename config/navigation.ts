@@ -12,18 +12,41 @@ export const FooterSocials: { label: SocialPlatform; href: string }[] = [
 ];
 
 export const MainNav: { label: string; href: string }[] = [
-  { label: "About", href: "/about" },
-  { label: "Work", href: "/oss" },
+  { label: "Work", href: "/work" },
   { label: "Talks", href: "/talks" },
   { label: "Blog", href: "/blog" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
-export const FooterLinks: { label: string; href: string }[] = [
-  { label: "About", href: "/about" },
-  { label: "Open Source", href: "/oss" },
-  { label: "Talks", href: "/talks" },
-  { label: "Testimonials", href: "/testimonials" },
-  { label: "Creator", href: "/creator" },
-  { label: "Contact", href: "/contact" },
+/** Grouped footer links — everything not in the header lives here. */
+export const FooterGroups: {
+  title: string;
+  links: { label: string; href: string }[];
+}[] = [
+  {
+    title: "work",
+    links: [
+      { label: "Experience & projects", href: "/work" },
+      { label: "Open source", href: "/oss" },
+      { label: "Testimonials", href: "/testimonials" },
+    ],
+  },
+  {
+    title: "words",
+    links: [
+      { label: "Talks", href: "/talks" },
+      { label: "Blog", href: "/blog" },
+      { label: "Newsletter", href: "/newsletter" },
+      { label: "Creator", href: "/creator" },
+    ],
+  },
+  {
+    title: "elsewhere",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
+      { label: "Leave a testimonial", href: "/testimonials/new" },
+    ],
+  },
 ];
