@@ -3,11 +3,15 @@ import { Button, type ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface BrandButtonProps extends ButtonProps {
-  /** "solid" is the LinkedIn-blue primary; "ghost" is the outlined secondary. */
-  tone?: "solid" | "ghost";
+  /** "solid" = brown primary, "ghost" = outlined, "invert" = on dark grounds. */
+  tone?: "solid" | "ghost" | "invert";
 }
 
-/** Flat pill CTA. No shadow, no gradient, no sheen. */
+/**
+ * One button shape across the whole site: a 6px radius, never a pill and
+ * never a hard square. Primary is brown, not accent blue — the blue pill
+ * read as a LinkedIn button.
+ */
 export function BrandButton({
   className,
   children,
@@ -17,10 +21,13 @@ export function BrandButton({
   return (
     <Button
       className={cn(
-        "h-auto rounded-full px-5 py-2.5 text-sm font-semibold shadow-none transition-colors duration-200",
-        tone === "solid"
-          ? "bg-[var(--action)] text-white hover:bg-[var(--action-deep)]"
-          : "border border-[var(--rule-strong)] bg-transparent text-[var(--ink)] hover:border-[var(--action)] hover:bg-transparent hover:text-[var(--action)]",
+        "h-auto rounded-[6px] px-6 py-3 text-[0.9375rem] font-semibold shadow-none transition-colors duration-200",
+        tone === "solid" &&
+          "bg-[var(--brown)] text-white hover:bg-[var(--brown-deep)]",
+        tone === "ghost" &&
+          "border-2 border-[var(--brown)] bg-transparent text-[var(--brown)] hover:bg-[var(--brown)] hover:text-white",
+        tone === "invert" &&
+          "bg-[var(--paper)] text-[var(--brown)] hover:bg-white",
         className
       )}
       {...props}

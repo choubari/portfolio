@@ -4,28 +4,38 @@ import { AsciiField } from "@/components/ascii-field";
 
 export function Hero() {
   return (
-    <section className="grid items-center gap-8 py-10 sm:py-14 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
-      {/* Text — left */}
+    <section className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1fr_0.95fr] lg:gap-14">
       <div className="order-2 lg:order-1">
         <p
           className="comment rise"
           style={{ "--rise-delay": "0ms" } as React.CSSProperties}
         >
-          full stack engineer · react &amp; react native · paris
+          full stack engineer · paris
         </p>
 
-        {/* TODO(copy): your line. */}
+        {/* TODO(copy): yours to rewrite. */}
         <h1
-          className="rise mt-4 text-balance text-[clamp(2.5rem,6.2vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
+          className="rise mt-4 text-[clamp(2.5rem,4.6vw,3.75rem)] font-bold leading-[1.04] tracking-[-0.03em]"
           style={{ "--rise-delay": "60ms" } as React.CSSProperties}
         >
-          Engineer building systems from zero at startup speed
-          <span className="cursor ml-2" aria-hidden="true" />
+          Kawtar Choubari
         </h1>
+
+        <p
+          className="rise mt-5 max-w-lg text-[1.35rem] leading-[1.45] text-[var(--muted)]"
+          style={{ "--rise-delay": "120ms" } as React.CSSProperties}
+        >
+          I build products from zero at startup speed — 
+          <span className="font-semibold text-[var(--ink)]">
+            {" "}
+            React, React Native and AI
+          </span>
+          . And I talk about it on stage.
+        </p>
 
         <div
           className="rise mt-9 flex flex-wrap items-center gap-3"
-          style={{ "--rise-delay": "140ms" } as React.CSSProperties}
+          style={{ "--rise-delay": "180ms" } as React.CSSProperties}
         >
           <Link href="/contact">
             <BrandButton>Let&apos;s work together</BrandButton>
@@ -36,8 +46,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Art — right */}
-      <AsciiField className="order-1 h-[280px] w-full sm:h-[380px] lg:order-2 lg:h-[460px]" />
+      <AsciiField className="order-1 h-[260px] w-full sm:h-[360px] lg:order-2 lg:h-[440px]" />
     </section>
   );
 }

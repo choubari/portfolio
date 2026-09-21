@@ -12,7 +12,7 @@ export default async function NewsletterPage() {
     <div className="py-14 sm:py-20">
       <PageTitle
         comment="newsletter"
-        mark="mail"
+        mark="newsletter"
         lede="The One Place to Learn, Laugh, and Level Up Your Coding Skills!"
       >
         {NEWSLETTER_FEED.title}
@@ -24,7 +24,7 @@ export default async function NewsletterPage() {
         </div>
       </Reveal>
 
-      <ul className="mt-12 border-t border-[var(--rule)]">
+      <ul className="mt-12">
         {items.map((item, i) => (
           <Reveal as="li" key={item.link} delay={Math.min(i, 6) * 50}>
             <a

@@ -1,10 +1,9 @@
-import Link from "next/link";
 import { Hero } from "@/components/hero";
+import { CallToAction } from "@/components/cta";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionTitle } from "@/components/section-title";
 import { ProjectGrid } from "@/components/project-grid";
 import { TalkThumb } from "@/components/talk-thumb";
-import { BrandButton } from "@/components/brand-button";
 import { LinkedInFeed } from "@/components/linkedin-posts";
 import TestimonialCard from "@/components/testimonial-card";
 import RepoCard from "@/components/repo-card";
@@ -52,7 +51,10 @@ export default async function Home() {
 
       <section className="pb-20">
         <Reveal>
-          <SectionTitle action={{ label: "All talks", href: "/talks" }}>
+          <SectionTitle
+            count={Talks.length}
+            action={{ label: "All talks", href: "/talks" }}
+          >
             speaking
           </SectionTitle>
         </Reveal>
@@ -68,12 +70,13 @@ export default async function Home() {
       <section className="pb-20">
         <Reveal>
           <SectionTitle
-            action={{ label: `All ${repos.length} repos`, href: "/oss" }}
+            count={repos.length}
+            action={{ label: "All repos", href: "/oss" }}
           >
             open source
           </SectionTitle>
         </Reveal>
-        <div className="mt-4 border-t border-[var(--rule)]">
+        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
           {topRepos.map((repo, i) => (
             <Reveal key={repo.id} delay={i * 50}>
               <RepoCard repo={repo} />
@@ -86,6 +89,7 @@ export default async function Home() {
         <section className="pb-20">
           <Reveal>
             <SectionTitle
+              count={allTestimonials.length}
               action={{ label: "All testimonials", href: "/testimonials" }}
             >
               kind words
@@ -120,19 +124,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="pb-4">
-        <Reveal className="flex flex-col items-start gap-5">
-          <SectionTitle className="w-full">get in touch</SectionTitle>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href="/contact">
-              <BrandButton>Let&apos;s work together</BrandButton>
-            </Link>
-            <a href="mailto:contact@choubari.com?subject=Speaking%20invitation">
-              <BrandButton tone="ghost">Invite me to speak</BrandButton>
-            </a>
-          </div>
-        </Reveal>
-      </section>
+      <CallToAction />
     </>
   );
 }

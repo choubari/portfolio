@@ -20,7 +20,7 @@ export function Navbar() {
     path === "/" ? pathname === "/" : pathname.startsWith(path);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-40 border-b border-[var(--rule)] bg-[rgba(244,242,238,0.88)] backdrop-blur-sm">
+    <nav className="fixed inset-x-0 top-0 z-40 bg-[rgba(245,242,237,0.6)] backdrop-blur-xl [mask-image:linear-gradient(to_bottom,#000_62%,transparent)]">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-[var(--edge)]">
         <Logo />
 
@@ -31,7 +31,7 @@ export function Navbar() {
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={cn(
-                  "mono transition-colors",
+                  "text-[0.9375rem] font-medium transition-colors",
                   isActive(item.href)
                     ? "text-[var(--action)]"
                     : "text-[var(--muted)] hover:text-[var(--ink)]"
@@ -44,7 +44,7 @@ export function Navbar() {
         </ul>
 
         <button
-          className="mono -mr-1 p-1 text-[var(--ink)] sm:hidden"
+          className="mono -mr-1 p-1 font-semibold text-[var(--ink)] sm:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"

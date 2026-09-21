@@ -38,7 +38,7 @@ export function TalksClient() {
     <div className="py-14 sm:py-20">
       <PageTitle
         comment="speaking"
-        mark="mic"
+        mark="talks"
         lede="Wearing my speaker hat because sharing is caring!"
       >
         Talks &amp; Workshops
@@ -66,12 +66,14 @@ export function TalksClient() {
       {upcomingData.length > 0 && (
         <section className="mt-12">
           <h3 className="flex items-baseline gap-3">
-            <span className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
+            <span className="text-xl font-bold tracking-[-0.02em] text-[var(--accent)]">
               Upcoming
             </span>
-            <span className="h-px flex-1 bg-[var(--rule)]" />
+            <span className="font-mono text-base text-[var(--brown-soft)]">
+              ({upcomingData.length})
+            </span>
           </h3>
-          <div className="mt-4 border-t border-[var(--rule)]">
+          <div className="mt-5 space-y-5">
             {upcomingData.map((talk, i) => (
               <Reveal key={`${talk.title}-${i}`} delay={i * 50}>
                 <TalkCard talk={talk} />
@@ -84,12 +86,13 @@ export function TalksClient() {
       {sortedYears.map((year) => (
         <section key={year} className="mt-14">
           <h3 className="flex items-baseline gap-3">
-            <span className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--faint)]">
-              {year}
+            <span className="text-2xl font-bold tracking-[-0.02em]">{year}</span>
+            <span className="font-mono text-base text-[var(--brown-soft)]">
+              ({talksByYear[year].length}{" "}
+              {talksByYear[year].length === 1 ? "talk" : "talks"})
             </span>
-            <span className="h-px flex-1 bg-[var(--rule)]" />
           </h3>
-          <div className="mt-4 border-t border-[var(--rule)]">
+          <div className="mt-5 space-y-5">
             {talksByYear[year].map((talk, i) => (
               <Reveal key={`${talk.title}-${i}`} delay={Math.min(i, 5) * 50}>
                 <TalkCard talk={talk} />
@@ -120,10 +123,10 @@ function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "mono underline-offset-4 transition-colors",
+        "rounded-[6px] px-3 py-1.5 font-mono text-sm font-medium transition-colors",
         active
-          ? "text-[var(--action)] underline"
-          : "text-[var(--muted)] hover:text-[var(--ink)]"
+          ? "bg-[var(--brown)] text-white"
+          : "bg-[var(--brown)]/10 text-[var(--brown)] hover:bg-[var(--brown)]/20"
       )}
     >
       {label}

@@ -18,6 +18,8 @@ export type Talk = {
   hostLink?: string;
   date: string;
   duration?: string;
+  /** Your own cover image; falls back to the YouTube still. */
+  cover?: string;
   video?: string;
   slides?: string;
   demoCode?: string;

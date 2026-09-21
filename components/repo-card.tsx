@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Repo } from "@/types";
+import { Star, GitFork, ArrowUpRight } from "lucide-react";
 
 export default function RepoCard({ repo }: { repo: Repo }) {
   return (
@@ -7,22 +8,29 @@ export default function RepoCard({ repo }: { repo: Repo }) {
       href={repo.html_url}
       target="_blank"
       rel="noreferrer"
-      className="row group grid grid-cols-1 gap-x-8 gap-y-1 py-5 sm:grid-cols-[1fr_auto]"
+      className="card group flex h-full flex-col p-6"
     >
-      <div className="min-w-0">
-        <h3 className="font-semibold transition-colors group-hover:text-[var(--action)]">
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-[1.0625rem] font-semibold transition-colors group-hover:text-[var(--accent)]">
           {repo.name}
         </h3>
-        {repo.description && (
-          <p className="mt-1 leading-relaxed text-[var(--muted)]">
-            {repo.description}
-          </p>
-        )}
+        <ArrowUpRight className="h-5 w-5 shrink-0 text-[var(--brown-soft)] transition-colors group-hover:text-[var(--accent)]" />
       </div>
-      <div className="mono flex shrink-0 items-baseline gap-3 sm:justify-end">
-        {repo.language && <span>{repo.language}</span>}
-        <span>★ {repo.stargazers_count}</span>
-        <span>⑂ {repo.forks_count}</span>
+
+      {repo.description && (
+        <p className="mt-2 flex-1 leading-relaxed text-[var(--muted)]">
+          {repo.description}
+        </p>
+      )}
+
+      <div className="mt-5 flex flex-wrap items-center gap-2">
+        {repo.language && <span className="chip">{repo.language}</span>}
+        <span className="chip gap-1.5">
+          <Star className="h-4 w-4" /> {repo.stargazers_count}
+        </span>
+        <span className="chip gap-1.5">
+          <GitFork className="h-4 w-4" /> {repo.forks_count}
+        </span>
       </div>
     </Link>
   );

@@ -77,7 +77,7 @@ export default function ContactForm() {
     <div>
       <PageTitle
         comment="contact"
-        mark="mail"
+        mark="contact"
         lede="Feel free to reach out if you're interested in working together."
       >
         Let&apos;s chat

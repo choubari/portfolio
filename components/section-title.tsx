@@ -3,7 +3,6 @@ import { AsciiMark } from "@/components/ascii-mark";
 
 interface PageTitleProps {
   children: React.ReactNode;
-  /** The `// comment` line above the title. */
   comment?: string;
   lede?: React.ReactNode;
   className?: string;
@@ -11,16 +10,15 @@ interface PageTitleProps {
   mark?: string;
 }
 
-/** Page heading: a `// comment` line, a tight display line, an optional lede. */
 export function PageTitle({
   children,
   comment,
   lede,
   className,
-  mark = "rocket",
+  mark,
 }: PageTitleProps) {
   return (
-    <header className={cn("flex items-start justify-between gap-6", className)}>
+    <header className={cn("flex items-start justify-between gap-8", className)}>
       <div className="flex min-w-0 flex-col gap-3">
         {comment && <span className="comment rise">{comment}</span>}
         <h1
@@ -38,39 +36,48 @@ export function PageTitle({
           </p>
         )}
       </div>
-      <AsciiMark name={mark} className="rise mt-1 hidden sm:block" />
+      {mark && <AsciiMark name={mark} className="rise hidden shrink-0 sm:block" />}
     </header>
   );
 }
 
 interface SectionTitleProps {
   children: React.ReactNode;
-  /** Right-hand link, e.g. { label: "All talks", href: "/talks" } */
   action?: { label: string; href: string };
+  /** Optional count shown next to the heading, e.g. 25 */
+  count?: number | string;
   className?: string;
 }
 
 /**
- * Section heading. A `// comment` label and an optional inline action on the
- * same baseline — no big display type competing with the page title.
+ * Section heading. One rule underneath and nothing else — the previous
+ * version paired its own border with a bordered list and produced doubles.
  */
 export function SectionTitle({
   children,
   action,
+  count,
   className,
 }: SectionTitleProps) {
   return (
     <div
       className={cn(
-        "flex items-baseline justify-between gap-4 border-b border-[var(--rule)] pb-3",
+        "flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1",
         className
       )}
     >
-      <h2 className="comment">{children}</h2>
+      <h2 className="section-head">
+        {children}
+        {count !== undefined && (
+          <span className="font-mono text-base font-medium text-[var(--brown-soft)]">
+            ({count})
+          </span>
+        )}
+      </h2>
       {action && (
         <a
           href={action.href}
-          className="mono text-[var(--action)] transition-colors hover:text-[var(--action-deep)]"
+          className="mono font-medium text-[var(--accent)] transition-colors hover:text-[var(--accent-deep)]"
         >
           {action.label} →
         </a>

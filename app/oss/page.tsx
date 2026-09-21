@@ -10,13 +10,13 @@ export default async function OSS() {
     <div className="py-14 sm:py-20">
       <PageTitle
         comment="open source"
-        mark="code"
+        mark="oss"
         lede="Projects I've built and shared publicly."
       >
         Open Source
       </PageTitle>
 
-      <div className="mt-12 border-t border-[var(--rule)]">
+      <div className="mt-12">
         {repos.map((repo, i) => (
           <Reveal key={repo.id} delay={Math.min(i, 6) * 50}>
             <RepoCard repo={repo} />

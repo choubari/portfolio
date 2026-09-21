@@ -55,13 +55,13 @@ export default async function Creator() {
     <div className="py-14 sm:py-20">
       <PageTitle
         comment="creator"
-        mark="star"
+        mark="creator"
         lede="Educating yet entertaining content for the dev community."
       >
         Content Creation
       </PageTitle>
 
-      <div className="mt-12 border-t border-[var(--rule)]">
+      <div className="mt-12">
         {platforms.map((platform, i) => (
           <Reveal key={platform.name} delay={Math.min(i, 6) * 50}>
             <SocialsCard

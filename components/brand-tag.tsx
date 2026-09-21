@@ -1,11 +1,12 @@
 import { cn } from "@/lib/utils";
 
-interface BrandTagProps {
+/** Static metadata chip. Filled, so it never reads as clickable. */
+export function BrandTag({
+  className,
+  children,
+}: {
   className?: string;
   children: React.ReactNode;
-}
-
-/** Mono tech tag — a hairline box, no fill. */
-export function BrandTag({ className, children }: BrandTagProps) {
-  return <span className={cn("tag", className)}>{children}</span>;
+}) {
+  return <span className={cn("chip", className)}>{children}</span>;
 }

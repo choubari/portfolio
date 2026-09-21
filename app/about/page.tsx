@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BrandButton } from "@/components/brand-button";
 import { PageTitle } from "@/components/section-title";
 import { Reveal } from "@/components/motion/reveal";
 
@@ -8,7 +7,7 @@ export default function AboutPage() {
   return (
     <div className="py-14 sm:py-20">
       <div className="flex items-start justify-between gap-8">
-        <PageTitle comment="about" mark="star" lede="Engineering, Educating, Entertaining.">
+        <PageTitle comment="about" mark="about" lede="Engineering, Educating, Entertaining.">
           Meet Kawtar
         </PageTitle>
         <Image
@@ -65,14 +64,6 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      <section className="mt-14 flex flex-wrap items-center gap-3">
-        <Link href="/contact">
-          <BrandButton>Let&apos;s work together</BrandButton>
-        </Link>
-        <a href="mailto:contact@choubari.com?subject=Speaking%20invitation">
-          <BrandButton tone="ghost">Invite me to speak</BrandButton>
-        </a>
-      </section>
     </div>
   );
 }

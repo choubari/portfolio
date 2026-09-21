@@ -11,7 +11,7 @@ export default async function BlogIndexPage() {
     <>
       <PageTitle
         comment="writing"
-        mark="terminal"
+        mark="blog"
         lede="Unfrequent thoughts, ideas, and experiences."
       >
         Blog
@@ -19,7 +19,7 @@ export default async function BlogIndexPage() {
 
       <div className="mt-12">
         {publishedPosts.length > 0 ? (
-          <ul className="border-t border-[var(--rule)]">
+          <ul >
             {publishedPosts.map((post, i) => (
               <Reveal as="li" key={post.slug} delay={Math.min(i, 6) * 50}>
                 <Link
