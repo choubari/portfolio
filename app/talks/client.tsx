@@ -38,7 +38,7 @@ export function TalksClient() {
     <div className="py-14 sm:py-20">
       <PageTitle
         comment="speaking"
-        mark="talks"
+
         lede="Wearing my speaker hat because sharing is caring!"
       >
         Talks &amp; Workshops

@@ -27,7 +27,7 @@ export default async function WorkPage() {
       {/* TODO(copy): title and project blurbs are yours to rewrite. */}
       <PageTitle
         comment="work"
-        mark="work"
+        mark="crates"
         lede="Where I've worked, what I've shipped on my own, and what I maintain in the open."
       >
         Work
@@ -79,7 +79,7 @@ export default async function WorkPage() {
             open source — most starred
           </SectionTitle>
         </Reveal>
-        <div className="mt-4">
+        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {topRepos.map((repo, i) => (
             <Reveal key={repo.id} delay={i * 40}>
               <RepoCard repo={repo} />

@@ -55,7 +55,6 @@ export default async function Creator() {
     <div className="py-14 sm:py-20">
       <PageTitle
         comment="creator"
-        mark="creator"
         lede="Educating yet entertaining content for the dev community."
       >
         Content Creation

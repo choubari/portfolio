@@ -21,13 +21,15 @@ export function BrandButton({
   return (
     <Button
       className={cn(
-        "h-auto rounded-[6px] px-6 py-3 text-[0.9375rem] font-semibold shadow-none transition-colors duration-200",
+        // Fixed height + a border on every tone, so solid and ghost are
+        // always the same box.
+        "inline-flex h-12 items-center rounded-[6px] border-2 px-6 text-[0.9375rem] font-semibold shadow-none transition-colors duration-200",
         tone === "solid" &&
-          "bg-[var(--brown)] text-white hover:bg-[var(--brown-deep)]",
+          "border-[var(--brown)] bg-[var(--brown)] text-white hover:border-[var(--brown-deep)] hover:bg-[var(--brown-deep)]",
         tone === "ghost" &&
-          "border-2 border-[var(--brown)] bg-transparent text-[var(--brown)] hover:bg-[var(--brown)] hover:text-white",
+          "border-[var(--brown)] bg-transparent text-[var(--brown)] hover:bg-[var(--brown)] hover:text-white",
         tone === "invert" &&
-          "bg-[var(--paper)] text-[var(--brown)] hover:bg-white",
+          "border-[var(--paper)] bg-[var(--paper)] text-[var(--brown)] hover:bg-white",
         className
       )}
       {...props}

@@ -20,7 +20,7 @@ export function Navbar() {
     path === "/" ? pathname === "/" : pathname.startsWith(path);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-40 bg-[rgba(245,242,237,0.6)] backdrop-blur-xl [mask-image:linear-gradient(to_bottom,#000_62%,transparent)]">
+    <nav className="fixed inset-x-0 top-0 z-40 border-b border-[var(--card-edge)] bg-[rgba(245,242,237,0.82)] backdrop-blur-md backdrop-saturate-150">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-[var(--edge)]">
         <Logo />
 

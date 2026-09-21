@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BrandButton } from "@/components/brand-button";
-import { AsciiField } from "@/components/ascii-field";
+import { Ascii3D } from "@/components/ascii-3d";
 
 export function Hero() {
   return (
@@ -46,7 +46,7 @@ export function Hero() {
         </div>
       </div>
 
-      <AsciiField className="order-1 h-[260px] w-full sm:h-[360px] lg:order-2 lg:h-[440px]" />
+      <Ascii3D className="order-1 h-[260px] w-full sm:h-[360px] lg:order-2 lg:h-[440px]" />
     </section>
   );
 }

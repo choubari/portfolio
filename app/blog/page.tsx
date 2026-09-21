@@ -11,7 +11,6 @@ export default async function BlogIndexPage() {
     <>
       <PageTitle
         comment="writing"
-        mark="blog"
         lede="Unfrequent thoughts, ideas, and experiences."
       >
         Blog

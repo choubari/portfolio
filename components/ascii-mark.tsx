@@ -1,76 +1,39 @@
 import { cn } from "@/lib/utils";
 
 /**
- * ASCII glyphs beside page titles. Each one depicts what its page is
- * actually about rather than being decorative filler.
+ * Small ASCII marks beside page titles.
+ *
+ * Only shapes that actually read at this size live here. Earlier versions
+ * tried to hand-draw a person, a mic and a terminal in 6 lines and they
+ * came out unreadable — anything that doesn't survive the size test is
+ * simply not included, and pages without a mark render without one.
  */
 const MARKS: Record<string, string> = {
-  // /about — a person at a desk
-  about: `    ___
-   /   \\
-   \\_o_/
-  __|_|__
- |       |
- |_______|`,
+  // GitHub mark: the circle with the cat silhouette, blocked out.
+  github: `    ▄▄███████▄▄
+  ▄█████████████▄
+ ███▀▀     ▀▀███
+███   ▄   ▄   ███
+███           ███
+ ███▄  ▀─▀  ▄███
+  ▀████▄▄▄████▀
+     ▀▀█ █▀▀`,
 
-  // /work — a shipping crate stack
-  work: ` _______
-|#|#|#|#|
-|_|_|_|_|
-|#|#|#|#|
-|_|_|_|_|`,
+  // Stacked shipping crates.
+  crates: `┌────┬────┐
+│▓▓▓▓│▓▓▓▓│
+├────┼────┤
+│▓▓▓▓│▓▓▓▓│
+└────┴────┘`,
 
-  // /talks — a mic on a stand with sound
-  talks: `   ___
-  /   \\  ))
- |  o  | ))
-  \\___/  ))
-    |
-   _|_`,
-
-  // /blog — a terminal with a caret
-  blog: ` __________
-|_>_______|
-| $ cat _  |
-|          |
-|__________|`,
-
-  // /contact — an envelope, opening
-  contact: ` __________
-|\\        /|
-| \\      / |
-|  \\____/  |
-|__________|`,
-
-  // /oss — a branching graph
-  oss: ` o
- |\\
- | o
- |/|
- o |
-  \\|
-   o`,
-
-  // /creator — a play button
-  creator: ` ________
-|  \\     |
-|   \\    |
-|   /    |
-|__/_____|`,
-
-  // /newsletter — a paper plane
-  newsletter: `    /|
-   / |
-  /__|_
-  \\    \\
-   \\____\\`,
-
-  // /testimonials — a speech bubble
-  testimonials: ` ________
-|        |
-|  " "   |
-|________|
-  \\/`,
+  // A commit graph.
+  graph: `  ●
+  │╲
+  │ ●
+  │╱
+  ●
+  │╲
+  │ ●`,
 };
 
 export function AsciiMark({
@@ -86,7 +49,7 @@ export function AsciiMark({
     <pre
       aria-hidden="true"
       className={cn(
-        "select-none font-mono text-[10px] leading-[1.2] text-[var(--brown-soft)]",
+        "select-none font-mono text-[11px] leading-[1.15] text-[var(--brown)]",
         className
       )}
     >

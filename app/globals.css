@@ -15,17 +15,17 @@
   /* Paper & surfaces */
   --paper: #f5f2ed; /* warm cream */
   --surface: #ffffff;
-  --card: #efe6e0; /* brown tinted to a card ground */
-  --card-edge: rgba(120, 80, 80, 0.16);
+  --card: #e9dcd4; /* heavier clay ground */
+  --card-edge: rgba(94, 58, 58, 0.26);
 
   /* Rules — warm hairlines, never card borders */
-  --rule: rgba(120, 80, 80, 0.18);
-  --rule-strong: rgba(120, 80, 80, 0.38);
+  --rule: rgba(94, 58, 58, 0.22);
+  --rule-strong: rgba(94, 58, 58, 0.45);
 
   /* Ink */
   --ink: #1c1917;
-  --muted: #5c524e;
-  --faint: #8c7f79;
+  --muted: #574a45;
+  --faint: #857470;
 
   /* Accent — the scarf blue, enhanced to clear 4.7:1 on paper */
   --accent: #3a6cb4;
@@ -34,10 +34,10 @@
   --accent-wash: rgba(58, 108, 180, 0.08);
 
   /* Brown — carries the cards and the primary button */
-  --brown: #785050;
-  --brown-deep: #5b3c3c;
-  --brown-soft: #906060;
-  --card-hover: #e7dad2;
+  --brown: #5e3a3a; /* heavier than the sampled #785050 */
+  --brown-deep: #452929;
+  --brown-soft: #8a6060;
+  --card-hover: #e0d0c6;
 
   --radius-flat: 2px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -178,10 +178,11 @@ body {
   .chip {
     display: inline-flex;
     align-items: center;
+    height: 1.75rem;
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 0.75rem;
     color: var(--brown);
-    background: rgba(120, 80, 80, 0.1);
+    background: rgba(94, 58, 58, 0.12);
     border-radius: 4px;
     padding: 0.2rem 0.5rem;
     white-space: nowrap;
@@ -191,6 +192,7 @@ body {
   .chip-link {
     display: inline-flex;
     align-items: center;
+    height: 1.75rem;
     gap: 0.25rem;
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 0.75rem;
@@ -213,7 +215,7 @@ body {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 0.75rem;
     color: var(--brown);
-    background: rgba(120, 80, 80, 0.1);
+    background: rgba(94, 58, 58, 0.12);
     border-radius: 4px;
     padding: 0.2rem 0.5rem;
     white-space: nowrap;
@@ -286,7 +288,7 @@ html.js .rise {
 /* Interactive ASCII field (components/ascii-field.tsx). The element is
    sized in ch/line-height units so the JS grid measurement is stable. */
 .ascii-live {
-  font-size: clamp(8px, 1.15vw, 13px);
+  font-size: clamp(7px, 0.95vw, 11px);
   line-height: 1.15;
   white-space: pre;
   -webkit-user-select: none;
