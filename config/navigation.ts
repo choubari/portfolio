@@ -12,14 +12,14 @@ export const FooterSocials: { label: SocialPlatform; href: string }[] = [
 ];
 
 export const MainNav: { label: string; href: string }[] = [
+  { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
   { label: "Talks", href: "/talks" },
   { label: "Blog", href: "/blog" },
-  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
-/** Grouped footer links — everything not in the header lives here. */
+/** Grouped footer links. Everything not in the header is reachable here. */
 export const FooterGroups: {
   title: string;
   links: { label: string; href: string }[];
@@ -42,7 +42,7 @@ export const FooterGroups: {
     ],
   },
   {
-    title: "elsewhere",
+    title: "connect",
     links: [
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },

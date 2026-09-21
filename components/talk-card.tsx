@@ -1,5 +1,4 @@
 import type { Talk } from "@/types";
-import { youtubeThumb } from "@/lib/youtube";
 
 const RESOURCES: { key: keyof Talk; label: string }[] = [
   { key: "video", label: "video" },
@@ -10,54 +9,37 @@ const RESOURCES: { key: keyof Talk; label: string }[] = [
 ];
 
 /**
- * A talk row. The title leads, the host is the secondary line, and the
- * incidentals (type, duration, place) sit last and smallest — so the
- * three tiers are not all competing at the same weight.
+ * A talk row. Date sits in its own left rail; the title carries the weight;
+ * host and place are one quiet line; type and duration are tags, not prose.
+ * No auto-thumbnail here — covers are opt-in via `talk.cover`.
  */
 export function TalkCard({ talk }: { talk: Talk }) {
-  const thumb = youtubeThumb(talk.video);
-
   return (
-    <article className="row flex gap-5 py-5">
-      <div className="hidden w-32 shrink-0 sm:block">
-        {thumb ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={thumb}
-            alt=""
-            loading="lazy"
-            className="aspect-video w-full rounded-sm border border-[var(--rule)] object-cover"
-          />
-        ) : (
-          <div className="flex aspect-video w-full items-center justify-center rounded-sm border border-dashed border-[var(--rule)]">
-            <span className="mono">{talk.talkType.toLowerCase()}</span>
-          </div>
-        )}
-      </div>
+    <article className="row grid grid-cols-1 gap-x-8 gap-y-2 py-6 sm:grid-cols-[7rem_1fr]">
+      <p className="mono pt-1 tabular-nums">{talk.date}</p>
 
-      <div className="min-w-0 flex-1">
-        <h4 className="font-semibold leading-snug">{talk.title}</h4>
+      <div className="min-w-0">
+        <h4 className="text-lg font-semibold leading-snug">{talk.title}</h4>
 
-        <p className="mt-1 text-sm text-[var(--muted)]">
+        <p className="mt-1.5 text-[var(--muted)]">
           <a
             href={talk.hostLink || "#"}
             target="_blank"
             rel="noreferrer"
-            className="link"
+            className="font-medium text-[var(--ink)] transition-colors hover:text-[var(--accent)]"
           >
             {talk.host}
           </a>
-          <span className="font-sans"> · {talk.country}</span> {talk.city}
+          <span className="text-[var(--faint)]">
+            {" "}
+            — {talk.city}
+            {talk.country ? ` ${talk.country}` : ""}
+          </span>
         </p>
 
-        <p className="mono mt-2">
-          {talk.date}
-          {" · "}
-          {talk.talkType.toLowerCase()}
-          {talk.duration && ` · ${talk.duration}`}
-        </p>
-
-        <div className="mt-2.5 flex flex-wrap gap-3">
+        <div className="mt-3 flex flex-wrap items-center gap-1.5">
+          <span className="tag">{talk.talkType.toLowerCase()}</span>
+          {talk.duration && <span className="tag">{talk.duration}</span>}
           {RESOURCES.map(({ key, label }) => {
             const href = talk[key] as string | undefined;
             if (!href) return null;
@@ -67,9 +49,9 @@ export function TalkCard({ talk }: { talk: Talk }) {
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="mono text-[var(--action)] underline underline-offset-2 hover:text-[var(--action-deep)]"
+                className="tag border-[var(--accent)]/35 text-[var(--accent)] transition-colors hover:bg-[var(--accent-wash)]"
               >
-                {label}
+                {label} ↗
               </a>
             );
           })}

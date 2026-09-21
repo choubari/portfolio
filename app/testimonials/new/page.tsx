@@ -6,6 +6,7 @@ export default function SubmitTestimonialPage() {
     <div className="py-14 sm:py-20">
       <PageTitle
         comment="testimonials / new"
+        mark="quote"
         lede="Thank you for considering to leave a testimonial! Your feedback is greatly appreciated and helps others understand the value I strive to provide."
       >
         Submit a testimonial

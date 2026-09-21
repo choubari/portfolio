@@ -25,7 +25,7 @@ export function TalkThumb({ talk }: { talk: Talk }) {
             src={thumb}
             alt=""
             loading="lazy"
-            className="aspect-video w-full object-cover transition-transform duration-500 ease-ease group-hover:scale-[1.03]"
+            className="aspect-video w-full object-cover"
           />
         ) : (
           <div className="flex aspect-video w-full items-center justify-center bg-[var(--paper)] p-4">

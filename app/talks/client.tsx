@@ -38,6 +38,7 @@ export function TalksClient() {
     <div className="py-14 sm:py-20">
       <PageTitle
         comment="speaking"
+        mark="mic"
         lede="Wearing my speaker hat because sharing is caring!"
       >
         Talks &amp; Workshops
@@ -64,9 +65,11 @@ export function TalksClient() {
 
       {upcomingData.length > 0 && (
         <section className="mt-12">
-          <h3 className="comment flex items-baseline gap-2">
-            upcoming
-            <span className="text-[var(--faint)]">({upcomingData.length})</span>
+          <h3 className="flex items-baseline gap-3">
+            <span className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
+              Upcoming
+            </span>
+            <span className="h-px flex-1 bg-[var(--rule)]" />
           </h3>
           <div className="mt-4 border-t border-[var(--rule)]">
             {upcomingData.map((talk, i) => (
@@ -79,13 +82,12 @@ export function TalksClient() {
       )}
 
       {sortedYears.map((year) => (
-        <section key={year} className="mt-12">
-          <h3 className="comment flex items-baseline gap-2">
-            {year}
-            <span className="text-[var(--faint)]">
-              ({talksByYear[year].length}{" "}
-              {talksByYear[year].length === 1 ? "talk" : "talks"})
+        <section key={year} className="mt-14">
+          <h3 className="flex items-baseline gap-3">
+            <span className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--faint)]">
+              {year}
             </span>
+            <span className="h-px flex-1 bg-[var(--rule)]" />
           </h3>
           <div className="mt-4 border-t border-[var(--rule)]">
             {talksByYear[year].map((talk, i) => (

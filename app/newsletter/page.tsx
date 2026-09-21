@@ -12,6 +12,7 @@ export default async function NewsletterPage() {
     <div className="py-14 sm:py-20">
       <PageTitle
         comment="newsletter"
+        mark="mail"
         lede="The One Place to Learn, Laugh, and Level Up Your Coding Skills!"
       >
         {NEWSLETTER_FEED.title}

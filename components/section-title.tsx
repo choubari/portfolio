@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { AsciiMark } from "@/components/ascii-mark";
 
 interface PageTitleProps {
   children: React.ReactNode;
@@ -6,6 +7,8 @@ interface PageTitleProps {
   comment?: string;
   lede?: React.ReactNode;
   className?: string;
+  /** Name of the ASCII glyph shown beside the title. */
+  mark?: string;
 }
 
 /** Page heading: a `// comment` line, a tight display line, an optional lede. */
@@ -14,24 +17,28 @@ export function PageTitle({
   comment,
   lede,
   className,
+  mark = "rocket",
 }: PageTitleProps) {
   return (
-    <header className={cn("flex flex-col gap-3", className)}>
-      {comment && <span className="comment rise">{comment}</span>}
-      <h1
-        className="display rise text-balance"
-        style={{ "--rise-delay": "60ms" } as React.CSSProperties}
-      >
-        {children}
-      </h1>
-      {lede && (
-        <p
-          className="rise mt-1 max-w-2xl text-lg leading-relaxed text-[var(--muted)]"
-          style={{ "--rise-delay": "120ms" } as React.CSSProperties}
+    <header className={cn("flex items-start justify-between gap-6", className)}>
+      <div className="flex min-w-0 flex-col gap-3">
+        {comment && <span className="comment rise">{comment}</span>}
+        <h1
+          className="display rise text-balance"
+          style={{ "--rise-delay": "60ms" } as React.CSSProperties}
         >
-          {lede}
-        </p>
-      )}
+          {children}
+        </h1>
+        {lede && (
+          <p
+            className="rise mt-1 max-w-2xl text-lg leading-relaxed text-[var(--muted)]"
+            style={{ "--rise-delay": "120ms" } as React.CSSProperties}
+          >
+            {lede}
+          </p>
+        )}
+      </div>
+      <AsciiMark name={mark} className="rise mt-1 hidden sm:block" />
     </header>
   );
 }

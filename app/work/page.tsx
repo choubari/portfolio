@@ -5,25 +5,39 @@ import { PageTitle, SectionTitle } from "@/components/section-title";
 import { Reveal } from "@/components/motion/reveal";
 import { WorkTimeline } from "@/components/work-timeline";
 import { ProjectGrid } from "@/components/project-grid";
+import { TOP_REPOS } from "@/config/featured";
+import { Experience } from "@/config/experience";
 
 export const metadata: Metadata = {
   title: "Work — Kawtar Choubari",
   description:
-    "Professional experience, personal projects and open source by Kawtar Choubari.",
+    "Professional experience, side projects and open source by Kawtar Choubari.",
 };
 
 export default async function WorkPage() {
   const repos = await fetchGithubRepos();
+  const topRepos = [...repos]
+    .sort((a, b) => b.stargazers_count - a.stargazers_count)
+    .slice(0, TOP_REPOS);
+
+  const shown = 4;
 
   return (
     <div className="py-14 sm:py-20">
-      <PageTitle comment="work">Everything I&apos;ve built</PageTitle>
+      {/* TODO(copy): title and project blurbs are yours to rewrite. */}
+      <PageTitle
+        comment="work"
+        mark="grid"
+        lede="Where I've worked, what I've shipped on my own, and what I maintain in the open."
+      >
+        Work
+      </PageTitle>
 
-      <section className="mt-14">
+      <section className="mt-16">
         <Reveal>
           <SectionTitle
             action={{
-              label: "LinkedIn",
+              label: "Full history on LinkedIn",
               href: "https://linkedin.com/in/choubari",
             }}
           >
@@ -31,13 +45,26 @@ export default async function WorkPage() {
           </SectionTitle>
         </Reveal>
         <div className="mt-6">
-          <WorkTimeline />
+          <WorkTimeline limit={shown} />
         </div>
+        {Experience.length > shown && (
+          <p className="mono mt-4">
+            + {Experience.length - shown} earlier roles —{" "}
+            <a
+              href="https://linkedin.com/in/choubari"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[var(--accent)] hover:text-[var(--accent-deep)]"
+            >
+              see LinkedIn ↗
+            </a>
+          </p>
+        )}
       </section>
 
       <section className="mt-20">
         <Reveal>
-          <SectionTitle>projects</SectionTitle>
+          <SectionTitle>side projects</SectionTitle>
         </Reveal>
         <div className="mt-8">
           <ProjectGrid />
@@ -47,14 +74,14 @@ export default async function WorkPage() {
       <section className="mt-20">
         <Reveal>
           <SectionTitle
-            action={{ label: "GitHub", href: "https://github.com/choubari" }}
+            action={{ label: `All ${repos.length} repos`, href: "/oss" }}
           >
-            open source
+            open source — most starred
           </SectionTitle>
         </Reveal>
         <div className="mt-4 border-t border-[var(--rule)]">
-          {repos.map((repo, i) => (
-            <Reveal key={repo.id} delay={Math.min(i, 6) * 40}>
+          {topRepos.map((repo, i) => (
+            <Reveal key={repo.id} delay={i * 40}>
               <RepoCard repo={repo} />
             </Reveal>
           ))}

@@ -5,17 +5,35 @@ import { SectionTitle } from "@/components/section-title";
 import { ProjectGrid } from "@/components/project-grid";
 import { TalkThumb } from "@/components/talk-thumb";
 import { BrandButton } from "@/components/brand-button";
+import { LinkedInFeed } from "@/components/linkedin-posts";
 import TestimonialCard from "@/components/testimonial-card";
+import RepoCard from "@/components/repo-card";
 import { Talks } from "@/content/talks";
 import { getTestimonials } from "@/lib/strapi";
+import { fetchGithubRepos } from "@/lib/utils";
+import {
+  FeaturedTalkTitles,
+  FeaturedTestimonialIds,
+  TOP_REPOS,
+} from "@/config/featured";
 
 export default async function Home() {
-  const featuredTalks = [...Talks]
-    .filter((t) => t.video)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 3);
+  // Explicitly chosen in config/featured.ts, in that order — not "latest N".
+  const featuredTalks = FeaturedTalkTitles.map((title) =>
+    Talks.find((t) => t.title.trim() === title.trim())
+  ).filter((t): t is (typeof Talks)[number] => Boolean(t));
 
-  const testimonials = (await getTestimonials()).slice(0, 2);
+  const allTestimonials = await getTestimonials();
+  const featuredTestimonials = FeaturedTestimonialIds.length
+    ? FeaturedTestimonialIds.map((id) =>
+        allTestimonials.find((t) => t.id === id)
+      ).filter(Boolean)
+    : allTestimonials.slice(0, 2);
+
+  const repos = await fetchGithubRepos();
+  const topRepos = [...repos]
+    .sort((a, b) => b.stargazers_count - a.stargazers_count)
+    .slice(0, 3);
 
   return (
     <>
@@ -24,7 +42,7 @@ export default async function Home() {
       <section className="pb-20">
         <Reveal>
           <SectionTitle action={{ label: "All work", href: "/work" }}>
-            work
+            selected work
           </SectionTitle>
         </Reveal>
         <div className="mt-8">
@@ -35,7 +53,7 @@ export default async function Home() {
       <section className="pb-20">
         <Reveal>
           <SectionTitle action={{ label: "All talks", href: "/talks" }}>
-            talks
+            speaking
           </SectionTitle>
         </Reveal>
         <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-3">
@@ -47,24 +65,60 @@ export default async function Home() {
         </div>
       </section>
 
-      {testimonials.length > 0 && (
+      <section className="pb-20">
+        <Reveal>
+          <SectionTitle
+            action={{ label: `All ${repos.length} repos`, href: "/oss" }}
+          >
+            open source
+          </SectionTitle>
+        </Reveal>
+        <div className="mt-4 border-t border-[var(--rule)]">
+          {topRepos.map((repo, i) => (
+            <Reveal key={repo.id} delay={i * 50}>
+              <RepoCard repo={repo} />
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {featuredTestimonials.length > 0 && (
         <section className="pb-20">
           <Reveal>
             <SectionTitle
               action={{ label: "All testimonials", href: "/testimonials" }}
             >
-              testimonials
+              kind words
             </SectionTitle>
           </Reveal>
           <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2">
-            {testimonials.map((t) => (
-              <Reveal key={t.id}>
-                <TestimonialCard testimonial={t} />
-              </Reveal>
-            ))}
+            {featuredTestimonials.map(
+              (t) =>
+                t && (
+                  <Reveal key={t.id}>
+                    <TestimonialCard testimonial={t} />
+                  </Reveal>
+                )
+            )}
           </div>
         </section>
       )}
+
+      <section className="pb-20">
+        <Reveal>
+          <SectionTitle
+            action={{
+              label: "LinkedIn",
+              href: "https://linkedin.com/in/choubari",
+            }}
+          >
+            recent posts
+          </SectionTitle>
+        </Reveal>
+        <div className="mt-8">
+          <LinkedInFeed />
+        </div>
+      </section>
 
       <section className="pb-4">
         <Reveal className="flex flex-col items-start gap-5">

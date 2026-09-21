@@ -8,7 +8,7 @@ export default function AboutPage() {
   return (
     <div className="py-14 sm:py-20">
       <div className="flex items-start justify-between gap-8">
-        <PageTitle comment="about" lede="Engineering, Educating, Entertaining.">
+        <PageTitle comment="about" mark="star" lede="Engineering, Educating, Entertaining.">
           Meet Kawtar
         </PageTitle>
         <Image

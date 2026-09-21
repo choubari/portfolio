@@ -22,7 +22,7 @@ export function ProjectGrid({ limit }: { limit?: number }) {
                 alt={`${project.name} screenshot`}
                 width={1200}
                 height={750}
-                className="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 ease-ease group-hover:scale-[1.02]"
+                className="aspect-[16/10] w-full object-cover object-top"
               />
             </div>
 

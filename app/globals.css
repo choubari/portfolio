@@ -9,35 +9,45 @@
    ========================================================================== */
 
 :root {
-  /* Paper */
-  --paper: #f4f2ee; /* LinkedIn canvas */
-  --surface: #ffffff;
+  /* Palette sampled from the scarf in the profile photo:
+     blue #4878B8 · brown #785050 · cream #D8D8E0. */
 
-  /* Rules — hairlines, never card borders */
-  --rule: rgba(25, 25, 25, 0.12);
-  --rule-strong: rgba(25, 25, 25, 0.3);
+  /* Paper & surfaces */
+  --paper: #f5f2ed; /* warm cream */
+  --surface: #ffffff;
+  --card: #efe6e0; /* brown tinted to a card ground */
+  --card-edge: rgba(120, 80, 80, 0.16);
+
+  /* Rules — warm hairlines, never card borders */
+  --rule: rgba(120, 80, 80, 0.18);
+  --rule-strong: rgba(120, 80, 80, 0.38);
 
   /* Ink */
-  --ink: #191919;
-  --muted: #5e5e5e;
-  --faint: #8c8c8c;
+  --ink: #1c1917;
+  --muted: #5c524e;
+  --faint: #8c7f79;
 
-  /* Action colour, sampled from the gradient behind the profile photo:
-     #64A6E0 (light end) -> #486CD2 (deep end). --action is darkened to
-     #3F5FC4 so links clear 5.2:1 on paper; --action-soft is the photo's
-     light end, used for ASCII art and decoration only. */
-  --action: #3f5fc4;
-  --action-deep: #2b449b;
-  --action-soft: #64a6e0;
-  --action-mid: #486cd2;
-  --action-wash: rgba(63, 95, 196, 0.07);
+  /* Accent — the scarf blue, enhanced to clear 4.7:1 on paper */
+  --accent: #3a6cb4;
+  --accent-deep: #2a5490;
+  --accent-soft: #a0b0d0;
+  --accent-wash: rgba(58, 108, 180, 0.08);
+
+  /* Brown, for marks and warm emphasis */
+  --brown: #785050;
+  --brown-soft: #906060;
 
   --radius-flat: 2px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --edge: clamp(1.25rem, 5vw, 2.5rem);
 
-  /* Legacy aliases so any component not touched here still renders sanely */
-  --color-accent: var(--action);
+  /* Aliases kept so untouched components still render */
+  --action: var(--accent);
+  --action-deep: var(--accent-deep);
+  --action-mid: var(--accent);
+  --action-soft: var(--accent-soft);
+  --action-wash: var(--accent-wash);
+  --color-accent: var(--accent);
   --color-background: var(--paper);
   --color-background-alt: var(--surface);
 }
@@ -125,6 +135,13 @@ body {
   .panel {
     background: var(--surface);
     border: 1px solid var(--rule);
+    border-radius: var(--radius-flat);
+  }
+
+  /* Card — the warm brown ground, used for previews and media */
+  .card-warm {
+    background: var(--card);
+    border: 1px solid var(--card-edge);
     border-radius: var(--radius-flat);
   }
 
@@ -263,25 +280,25 @@ html.js .rise {
 
 @layer base {
   :root {
-    --background: 40 24% 95%;
-    --foreground: 0 0% 10%;
+    --background: 38 30% 95%;
+    --foreground: 24 10% 10%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
-    --primary: 209 90% 40%;
+    --primary: 214 51% 46%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 40 16% 91%;
+    --secondary: 22 32% 91%;
     --secondary-foreground: 0 0% 10%;
-    --muted: 40 16% 91%;
-    --muted-foreground: 0 0% 37%;
-    --accent: 209 90% 40%;
+    --muted: 22 32% 91%;
+    --muted-foreground: 17 8% 34%;
+    --accent: 214 51% 46%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 88%;
-    --input: 0 0% 88%;
-    --ring: 209 90% 40%;
+    --border: 0 22% 86%;
+    --input: 0 22% 86%;
+    --ring: 214 51% 46%;
     --radius: 2px;
   }
 }
