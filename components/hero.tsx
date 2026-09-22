@@ -37,14 +37,10 @@ export function Hero() {
         </p>
 
         <div
-          className="rise mt-9 flex flex-wrap items-center gap-3"
+          className="rise mt-9 flex flex-wrap items-center gap-6"
           style={{ "--rise-delay": "180ms" } as React.CSSProperties}
         >
           <AsciiButton href="/contact">Let&apos;s work together</AsciiButton>
-          {/* Plain text link, not an outlined button: an outline next to a
-              solid one reads as two equally weighted actions. */}
-          {/* No arrow: the solid button owns that signal. Brown, not the
-              blue accent, so it pairs with the CTA row rather than the label. */}
           <a
             href="mailto:contact@choubari.com?subject=Speaking%20invitation"
             className="font-medium text-[var(--brown)] underline decoration-[var(--brown)]/40 underline-offset-4 transition-colors hover:decoration-[var(--brown)]"

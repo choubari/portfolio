@@ -127,9 +127,6 @@ export default async function AboutPage() {
               },
               { value: "430K+", label: "users on B2C apps" },
               { value: "12K+", label: "users on B2B apps" },
-              // Not derived: config/experience.ts only lists the 4 roles shown
-              // on /work, while the real total includes RifTech, Orange Maroc
-              // and Daba'Go.
               { value: "6", label: "companies worked with" },
             ].map((stat) => (
               <div key={stat.label}>
