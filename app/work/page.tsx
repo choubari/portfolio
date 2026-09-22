@@ -24,11 +24,8 @@ export default async function WorkPage() {
 
   return (
     <div className="py-14 sm:py-20">
-      {/* TODO(copy): title and project blurbs are yours to rewrite. */}
       <PageTitle
-        comment="work"
-        mark="crates"
-        lede="Where I've worked, what I've shipped on my own, and what I maintain in the open."
+        lede="Where I've worked, what I've shipped, and what I maintain in the open."
       >
         Work
       </PageTitle>
@@ -41,30 +38,17 @@ export default async function WorkPage() {
               href: "https://linkedin.com/in/choubari",
             }}
           >
-            experience
+            professional experience
           </SectionTitle>
         </Reveal>
         <div className="mt-6">
           <WorkTimeline limit={shown} />
         </div>
-        {Experience.length > shown && (
-          <p className="mono mt-4">
-            + {Experience.length - shown} earlier roles —{" "}
-            <a
-              href="https://linkedin.com/in/choubari"
-              target="_blank"
-              rel="noreferrer"
-              className="text-[var(--accent)] hover:text-[var(--accent-deep)]"
-            >
-              see LinkedIn ↗
-            </a>
-          </p>
-        )}
       </section>
 
       <section className="mt-20">
         <Reveal>
-          <SectionTitle>side projects</SectionTitle>
+          <SectionTitle>featured projects</SectionTitle>
         </Reveal>
         <div className="mt-8">
           <ProjectGrid />
@@ -74,9 +58,9 @@ export default async function WorkPage() {
       <section className="mt-20">
         <Reveal>
           <SectionTitle
-            action={{ label: `All ${repos.length} repos`, href: "/oss" }}
+            action={{ label: `All repos`, href: "/oss" }}
           >
-            open source — most starred
+            open source
           </SectionTitle>
         </Reveal>
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">

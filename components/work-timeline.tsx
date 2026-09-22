@@ -7,7 +7,7 @@ export function WorkTimeline({ limit }: { limit?: number }) {
   const roles = limit ? Experience.slice(0, limit) : Experience;
 
   return (
-    <ul >
+    <ul className="list-sep">
       {roles.map((role, i) => (
         <Reveal as="li" key={`${role.company}-${role.start}`} delay={i * 50}>
           <div className="row flex gap-4 py-6">

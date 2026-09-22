@@ -67,10 +67,19 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      /* Was: sm, md and lg all mapped to var(--radius) = 2px, which is why
+         every card rendered square while the header and footer used
+         one-off pixel values. */
       borderRadius: {
-        lg: "var(--radius)",
-        md: "var(--radius)",
-        sm: "var(--radius)",
+        none: "0px",
+        xs: "var(--radius-xs)",
+        sm: "var(--radius-sm)",
+        DEFAULT: "var(--radius-sm)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)",
+        xl: "var(--radius-lg)",
+        "2xl": "var(--radius-lg)",
+        full: "9999px",
       },
       transitionTimingFunction: {
         ease: "cubic-bezier(0.22, 1, 0.36, 1)",

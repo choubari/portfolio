@@ -10,9 +10,10 @@ const SOCIAL_ICONS = FooterSocials.filter((s) => s.href.startsWith("http"));
  * identity block on the left, link columns on the right, one baseline rule.
  */
 export function Footer() {
+  // Rounded slab inset from the page edges, so the paper shows around it.
   return (
-    <footer className="bleed mt-24 bg-[var(--card)]">
-      <div className="mx-auto max-w-5xl px-[var(--edge)] py-16">
+    <footer className="mt-24 px-[var(--edge)] pb-[var(--edge)]">
+      <div className="mx-auto max-w-5xl rounded-lg bg-[var(--card)] px-8 py-14 sm:px-12">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_1.4fr]">
           {/* Identity */}
           <div>
@@ -28,14 +29,13 @@ export function Footer() {
                 <p className="text-lg font-bold leading-tight">
                   Kawtar Choubari
                 </p>
-                <p className="mono">Full stack engineer · Paris</p>
+                <p className="mono">AI Full Stack Engineer</p>
               </div>
             </div>
 
-            {/* TODO(copy): yours to sharpen. */}
             <p className="mt-5 max-w-sm text-[0.9375rem] leading-relaxed text-[var(--muted)]">
-              Shipping products at startup velocity — React, React Native and
-              AI. Open to freelance work and speaking invitations.
+              Shipping new products and fixing legacy code at startup velocity
+              with AI 🚀
             </p>
 
             <ul className="mt-6 flex flex-wrap gap-1.5">
@@ -52,7 +52,7 @@ export function Footer() {
                       rel="noopener noreferrer"
                       aria-label={social.label}
                       title={social.label}
-                      className="flex h-9 w-9 items-center justify-center rounded-[6px] text-[1rem] text-[var(--brown)] transition-colors hover:bg-[var(--brown)] hover:text-[var(--card)]"
+                      className="flex h-9 w-9 items-center justify-center rounded-sm text-[1rem] text-[var(--brown)] transition-colors hover:bg-[var(--brown)] hover:text-[var(--card)]"
                     >
                       <Icon />
                     </a>
@@ -86,9 +86,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--brown)]/20 pt-6">
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-3">
           <p className="mono">
-            Cooked in Paris — © {new Date().getFullYear()}
+            Crafted in Paris - {new Date().getFullYear()}
           </p>
           <a
             href="https://github.com/choubari/portfolio"
@@ -96,7 +96,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="mono font-medium text-[var(--brown)] underline underline-offset-4 hover:text-[var(--brown-deep)]"
           >
-            source ↗
+            source code ↗
           </a>
         </div>
       </div>

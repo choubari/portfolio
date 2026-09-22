@@ -3,6 +3,7 @@ import { Talk } from "@/types";
 export const Talks: Talk[] = [
   {
     title: "Lightning Talk: React Anti-Patterns In AI-Generated Code",
+    cover: "/talks/react-anti-patterns-ai.png",
     host: "React Paris",
     country: "🇫🇷",
     city: "Paris",
@@ -95,6 +96,7 @@ export const Talks: Talk[] = [
   },
   {
     title: "React Server Components Deep Dive",
+    cover: "/talks/react-server-components-deep-dive.png",
     host: "O'Reilly Media",
     country: "🌐",
     city: "Online",
@@ -172,6 +174,7 @@ export const Talks: Talk[] = [
   },
   {
     title: "Modern Web Development with Next.js 13",
+    cover: "/talks/nextjs-13-modern-web-dev.png",
     host: "Devoxx Morocco",
     country: "🇲🇦",
     city: "Agadir",

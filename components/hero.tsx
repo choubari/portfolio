@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { BrandButton } from "@/components/brand-button";
-import { Ascii3D } from "@/components/ascii-3d";
+import { AsciiButton } from "@/components/ascii-button";
+import { AsciiField } from "@/components/ascii-field";
 
 export function Hero() {
   return (
@@ -10,43 +9,49 @@ export function Hero() {
           className="comment rise"
           style={{ "--rise-delay": "0ms" } as React.CSSProperties}
         >
-          full stack engineer · paris
+          AI Full Stack Engineer · Paris
         </p>
 
-        {/* TODO(copy): yours to rewrite. */}
         <h1
           className="rise mt-4 text-[clamp(2.5rem,4.6vw,3.75rem)] font-bold leading-[1.04] tracking-[-0.03em]"
           style={{ "--rise-delay": "60ms" } as React.CSSProperties}
         >
-          Kawtar Choubari
+          Hi, I'm Kawtar Choubari
         </h1>
 
         <p
           className="rise mt-5 max-w-lg text-[1.35rem] leading-[1.45] text-[var(--muted)]"
           style={{ "--rise-delay": "120ms" } as React.CSSProperties}
         >
-          I build products from zero at startup speed — 
+          I build 
           <span className="font-semibold text-[var(--ink)]">
             {" "}
-            React, React Native and AI
+            new products {" "}
           </span>
-          . And I talk about it on stage.
+          and 
+          <span className="font-semibold text-[var(--ink)]">
+            {" "}
+            fix legacy code
+          </span>
+        {" "} at startup speed with AI 🚀
         </p>
 
         <div
           className="rise mt-9 flex flex-wrap items-center gap-3"
           style={{ "--rise-delay": "180ms" } as React.CSSProperties}
         >
-          <Link href="/contact">
-            <BrandButton>Let&apos;s work together</BrandButton>
-          </Link>
-          <a href="mailto:contact@choubari.com?subject=Speaking%20invitation">
-            <BrandButton tone="ghost">Invite me to speak</BrandButton>
-          </a>
+          <AsciiButton href="/contact">Let&apos;s work together</AsciiButton>
+          <AsciiButton
+            href="mailto:contact@choubari.com?subject=Speaking%20invitation"
+            tone="ghost"
+            external
+          >
+            Invite me to speak
+          </AsciiButton>
         </div>
       </div>
 
-      <Ascii3D className="order-1 h-[260px] w-full sm:h-[360px] lg:order-2 lg:h-[440px]" />
+      <AsciiField className="order-1 h-[260px] w-full sm:h-[360px] lg:order-2 lg:h-[440px]" />
     </section>
   );
 }

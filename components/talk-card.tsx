@@ -1,5 +1,4 @@
 import type { Talk } from "@/types";
-import { youtubeThumb } from "@/lib/youtube";
 
 const RESOURCES: { key: keyof Talk; label: string }[] = [
   { key: "video", label: "video" },
@@ -9,36 +8,22 @@ const RESOURCES: { key: keyof Talk; label: string }[] = [
   { key: "demoLink", label: "demo" },
 ];
 
-/** A talk as a card, with its thumbnail. */
+/**
+ * A talk on the /talks index. Same shape as a blog row: date in a left
+ * rail, title, then supporting detail. No thumbnail and no card — those
+ * are reserved for the three featured talks on the homepage.
+ */
 export function TalkCard({ talk }: { talk: Talk }) {
-  const thumb = talk.cover ?? youtubeThumb(talk.video);
-
   return (
-    <article className="card flex flex-col gap-5 p-5 sm:flex-row">
-      <div className="w-full shrink-0 sm:w-56">
-        {thumb ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={thumb}
-            alt=""
-            loading="lazy"
-            className="aspect-video w-full rounded-[6px] border border-[var(--card-edge)] object-cover"
-          />
-        ) : (
-          <div className="flex aspect-video w-full items-center justify-center rounded-[6px] bg-[var(--brown)]/10 p-3">
-            <span className="mono text-center font-semibold text-[var(--brown)]">
-              {talk.host}
-            </span>
-          </div>
-        )}
-      </div>
+    <article className="row grid grid-cols-1 gap-x-8 gap-y-1 py-6 sm:grid-cols-[9rem_1fr]">
+      <p className="mono pt-1 tabular-nums">{talk.date}</p>
 
-      <div className="min-w-0 flex-1">
-        <p className="mono">{talk.date}</p>
-        <h4 className="mt-1 text-[1.0625rem] font-semibold leading-snug">
+      <div className="min-w-0">
+        <h4 className="text-[1.0625rem] font-semibold leading-snug">
           {talk.title}
         </h4>
-        <p className="mt-1.5 text-[var(--muted)]">
+
+        <p className="mt-1 text-[var(--muted)]">
           <a
             href={talk.hostLink || "#"}
             target="_blank"
@@ -47,15 +32,17 @@ export function TalkCard({ talk }: { talk: Talk }) {
           >
             {talk.host}
           </a>
-          <span className="text-[var(--brown-soft)]">
+          <span className="text-[var(--faint)]">
             {" "}
             — {talk.city} {talk.country}
           </span>
         </p>
 
-        <div className="mt-3.5 flex flex-wrap items-center gap-2">
-          <span className="chip">{talk.talkType.toLowerCase()}</span>
-          {talk.duration && <span className="chip">{talk.duration}</span>}
+        <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="mono uppercase tracking-[0.1em]">
+            {talk.talkType}
+            {talk.duration && ` · ${talk.duration}`}
+          </span>
           {RESOURCES.map(({ key, label }) => {
             const href = talk[key] as string | undefined;
             if (!href) return null;
@@ -65,7 +52,7 @@ export function TalkCard({ talk }: { talk: Talk }) {
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="chip-link"
+                className="mono font-medium text-[var(--accent)] underline underline-offset-4 hover:text-[var(--accent-deep)]"
               >
                 {label} ↗
               </a>

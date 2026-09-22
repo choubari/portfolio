@@ -11,14 +11,13 @@ export default async function NewsletterPage() {
   return (
     <div className="py-14 sm:py-20">
       <PageTitle
-        comment="newsletter"
         lede="The One Place to Learn, Laugh, and Level Up Your Coding Skills!"
       >
         {NEWSLETTER_FEED.title}
       </PageTitle>
 
       <Reveal delay={150}>
-        <div className="panel mt-8 max-w-md p-1">
+        <div className="panel mt-8 max-w-md p-5">
           <NewsletterBox type="slim" />
         </div>
       </Reveal>

@@ -1,7 +1,6 @@
 "use client";
 import SelectMenu from "@/components/ui/dropdown";
 import { PageTitle } from "@/components/section-title";
-import { AsciiEnvelope } from "@/components/ascii-envelope";
 import { ContactPurpose } from "@/content/contact";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
@@ -78,12 +77,10 @@ export default function ContactForm() {
     <div>
       <div className="flex flex-col-reverse items-start justify-between gap-8 sm:flex-row sm:items-center">
         <PageTitle
-          comment="contact"
-          lede="Feel free to reach out if you're interested in working together."
+          lede="If you have a project in mind or just want to say hi, feel free to reach out!"
         >
-          Let&apos;s chat
+          Let&apos;s talk
         </PageTitle>
-        <AsciiEnvelope className="shrink-0" />
       </div>
 
       <div className="mt-12 max-w-xl">

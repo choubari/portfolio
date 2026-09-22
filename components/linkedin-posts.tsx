@@ -1,5 +1,6 @@
 import { LinkedInPosts, embedSrc } from "@/config/linkedin";
 import { Reveal } from "@/components/motion/reveal";
+import { HScroll } from "@/components/h-scroll";
 
 /**
  * LinkedIn post embeds. Renders nothing but a pointer until real post urns
@@ -17,11 +18,10 @@ export function LinkedInFeed() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+    <HScroll itemClassName="w-[21rem]">
       {LinkedInPosts.map((post, i) => (
-        <Reveal key={post.urn} delay={(i % 2) * 80}>
+        <Reveal key={`${post.urn}-${i}`} delay={(i % 2) * 80}>
           <figure className="flex h-full flex-col">
-            <figcaption className="mono mb-2">{post.title}</figcaption>
             <iframe
               src={embedSrc(post.urn)}
               title={post.title}
@@ -35,6 +35,6 @@ export function LinkedInFeed() {
           </figure>
         </Reveal>
       ))}
-    </div>
+    </HScroll>
   );
 }

@@ -1,23 +1,13 @@
 import Link from "next/link";
-import Image from "next/image";
 import { PageTitle } from "@/components/section-title";
 import { Reveal } from "@/components/motion/reveal";
 
 export default function AboutPage() {
   return (
     <div className="py-14 sm:py-20">
-      <div className="flex items-start justify-between gap-8">
-        <PageTitle comment="about"  lede="Engineering, Educating, Entertaining.">
-          Meet Kawtar
-        </PageTitle>
-        <Image
-          src="/kawtar.png"
-          alt="Kawtar Choubari"
-          width={112}
-          height={112}
-          className="hidden h-28 w-28 shrink-0 rounded-full sm:block"
-        />
-      </div>
+      <PageTitle lede="Engineering, Educating, Entertaining.">
+        Meet Kawtar
+      </PageTitle>
 
       <section className="mt-12 max-w-2xl space-y-4 leading-relaxed text-[var(--muted)]">
         <Reveal>

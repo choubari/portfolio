@@ -1,14 +1,16 @@
 import type { Talk } from "@/types";
 import { youtubeThumb } from "@/lib/youtube";
+import { MediaOverlay } from "@/components/media-overlay";
 
 /**
- * Talk as a thumbnail card. Uses the YouTube still where a recording
- * exists, and a typographic placeholder where it does not.
+ * Talk as a thumbnail card. Uses `talk.cover` when set, otherwise the
+ * YouTube still, and a typographic placeholder when there is neither.
  * Plain <img>: next/image is configured `unoptimized`, so it would add
  * remote-pattern config for no benefit.
  */
 export function TalkThumb({ talk }: { talk: Talk }) {
-  const thumb = youtubeThumb(talk.video);
+  // An explicit cover always wins over the YouTube still.
+  const thumb = talk.cover ?? youtubeThumb(talk.video);
   const href = talk.video || talk.slides || talk.hostLink || "/talks";
 
   return (
@@ -34,10 +36,12 @@ export function TalkThumb({ talk }: { talk: Talk }) {
         )}
 
         {talk.video && (
-          <span className="mono absolute bottom-2 right-2 rounded-sm bg-white/90 px-1.5 py-0.5 text-[var(--ink)]">
+          <span className="mono absolute bottom-2 right-2 rounded-xs bg-white/90 px-1.5 py-0.5 text-[var(--ink)] transition-opacity duration-300 group-hover:opacity-0">
             ▶ {talk.duration ?? "watch"}
           </span>
         )}
+
+        <MediaOverlay label={talk.video ? "Watch" : "Open"} />
       </div>
 
       <h3 className="mt-3 font-medium leading-snug transition-colors group-hover:text-[var(--action)]">

@@ -1,7 +1,7 @@
 import { SocialPlatform } from "@/types";
 
 export const FooterSocials: { label: SocialPlatform; href: string }[] = [
-  { label: "Twitter", href: "https://twitter.com/choubari_" },
+  { label: "X", href: "https://twitter.com/choubari_" },
   { label: "Github", href: "https://github.com/choubari" },
   { label: "Linkedin", href: "https://linkedin.com/in/choubari" },
   { label: "YouTube", href: "https://www.youtube.com/@choubari" },
@@ -16,7 +16,7 @@ export const MainNav: { label: string; href: string }[] = [
   { label: "Work", href: "/work" },
   { label: "Talks", href: "/talks" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
+  { label: "Let's talk ↗", href: "/contact" },
 ];
 
 /** Grouped footer links. Everything not in the header is reachable here. */
@@ -27,18 +27,19 @@ export const FooterGroups: {
   {
     title: "work",
     links: [
-      { label: "Experience & projects", href: "/work" },
+      { label: "All projects", href: "/work" },
+      { label: "Public Talks", href: "/talks" },
       { label: "Open source", href: "/oss" },
-      { label: "Testimonials", href: "/testimonials" },
+
     ],
   },
   {
     title: "words",
     links: [
-      { label: "Talks", href: "/talks" },
+      { label: "Testimonials", href: "/testimonials" },
       { label: "Blog", href: "/blog" },
       { label: "Newsletter", href: "/newsletter" },
-      { label: "Creator", href: "/creator" },
+      { label: "Content Creation", href: "/creator" },
     ],
   },
   {
@@ -46,6 +47,10 @@ export const FooterGroups: {
     links: [
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
+      {
+        label: "Invite me to speak",
+        href: "mailto:contact@choubari.com?subject=Speaking%20invitation",
+      },
       { label: "Leave a testimonial", href: "/testimonials/new" },
     ],
   },

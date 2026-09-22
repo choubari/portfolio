@@ -22,17 +22,30 @@ export type Role = {
 export const Experience: Role[] = [
   {
     company: "Alobees",
-    title: "Full Stack Engineer",
+    title: "Full Stack Engineer (Full-time)",
     period: "Oct 2023 — now",
-    start: "2023-10-01",
+    start: "2023-10-02",
     location: "Paris",
     summary:
-      "Construction-management SaaS. Joined the early team; shipped 20+ features across web, backend and mobile, and cut TypeScript build time by 93%.",
+    "Construction-management SaaS. Joined the early team; shipped 20+ features across web, backend and mobile, and cut TypeScript build time by 93%.",
     stack: ["TypeScript", "React", "Next.js", "Node.js", "React Native"],
     logo: "/logos/alobees.png",
     href: "https://alobees.com",
     current: true,
     note: "Acquired — merged with Traxxeo to form Eternia Group",
+  },
+  {
+    company: "Astrova",
+    title: "Full Stack Developer (Part-time)",
+    period: "Jan 2026 — now",
+    start: "2026-01-01",
+    location: "Paris",
+    summary:
+      "Maintain and extend client apps with new featuresserving 1000+ users.",
+    stack: ["Supabase", "PostgreSQL", "Angular", "Spring Boot", "Digital Ocean"],
+    logo: "/logos/astrova.png",
+    href: "https://astrova.fr",
+    current: true,
   },
   {
     company: "O'Reilly Media",
@@ -42,7 +55,7 @@ export const Experience: Role[] = [
     location: "Remote",
     summary:
       "Taught a 3-hour live course on React Server Components — App Router, streaming SSR and rendering strategies.",
-    stack: ["React", "Next.js", "RSC"],
+    stack: ["React", "Next.js", "Server Components"],
     logo: "/logos/oreilly.png",
     href: "https://www.oreilly.com",
   },
@@ -50,23 +63,13 @@ export const Experience: Role[] = [
     company: "Zenpark",
     title: "R&D Software Engineer",
     period: "Feb — Aug 2022",
-    start: "2022-02-01",
+    start: "2022-02-15",
     location: "Paris",
     summary:
       "Urban parking apps for 430,000+ users. Two-person mobile squad; shipped GDPR work, a new onboarding flow and an Apple CarPlay integration.",
     stack: ["React Native", "TypeScript", "CI/CD"],
     logo: "/logos/zenpark.png",
     href: "https://www.zenpark.com",
-  },
-  {
-    company: "RifTech",
-    title: "Mobile Application Developer",
-    period: "Aug — Oct 2021",
-    start: "2021-08-01",
-    location: "New Jersey (remote)",
-    summary:
-      "Built Avicenne, a healthcare app, from Figma prototype to a shipped React Native client on their existing APIs.",
-    stack: ["React Native", "Figma", "REST"],
   },
   {
     company: "Orange Maroc",

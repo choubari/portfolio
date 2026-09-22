@@ -6,7 +6,7 @@ import { Talks as TalksData } from "@/content/talks";
 import { TalkCard } from "@/components/talk-card";
 import { PageTitle } from "@/components/section-title";
 import { Reveal } from "@/components/motion/reveal";
-import { cn } from "@/lib/utils";
+import { FilterChip } from "@/components/filter-chip";
 
 export function TalksClient() {
   const [activeType, setActiveType] = useState<string | null>(null);
@@ -37,7 +37,6 @@ export function TalksClient() {
   return (
     <div className="py-14 sm:py-20">
       <PageTitle
-        comment="speaking"
 
         lede="Wearing my speaker hat because sharing is caring!"
       >
@@ -73,7 +72,7 @@ export function TalksClient() {
               ({upcomingData.length})
             </span>
           </h3>
-          <div className="mt-5 space-y-5">
+          <div className="list-sep mt-5">
             {upcomingData.map((talk, i) => (
               <Reveal key={`${talk.title}-${i}`} delay={i * 50}>
                 <TalkCard talk={talk} />
@@ -92,7 +91,7 @@ export function TalksClient() {
               {talksByYear[year].length === 1 ? "talk" : "talks"})
             </span>
           </h3>
-          <div className="mt-5 space-y-5">
+          <div className="list-sep mt-5">
             {talksByYear[year].map((talk, i) => (
               <Reveal key={`${talk.title}-${i}`} delay={Math.min(i, 5) * 50}>
                 <TalkCard talk={talk} />
@@ -109,27 +108,3 @@ export function TalksClient() {
   );
 }
 
-function FilterChip({
-  active,
-  onClick,
-  label,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      aria-pressed={active}
-      className={cn(
-        "rounded-[6px] px-3 py-1.5 font-mono text-sm font-medium transition-colors",
-        active
-          ? "bg-[var(--brown)] text-white"
-          : "bg-[var(--brown)]/10 text-[var(--brown)] hover:bg-[var(--brown)]/20"
-      )}
-    >
-      {label}
-    </button>
-  );
-}

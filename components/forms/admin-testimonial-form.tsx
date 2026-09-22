@@ -336,7 +336,7 @@ export default function TestimonialForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 max-w-2xl mx-auto bg-[var(--color-background)] p-6 sm:p-8 rounded-lg shadow-xl"
+      className="card space-y-6 p-6 sm:p-8"
     >
       <div>
         <label className={`${labelStyles} mb-1`}>

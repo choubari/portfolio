@@ -1,38 +1,37 @@
 import { Hero } from "@/components/hero";
-import { CallToAction } from "@/components/cta";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionTitle } from "@/components/section-title";
-import { ProjectGrid } from "@/components/project-grid";
+import { HScroll } from "@/components/h-scroll";
+import { ProjectCard } from "@/components/project-card";
+import { Projects } from "@/config/projects";
 import { TalkThumb } from "@/components/talk-thumb";
+import { CallToAction } from "@/components/cta";
 import { LinkedInFeed } from "@/components/linkedin-posts";
 import TestimonialCard from "@/components/testimonial-card";
-import RepoCard from "@/components/repo-card";
 import { Talks } from "@/content/talks";
 import { getTestimonials } from "@/lib/strapi";
-import { fetchGithubRepos } from "@/lib/utils";
 import {
   FeaturedTalkTitles,
   FeaturedTestimonialIds,
-  TOP_REPOS,
+  FeaturedProjectNames,
 } from "@/config/featured";
 
 export default async function Home() {
-  // Explicitly chosen in config/featured.ts, in that order — not "latest N".
+  // Chosen explicitly in config/featured.ts, in that order — not "latest N".
   const featuredTalks = FeaturedTalkTitles.map((title) =>
     Talks.find((t) => t.title.trim() === title.trim())
   ).filter((t): t is (typeof Talks)[number] => Boolean(t));
+
+  const featuredProjects = FeaturedProjectNames.map((n) =>
+    Projects.find((p) => p.name === n)
+  ).filter((p): p is (typeof Projects)[number] => Boolean(p));
 
   const allTestimonials = await getTestimonials();
   const featuredTestimonials = FeaturedTestimonialIds.length
     ? FeaturedTestimonialIds.map((id) =>
         allTestimonials.find((t) => t.id === id)
       ).filter(Boolean)
-    : allTestimonials.slice(0, 2);
-
-  const repos = await fetchGithubRepos();
-  const topRepos = [...repos]
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 3);
+    : allTestimonials.slice(0, 6);
 
   return (
     <>
@@ -45,7 +44,11 @@ export default async function Home() {
           </SectionTitle>
         </Reveal>
         <div className="mt-8">
-          <ProjectGrid limit={2} />
+          <HScroll itemClassName="w-[calc(50%-2.25rem)] min-w-[16rem]">
+            {featuredProjects.map((project) => (
+              <ProjectCard key={project.name} project={project} />
+            ))}
+          </HScroll>
         </div>
       </section>
 
@@ -58,30 +61,12 @@ export default async function Home() {
             speaking
           </SectionTitle>
         </Reveal>
-        <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-3">
-          {featuredTalks.map((talk, i) => (
-            <Reveal key={talk.title} delay={i * 70}>
-              <TalkThumb talk={talk} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="pb-20">
-        <Reveal>
-          <SectionTitle
-            count={repos.length}
-            action={{ label: "All repos", href: "/oss" }}
-          >
-            open source
-          </SectionTitle>
-        </Reveal>
-        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
-          {topRepos.map((repo, i) => (
-            <Reveal key={repo.id} delay={i * 50}>
-              <RepoCard repo={repo} />
-            </Reveal>
-          ))}
+        <div className="mt-8">
+          <HScroll itemClassName="w-[20rem]">
+            {featuredTalks.map((talk) => (
+              <TalkThumb key={talk.title} talk={talk} />
+            ))}
+          </HScroll>
         </div>
       </section>
 
@@ -92,17 +77,12 @@ export default async function Home() {
               count={allTestimonials.length}
               action={{ label: "All testimonials", href: "/testimonials" }}
             >
-              kind words
+              what people say
             </SectionTitle>
           </Reveal>
-          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2">
+          <div className="masonry mt-8 columns-1 sm:columns-2 lg:columns-3">
             {featuredTestimonials.map(
-              (t) =>
-                t && (
-                  <Reveal key={t.id}>
-                    <TestimonialCard testimonial={t} />
-                  </Reveal>
-                )
+              (t) => t && <TestimonialCard key={t.id} testimonial={t} />
             )}
           </div>
         </section>

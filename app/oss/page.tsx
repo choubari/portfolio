@@ -9,8 +9,6 @@ export default async function OSS() {
   return (
     <div className="py-14 sm:py-20">
       <PageTitle
-        comment="open source"
-        mark="github"
         lede="Projects I've built and shared publicly."
       >
         Open Source

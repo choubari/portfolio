@@ -9,15 +9,37 @@
  */
 export const FeaturedTalkTitles: string[] = [
   "Lightning Talk: React Anti-Patterns In AI-Generated Code",
-  "What you should know before vibe coding with React ",
-  "Your First Job as a fresh Graduate",
+  "What you should know before vibe coding with React",
+  "How I capture testimonials before they disappear",
+  "React Server Components Deep Dive",
+  "Modern Web Development with Next.js 13",
 ];
 
 /**
- * Testimonials featured on the homepage, by Strapi id.
- * Leave empty to fall back to the first two returned by the CMS.
+ * Projects shown on the homepage, by name, in this order. Anything listed
+ * here that is marked `homeOnly` in config/projects.ts appears on the
+ * homepage but not on /work.
  */
-export const FeaturedTestimonialIds: number[] = [];
+export const FeaturedProjectNames: string[] = [
+  "Closer",
+  "tv tracker",
+  "Awesome-Muslims",
+];
+
+/**
+ * Testimonials featured on the homepage, by Strapi id, in this order.
+ * Names are noted so the list stays readable — the id is what matters.
+ * Leave empty to fall back to the first six the CMS returns.
+ */
+export const FeaturedTestimonialIds: number[] = [
+  22, // Aditya Sharan — Software Engineer, Google
+  30, // Lahoucine Karroum — Frontend developer, CODPARTNER
+  1, // Kevin Z. — Developer, PayFit
+  23, // Pierre Burgy — Co-founder & CEO, Strapi.io
+  10, // Soufiane Ezzaim — Regional Operations Manager, ExpertEye
+  12, // Amine Kili — Co-Founder & CTO
+  18, // Aymane Helfa — UX/UI Designer, Orange
+];
 
 /** How many starred repos the /work and homepage previews show. */
-export const TOP_REPOS = 5;
+export const TOP_REPOS = 3;

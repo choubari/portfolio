@@ -1,26 +1,18 @@
 import { cn } from "@/lib/utils";
-import { AsciiMark } from "@/components/ascii-mark";
 
 interface PageTitleProps {
   children: React.ReactNode;
-  comment?: string;
   lede?: React.ReactNode;
   className?: string;
-  /** Name of the ASCII glyph shown beside the title. */
-  mark?: string;
 }
 
 export function PageTitle({
   children,
-  comment,
   lede,
   className,
-  mark,
 }: PageTitleProps) {
   return (
-    <header className={cn("flex items-start justify-between gap-8", className)}>
-      <div className="flex min-w-0 flex-col gap-3">
-        {comment && <span className="comment rise">{comment}</span>}
+    <header className={cn("flex flex-col gap-3", className)}>
         <h1
           className="display rise text-balance"
           style={{ "--rise-delay": "60ms" } as React.CSSProperties}
@@ -35,8 +27,6 @@ export function PageTitle({
             {lede}
           </p>
         )}
-      </div>
-      {mark && <AsciiMark name={mark} className="rise hidden shrink-0 sm:block" />}
     </header>
   );
 }
@@ -46,7 +36,17 @@ interface SectionTitleProps {
   action?: { label: string; href: string };
   /** Optional count shown next to the heading, e.g. 25 */
   count?: number | string;
+  /** Anchor id. Defaults to a slug of the heading text. */
+  id?: string;
   className?: string;
+}
+
+/** "selected work" -> "selected-work" */
+function slugify(node: React.ReactNode): string {
+  return String(node)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 /**
@@ -57,8 +57,10 @@ export function SectionTitle({
   children,
   action,
   count,
+  id,
   className,
 }: SectionTitleProps) {
+  const anchor = id ?? slugify(children);
   return (
     <div
       className={cn(
@@ -66,8 +68,14 @@ export function SectionTitle({
         className
       )}
     >
-      <h2 className="section-head">
-        {children}
+      <h2 id={anchor} className="section-head scroll-mt-24">
+        {/* The whole heading is the anchor link. */}
+        <a
+          href={`#${anchor}`}
+          className="transition-colors hover:text-[var(--accent)]"
+        >
+          {children}
+        </a>
         {count !== undefined && (
           <span className="font-mono text-base font-medium text-[var(--brown-soft)]">
             ({count})

@@ -15,8 +15,8 @@ export default async function TestimonialsPage() {
         <ToastClient />
       </Suspense>
 
-      <PageTitle comment="testimonials"  lede="What they're saying.">
-        Kind words
+      <PageTitle lede="What they're saying.">
+        Testimonials
       </PageTitle>
 
       <div className="mt-10">

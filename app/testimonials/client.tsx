@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { FilterChip } from "@/components/filter-chip";
 import TestimonialCard from "@/components/testimonial-card";
 import { TESTIMONIAL_CATEGORY } from "@/types";
 import { StrapiTestimonialAttributes } from "@/types/strapi";
@@ -35,45 +35,35 @@ export default function TestimonialsClient({
     );
   });
 
-  const getButtonClasses = (isActive: boolean) =>
-    cn(
-      "mono underline-offset-4 transition-colors",
-      isActive
-        ? "text-[var(--action)] underline"
-        : "text-[var(--muted)] hover:text-[var(--ink)]"
-    );
 
   return (
     <>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <button
+      <div className="flex flex-wrap items-center gap-2">
+        <FilterChip
+          active={!activeCategoryKey}
           onClick={() => setActiveCategoryKey(null)}
-          className={getButtonClasses(!activeCategoryKey)}
-        >
-          All ({testimonials.length})
-        </button>
+          label={`all (${testimonials.length})`}
+        />
         {availableCategoryKeys.map((categoryKey, index, array) => {
           const categoryValue = TESTIMONIAL_CATEGORY[categoryKey];
           const count = testimonials.filter((testimonial) =>
             (testimonial.categories as string[]).includes(categoryKey)
           ).length;
           return (
-            <span key={categoryKey}>
-              <button
-                onClick={() =>
-                  setActiveCategoryKey(
-                    activeCategoryKey === categoryKey ? null : categoryKey
-                  )
-                }
-                className={getButtonClasses(activeCategoryKey === categoryKey)}
-              >
-                {categoryValue} ({count})
-              </button>
-            </span>
+            <FilterChip
+              key={categoryKey}
+              active={activeCategoryKey === categoryKey}
+              onClick={() =>
+                setActiveCategoryKey(
+                  activeCategoryKey === categoryKey ? null : categoryKey
+                )
+              }
+              label={`${categoryValue} (${count})`}
+            />
           );
         })}
       </div>
-      <div className="mt-10 columns-1 gap-10 sm:columns-2">
+      <div className="masonry mt-10 columns-1 sm:columns-2 lg:columns-3">
         {filteredTestimonials.map((testimonial) => (
           <TestimonialCard key={testimonial.id} testimonial={testimonial} />
         ))}

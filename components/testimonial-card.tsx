@@ -52,7 +52,8 @@ export default function TestimonialCard({
     </>
   );
 
-  const cls = "card mb-6 block break-inside-avoid p-6";
+  // Block, not flex: these live in a CSS-columns masonry.
+  const cls = "card block break-inside-avoid p-6";
 
   return testimonial_link ? (
     <a

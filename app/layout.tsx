@@ -98,7 +98,10 @@ export default function RootLayout({
             </a>
             <div className="flex min-h-screen flex-col">
               <Navbar />
-              <main id="main" className="flex flex-1 flex-col pt-14">
+              <main
+                id="main"
+                className="flex flex-1 flex-col pt-24"
+              >
                 <SpeedInsight />
                 <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-[var(--edge)]">
                   {children}

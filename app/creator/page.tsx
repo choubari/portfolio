@@ -37,11 +37,11 @@ async function followersByPlatform(): Promise<PlatformCounts[]> {
   ]);
 
   return [
-    { name: "YouTube", label: "subscribers", count: youtubeCount },
-    { name: "Instagram", label: "followers", count: instagramCount },
-    { name: "X", label: "followers", count: twitterCount },
-    { name: "Github", label: "followers", count: githubCount },
     { name: "Linkedin", label: "followers", count: linkedinCount },
+    { name: "X", label: "followers", count: twitterCount },
+    { name: "Instagram", label: "followers", count: instagramCount },
+    { name: "YouTube", label: "subscribers", count: youtubeCount },
+    { name: "Github", label: "followers", count: githubCount },
     { name: "Facebook", label: "page likes", count: facebookCount },
     { name: "TikTok", label: "followers", count: tiktokCount },
     { name: "Newsletter", label: "subscribers", count: newsletterCount },
@@ -54,7 +54,6 @@ export default async function Creator() {
   return (
     <div className="py-14 sm:py-20">
       <PageTitle
-        comment="creator"
         lede="Educating yet entertaining content for the dev community."
       >
         Content Creation
