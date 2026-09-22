@@ -305,13 +305,13 @@ export default function TestimonialForm() {
   };
 
   const inputStyles =
-    "mt-1 block w-full px-3 py-2 bg-transparent border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] sm:text-sm text-white disabled:opacity-70 disabled:cursor-not-allowed";
-  const labelStyles = "block text-sm font-medium text-gray-300";
+    "mt-2 w-full p-2.5 rounded-sm border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] disabled:opacity-70 disabled:cursor-not-allowed";
+  const labelStyles = "block font-medium";
 
-  const dropZoneClasses = `mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md h-64 text-center cursor-pointer relative ${
+  const dropZoneClasses = `mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-sm h-64 text-center cursor-pointer relative ${
     isDraggingOver
       ? "border-[var(--color-accent)] bg-[var(--color-accent)] bg-opacity-10"
-      : "border-gray-600 hover:border-[var(--color-accent)]"
+      : "border-[var(--rule)] hover:border-[var(--color-accent)]"
   }`;
 
   useEffect(() => {
@@ -336,7 +336,7 @@ export default function TestimonialForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 max-w-2xl mx-auto bg-[var(--color-background)] p-6 sm:p-8 rounded-lg shadow-xl"
+      className="space-y-6"
     >
       <div>
         <label className={`${labelStyles} mb-1`}>
@@ -367,7 +367,7 @@ export default function TestimonialForm() {
               <img
                 src={screenshotPreviewUrl}
                 alt="Screenshot Preview"
-                className="max-h-full max-w-full object-contain rounded-md shadow-md"
+                className="max-h-full max-w-full object-contain rounded-sm shadow-md"
               />
               <div className="flex gap-2 absolute bottom-2 left-1/2 transform -translate-x-1/2">
                 <button
@@ -376,7 +376,7 @@ export default function TestimonialForm() {
                     e.preventDefault();
                     processImageWithOCR(formData.screenshot as File);
                   }}
-                  className="px-3 py-1.5 bg-[var(--color-accent)] text-white rounded-md text-sm hover:bg-opacity-90 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 bg-[var(--color-accent)] text-[var(--paper)] rounded-sm text-sm hover:bg-opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isOcrProcessing}
                 >
                   {isOcrProcessing ? "Processing..." : "Process with OCR"}
@@ -388,7 +388,7 @@ export default function TestimonialForm() {
                     e.stopPropagation();
                     clearScreenshot();
                   }}
-                  className="px-3 py-1.5 bg-red-600 text-white rounded-md text-sm hover:bg-red-700 transition-colors z-10 shadow-lg"
+                  className="px-3 py-1.5 bg-red-600 text-[var(--ink)] rounded-sm text-sm hover:bg-red-700 transition-colors z-10"
                   aria-label="Remove screenshot"
                 >
                   Remove
@@ -400,7 +400,7 @@ export default function TestimonialForm() {
               <span className="font-medium text-[var(--color-accent)] hover:text-opacity-80">
                 Click to upload or drag and drop
               </span>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-[var(--muted)] mt-1">
                 PNG, JPG, GIF up to 10MB. Or paste image.
               </p>
             </div>
@@ -408,7 +408,7 @@ export default function TestimonialForm() {
         </label>
       </div>
 
-      <hr className="border-gray-700" />
+      <hr className="border-[var(--rule)]" />
 
       <div>
         <label htmlFor="name" className={labelStyles}>
@@ -536,7 +536,7 @@ export default function TestimonialForm() {
           {Object.entries(TESTIMONIAL_CATEGORY).map(([key, value]) => (
             <label
               key={key}
-              className="flex items-center space-x-2 text-gray-300 hover:text-white cursor-pointer"
+              className="flex items-center space-x-2 text-[var(--muted)] hover:text-[var(--ink)] cursor-pointer"
             >
               <input
                 type="checkbox"
@@ -546,7 +546,7 @@ export default function TestimonialForm() {
                   key as keyof typeof TESTIMONIAL_CATEGORY
                 )}
                 onChange={handleCategoryChange}
-                className="form-checkbox h-4 w-4 text-[var(--color-accent)] bg-gray-700 border-gray-600 rounded focus:ring-[var(--color-accent)] focus:ring-offset-gray-800"
+                className="form-checkbox h-4 w-4 text-[var(--color-accent)] bg-[var(--rule)] border-[var(--rule)] rounded focus:ring-[var(--color-accent)] focus:ring-offset-[var(--paper)]"
                 disabled={isLoading}
               />
               <span>{value}</span>
@@ -561,26 +561,26 @@ export default function TestimonialForm() {
       <div>
         <label className={labelStyles}>Status</label>
         <div className="mt-2 flex space-x-4">
-          <label className="flex items-center space-x-2 text-gray-300 hover:text-white cursor-pointer">
+          <label className="flex items-center space-x-2 text-[var(--muted)] hover:text-[var(--ink)] cursor-pointer">
             <input
               type="radio"
               name="status"
               value="draft"
               checked={formData.status === "draft"}
               onChange={handleChange}
-              className="form-radio h-4 w-4 text-[var(--color-accent)] bg-gray-700 border-gray-600 focus:ring-[var(--color-accent)] focus:ring-offset-gray-800"
+              className="form-radio h-4 w-4 text-[var(--color-accent)] bg-[var(--rule)] border-[var(--rule)] focus:ring-[var(--color-accent)] focus:ring-offset-[var(--paper)]"
               disabled={isLoading}
             />
             <span>Draft</span>
           </label>
-          <label className="flex items-center space-x-2 text-gray-300 hover:text-white cursor-pointer">
+          <label className="flex items-center space-x-2 text-[var(--muted)] hover:text-[var(--ink)] cursor-pointer">
             <input
               type="radio"
               name="status"
               value="published"
               checked={formData.status === "published"}
               onChange={handleChange}
-              className="form-radio h-4 w-4 text-[var(--color-accent)] bg-gray-700 border-gray-600 focus:ring-[var(--color-accent)] focus:ring-offset-gray-800"
+              className="form-radio h-4 w-4 text-[var(--color-accent)] bg-[var(--rule)] border-[var(--rule)] focus:ring-[var(--color-accent)] focus:ring-offset-[var(--paper)]"
               disabled={isLoading}
             />
             <span>Publish</span>
@@ -592,7 +592,7 @@ export default function TestimonialForm() {
         <button
           type="submit"
           disabled={isLoading || formData.categories.length === 0}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-[var(--color-accent)] hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-accent)] focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-[var(--color-accent)] text-white font-medium rounded-sm px-6 py-3 h-auto w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? "Submitting..." : "Submit Testimonial"}
         </button>

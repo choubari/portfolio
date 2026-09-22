@@ -3,169 +3,104 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "./logo";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { MainNav } from "@/config/navigation";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const getIsActive = (path: string) => {
-    if (path === "/" && pathname === "/") return true;
-    if (path !== "/" && pathname === path) return true;
-    return false;
-  };
+  // Flat and transparent at the top; becomes a glass pill once the page
+  // scrolls under it.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const linkStyle = (path: string) => {
-    return {
-      color: getIsActive(path) ? "var(--color-accent)" : "",
-    };
-  };
+  // Close the disclosure whenever the route changes.
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
-  const handleMenuToggle = () => setMenuOpen((open) => !open);
-  const handleLinkClick = () => setMenuOpen(false);
+  const isActive = (path: string) =>
+    path === "/" ? pathname === "/" : pathname.startsWith(path);
+
+  // The open mobile menu always needs a surface, even at scroll position 0.
+  const solid = scrolled || open;
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-10 border-b border-gray-800"
-      style={{
-        backgroundColor: "var(--color-background)",
-        backdropFilter: "blur(8px)",
-      }}
-    >
-      <div className="container mx-auto px-4 max-w-5xl">
-        <div className="flex justify-between items-center h-16">
+    <nav className="fixed inset-x-0 top-0 z-40 px-[var(--edge)] pt-4">
+      <div
+        className={cn(
+          "mx-auto max-w-5xl transition-all duration-300 ease-ease",
+          open ? "overflow-hidden" : "",
+          solid
+            ? "rounded-lg border border-[var(--card-edge)] bg-[rgba(245,242,237,0.8)] shadow-[0_10px_30px_-12px_rgba(94,58,58,0.25)] backdrop-blur-xl backdrop-saturate-150"
+            : "rounded-none border border-transparent bg-transparent shadow-none",
+          open && "rounded-lg"
+        )}
+      >
+        <div className="flex h-14 items-center justify-between px-5 sm:px-6">
           <Logo />
-          <button
-            className="md:hidden ml-2 p-2 rounded text-accent focus:outline-none focus:ring-2 focus:ring-accent"
-            onClick={handleMenuToggle}
-            aria-label={
-              menuOpen ? "Close navigation menu" : "Open navigation menu"
-            }
-          >
-            {menuOpen ? (
-              <X
-                className="h-6 w-6 text-accent"
-                style={{
-                  color: "var(--color-accent)",
-                }}
-              />
-            ) : (
-              <Menu
-                className="h-6 w-6 text-accent"
-                style={{
-                  color: "var(--color-accent)",
-                }}
-              />
-            )}
-          </button>
-          <ul className="hidden md:flex space-x-8">
-            <li>
-              <Link
-                href="/about"
-                className="capitalize transition-colors hover-accent"
-                style={linkStyle("/about")}
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/talks"
-                className="capitalize transition-colors hover-accent"
-                style={linkStyle("/talks")}
-              >
-                Talks
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/blog"
-                className="capitalize transition-colors hover-accent"
-                style={linkStyle("/blog")}
-              >
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact"
-                className="capitalize transition-colors hover-accent"
-                style={linkStyle("/contact")}
-              >
-                Contact
-              </Link>
-            </li>
+
+          <ul className="hidden items-center gap-6 sm:flex">
+            {MainNav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={cn(
+                    "text-[0.9375rem] font-medium transition-colors",
+                    isActive(item.href)
+                      ? "text-[var(--accent)]"
+                      : "text-[var(--muted)] hover:text-[var(--accent)]"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
-        </div>
-        <div
-          className={`md:hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-20 transition-opacity duration-200 ${
-            menuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          }`}
-          onClick={handleMenuToggle}
-          aria-hidden={!menuOpen}
-        />
-        <ul
-          className={`md:hidden fixed top-0 right-0 h-auto w-3/4 max-w-xs bg-gray-800 z-30 shadow-lg p-8 space-y-6 transform transition-transform duration-200 ${
-            menuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-          role="menu"
-          aria-label="Mobile navigation"
-        >
+
           <button
-            className="absolute top-4 right-4 p-2 rounded focus:outline-none focus:ring-2 focus:ring-accent"
-            aria-label="Close navigation menu"
-            onClick={handleMenuToggle}
+            className="mono -mr-1 p-1 font-semibold text-[var(--ink)] sm:hidden"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
           >
-            <X
-              className="h-6 w-6 text-accent"
-              style={{
-                color: "var(--color-accent)",
-              }}
-            />
+            {open ? "[ close ]" : "[ menu ]"}
           </button>
-          <li>
-            <Link
-              href="/about"
-              className="block text-lg capitalize"
-              style={linkStyle("/about")}
-              onClick={handleLinkClick}
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/talks"
-              className="block text-lg capitalize"
-              style={linkStyle("/talks")}
-              onClick={handleLinkClick}
-            >
-              Talks
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/blog"
-              className="block text-lg capitalize"
-              style={linkStyle("/blog")}
-              onClick={handleLinkClick}
-            >
-              Blog
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/contact"
-              className="block text-lg capitalize"
-              style={linkStyle("/contact")}
-              onClick={handleLinkClick}
-            >
-              Contact
-            </Link>
-          </li>
+        </div>
+
+        {/* Mobile: a plain disclosure, inside the shell so it clips */}
+        <ul
+          id="mobile-nav"
+          className={cn(
+            "overflow-hidden transition-[max-height] duration-300 ease-ease sm:hidden",
+            open ? "max-h-80 border-t border-[var(--card-edge)]" : "max-h-0"
+          )}
+        >
+          {MainNav.map((item, i) => (
+            <li key={item.href} className="mx-5">
+              <Link
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={cn(
+                  "row flex items-baseline gap-3 py-3",
+                  isActive(item.href)
+                    ? "text-[var(--accent)]"
+                    : "text-[var(--ink)]"
+                )}
+              >
+                <span className="mono">{String(i + 1).padStart(2, "0")}</span>
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>

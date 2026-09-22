@@ -1,37 +1,60 @@
-import { Button } from "@/components/ui/button";
-import { BrandButton } from "@/components/brand-button";
-import { BrandTag } from "@/components/brand-tag";
-import Link from "next/link";
+import { AsciiButton } from "@/components/ascii-button";
+import { AsciiField } from "@/components/ascii-field";
 
 export function Hero() {
   return (
-    <div className="flex items-center justify-center w-full min-h-[80vh] py-8 sm:py-12">
-      <div className="flex flex-col space-y-8 sm:space-y-12 w-full max-w-3xl px-4 sm:px-6">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
-          <span style={{ color: "var(--color-accent)" }}>
-            Coding & Storytelling:
-          </span>{" "}
-          <br />
-          That&apos;s what I do!
-        </h1>
-
-        <div className="flex flex-wrap gap-4">
-          <BrandTag>Engineering</BrandTag>
-          <BrandTag>Educating</BrandTag>
-          <BrandTag>Entertaining</BrandTag>
-        </div>
-
-        <p className="text-lg sm:text-xl leading-relaxed max-w-2xl">
-          I bring ambitious ideas to life with software engineering, and share
-          my expertise across conferences and social media.
+    <section className="grid min-h-[calc(100svh-6rem)] items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1fr_0.95fr] lg:gap-14">
+      <div className="order-2 lg:order-1">
+        <p
+          className="comment rise"
+          style={{ "--rise-delay": "0ms" } as React.CSSProperties}
+        >
+          AI Full Stack Engineer · Paris
         </p>
 
-        <div>
-          <Link href="/contact">
-            <BrandButton>Let&apos;s CHAT!</BrandButton>
-          </Link>
+        <h1
+          className="rise mt-4 text-[clamp(2.5rem,4.6vw,3.75rem)] font-bold leading-[1.04] tracking-[-0.03em]"
+          style={{ "--rise-delay": "60ms" } as React.CSSProperties}
+        >
+          Hi, I'm Kawtar Choubari
+        </h1>
+
+        <p
+          className="rise mt-5 max-w-lg text-[1.35rem] leading-[1.45] text-[var(--muted)]"
+          style={{ "--rise-delay": "120ms" } as React.CSSProperties}
+        >
+          I build 
+          <span className="font-semibold text-[var(--ink)]">
+            {" "}
+            new products {" "}
+          </span>
+          and 
+          <span className="font-semibold text-[var(--ink)]">
+            {" "}
+            fix legacy code
+          </span>
+        {" "} with senior-level ownership from first commit to launch 🚀
+        </p>
+
+        <div
+          className="rise mt-9 flex flex-wrap items-center gap-3"
+          style={{ "--rise-delay": "180ms" } as React.CSSProperties}
+        >
+          <AsciiButton href="/contact">Let&apos;s work together</AsciiButton>
+          {/* Plain text link, not an outlined button: an outline next to a
+              solid one reads as two equally weighted actions. */}
+          {/* No arrow: the solid button owns that signal. Brown, not the
+              blue accent, so it pairs with the CTA row rather than the label. */}
+          <a
+            href="mailto:contact@choubari.com?subject=Speaking%20invitation"
+            className="font-medium text-[var(--brown)] underline decoration-[var(--brown)]/40 underline-offset-4 transition-colors hover:decoration-[var(--brown)]"
+          >
+            Invite me to speak
+          </a>
         </div>
       </div>
-    </div>
+
+      <AsciiField className="order-1 h-[260px] w-full sm:h-[360px] lg:order-2 lg:h-[440px]" />
+    </section>
   );
 }

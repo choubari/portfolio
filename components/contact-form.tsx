@@ -1,5 +1,6 @@
 "use client";
 import SelectMenu from "@/components/ui/dropdown";
+import { PageTitle } from "@/components/section-title";
 import { ContactPurpose } from "@/content/contact";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
@@ -73,30 +74,16 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="py-8">
-      <div className="flex flex-col items-center text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">
-          Let
-          <span
-            className="text-4xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            '
-          </span>
-          s Chat
-          <span
-            className="text-4xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            .
-          </span>
-        </h1>
-        <p className="mb-3">
-          Feel free to reach out if you're interested in working together
-        </p>
+    <div>
+      <div className="flex flex-col-reverse items-start justify-between gap-8 sm:flex-row sm:items-center">
+        <PageTitle
+          lede="If you have a project in mind or just want to say hi, feel free to reach out!"
+        >
+          Let&apos;s talk
+        </PageTitle>
       </div>
 
-      <div className="lg:mx-16">
+      <div className="mt-12 max-w-xl">
         <form
           encType="multipart/form-data"
           onSubmit={handleSubmit}
@@ -111,7 +98,7 @@ export default function ContactForm() {
                 type="text"
                 id="fullname"
                 placeholder="John Doe"
-                className="w-full p-2.5 rounded-md border border-gray-800 bg-[#17191d] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
+                className="w-full p-2.5 rounded-sm border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
                 value={fullname}
                 onChange={(e) => setFullName(e.target.value)}
                 minLength={4}
@@ -127,7 +114,7 @@ export default function ContactForm() {
                 autoComplete="email"
                 placeholder="email@example.com"
                 id="email"
-                className="w-full p-2.5 rounded-md border border-gray-800 bg-[#17191d] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
+                className="w-full p-2.5 rounded-sm border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -154,7 +141,7 @@ export default function ContactForm() {
               id="message"
               rows={5}
               placeholder="Your message..."
-              className="w-full p-2.5 rounded-md border border-gray-800 bg-[#17191d] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
+              className="w-full p-2.5 rounded-sm border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
@@ -178,8 +165,8 @@ export default function ContactForm() {
           <button
             type="submit"
             className={cn(
-              loading ? "bg-gray-500" : "bg-[var(--color-accent)]",
-              "text-black font-medium rounded-md px-6 py-3 h-auto w-full md:w-auto"
+              loading ? "bg-[var(--rule)]" : "bg-[var(--color-accent)]",
+              "text-white font-medium rounded-sm px-6 py-3 h-auto w-full md:w-auto"
             )}
             disabled={loading}
           >

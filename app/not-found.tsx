@@ -3,18 +3,15 @@ import { BrandButton } from "@/components/brand-button";
 
 export default function NotFound() {
   return (
-    <div className="flex-1 flex items-center justify-center py-8">
-      <div className="max-w-2xl text-center">
-        <h1 className="text-6xl font-bold mb-6">
-          <span style={{ color: "var(--color-accent)" }}>404</span>
-        </h1>
-        <h2 className="text-3xl font-bold mb-8">Page Not Found</h2>
-        <p className="text-xl mb-8 text-gray-300">
-          This page doesn't exist or was a sacrifice of shipping fast. <br />
-          We're working on it and it might be available soon.
-        </p>
+    <div className="flex min-h-[60svh] flex-1 flex-col justify-center py-16">
+      <p className="comment">404</p>
+      <h1 className="display mt-4">Page not found</h1>
+      <p className="mt-5 max-w-xl leading-relaxed text-[var(--muted)]">
+        This page doesn&apos;t exist or was a sacrifice of shipping fast.
+      </p>
+      <div className="mt-8">
         <Link href="/">
-          <BrandButton>Back to Home</BrandButton>
+          <BrandButton>Back to home</BrandButton>
         </Link>
       </div>
     </div>

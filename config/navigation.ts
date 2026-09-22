@@ -1,12 +1,57 @@
 import { SocialPlatform } from "@/types";
 
 export const FooterSocials: { label: SocialPlatform; href: string }[] = [
-  { label: "Twitter", href: "https://twitter.com/choubari_" },
+  { label: "X", href: "https://twitter.com/choubari_" },
   { label: "Github", href: "https://github.com/choubari" },
   { label: "Linkedin", href: "https://linkedin.com/in/choubari" },
   { label: "YouTube", href: "https://www.youtube.com/@choubari" },
-  { label: "Instagram", href: "https://instagram.com/choubari" },
-  { label: "Facebook", href: "https://facebook.com/choubari" },
-  { label: "TikTok", href: "https://www.tiktok.com/@choubari" },
+  { label: "Instagram", href: "https://instagram.com/choubari_" },
+  { label: "Facebook", href: "https://facebook.com/choubarii" },
+  { label: "TikTok", href: "https://www.tiktok.com/@choubari_" },
   { label: "Newsletter", href: "/newsletter" },
+];
+
+export const MainNav: { label: string; href: string }[] = [
+  { label: "About", href: "/about" },
+  { label: "Work", href: "/work" },
+  { label: "Talks", href: "/talks" },
+  { label: "Blog", href: "/blog" },
+  { label: "Let's talk ↗", href: "/contact" },
+];
+
+/** Grouped footer links. Everything not in the header is reachable here. */
+export const FooterGroups: {
+  title: string;
+  links: { label: string; href: string }[];
+}[] = [
+  {
+    title: "work",
+    links: [
+      { label: "All projects", href: "/work" },
+      { label: "Public Talks", href: "/talks" },
+      { label: "Open source", href: "/oss" },
+
+    ],
+  },
+  {
+    title: "words",
+    links: [
+      { label: "Testimonials", href: "/testimonials" },
+      { label: "Blog", href: "/blog" },
+      { label: "Newsletter", href: "/newsletter" },
+      { label: "Content Creation", href: "/creator" },
+    ],
+  },
+  {
+    title: "connect",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
+      {
+        label: "Invite me to speak",
+        href: "mailto:contact@choubari.com?subject=Speaking%20invitation",
+      },
+      { label: "Leave a testimonial", href: "/testimonials/new" },
+    ],
+  },
 ];

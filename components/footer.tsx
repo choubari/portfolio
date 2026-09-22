@@ -1,99 +1,103 @@
 import Link from "next/link";
-import { Logo } from "./logo";
-import { SiGithub, SiNextdotjs, SiTailwindcss, SiVercel } from "react-icons/si";
-import NewsletterBox from "@/components/newsletter-box";
+import Image from "next/image";
+import { FooterGroups, FooterSocials } from "@/config/navigation";
+import SocialsIcon from "@/lib/socialsIconMap";
 
+const SOCIAL_ICONS = FooterSocials.filter((s) => s.href.startsWith("http"));
+
+/**
+ * Footer as a solid clay slab pinned to the bottom of the page — an
+ * identity block on the left, link columns on the right, one baseline rule.
+ */
 export function Footer() {
+  // Rounded slab inset from the page edges, so the paper shows around it.
   return (
-    <footer
-      className="w-full py-8 border-t border-gray-800"
-      style={{ backgroundColor: "var(--color-background)" }}
-    >
-      <div className="container mx-auto px-4 max-w-5xl">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
-          <div className="md:col-span-4">
-            <Logo />
-            <p className="mt-4 text-gray-400">
-              Bringing ambitious ideas to life with software & prompt
-              engineering
+    <footer className="mt-24 px-[var(--edge)] pb-[var(--edge)]">
+      <div className="mx-auto max-w-5xl rounded-lg bg-[var(--card)] px-8 py-14 sm:px-12">
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_1.4fr]">
+          {/* Identity */}
+          <div>
+            <div className="flex items-center gap-3">
+              <Image
+                src="/kawtar.png"
+                alt=""
+                width={44}
+                height={44}
+                className="h-11 w-11 rounded-full ring-1 ring-[var(--brown)]/25"
+              />
+              <div>
+                <p className="text-lg font-bold leading-tight">
+                  Kawtar Choubari
+                </p>
+                <p className="mono">AI Full Stack Engineer</p>
+              </div>
+            </div>
+
+            <p className="mt-5 max-w-sm text-[0.9375rem] leading-relaxed text-[var(--muted)]">
+              Shipping new products and fixing legacy code at startup velocity
+              with AI 🚀
             </p>
-          </div>
-          <div className="md:col-span-1"></div>
-          <div className="md:col-span-3">
-            <h2 className="text-xl font-bold mb-4">
-              Links
-              <span style={{ color: "var(--color-accent)" }}>.</span>
-            </h2>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="hover-accent">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/testimonials" className="hover-accent">
-                  Testimonials
-                </Link>
-              </li>
-              <li>
-                <Link href="/talks" className="hover-accent">
-                  Talks
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover-accent">
-                  Contact
-                </Link>
-              </li>
+
+            <ul className="mt-6 flex flex-wrap gap-1.5">
+              {SOCIAL_ICONS.map((social) => {
+                const Icon =
+                  SocialsIcon[
+                    social.label.toLowerCase() as keyof typeof SocialsIcon
+                  ] || SocialsIcon["none"];
+                return (
+                  <li key={social.label}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      title={social.label}
+                      className="flex h-9 w-9 items-center justify-center rounded-sm text-[1rem] text-[var(--brown)] transition-colors hover:bg-[var(--brown)] hover:text-[var(--card)]"
+                    >
+                      <Icon />
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
-          <div className="md:col-span-4">
-            <h2 className="text-xl font-bold mb-4">
-              Newsletter
-              <span style={{ color: "var(--color-accent)" }}>.</span>
-            </h2>
-            <p className="mb-3">
-              {" "}
-              <Link href={"/newsletter"} className="underline">
-                Occasional updates
-              </Link>
-              , unsubscribe anytime.
-            </p>
-            <NewsletterBox type="slim" />
+          {/* Links */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            {FooterGroups.map((group) => (
+              <div key={group.title}>
+                <h2 className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-[var(--brown)]">
+                  {group.title}
+                </h2>
+                <ul className="mt-4 space-y-2.5">
+                  {group.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-[0.9375rem] text-[var(--muted)] underline decoration-transparent underline-offset-4 transition-colors hover:text-[var(--brown-deep)] hover:decoration-[var(--brown)]"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="pt-8 mt-8 border-t border-gray-800 text-center text-sm text-gray-400">
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <span>© {new Date().getFullYear()} Copyright. Made with ❤️ by</span>
-            <a
-              href="https://twitter.com/choubari_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover-accent"
-              style={{ color: "var(--color-accent)" }}
-            >
-              @choubari_
-            </a>
-            <span>using</span>
-            <span className="flex items-center gap-1">
-              <SiNextdotjs />
-              <SiTailwindcss />
-              <SiGithub />
-              <SiVercel />
-            </span>
-            <span>. Proudly</span>
-            <a
-              href="https://github.com/choubari/portfolio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover-accent"
-              style={{ color: "var(--color-accent)" }}
-            >
-              Open-Source.
-            </a>
-          </div>
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-3">
+          <p className="mono">
+            Crafted in Paris - {new Date().getFullYear()}
+          </p>
+          <a
+            href="https://github.com/choubari/portfolio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mono font-medium text-[var(--brown)] underline underline-offset-4 hover:text-[var(--brown-deep)]"
+          >
+            source code ↗
+          </a>
         </div>
       </div>
     </footer>

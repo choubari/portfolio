@@ -11,14 +11,11 @@ const config = {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -29,11 +26,21 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        /* LinkedIn palette */
+        paper: "var(--paper)",
+        surface: "var(--surface)",
+        ink: "var(--ink)",
+        faint: "var(--faint)",
+        action: {
+          DEFAULT: "var(--action)",
+          deep: "var(--action-deep)",
+          wash: "var(--action-wash)",
+        },
         brand: {
-          light: "#63A1DD",
-          medium: "#4F75D5",
-          dark: "#1C3677",
-          text: "#8CC6FF",
+          light: "#4A9AE8",
+          medium: "#0A66C2",
+          dark: "#004182",
+          text: "#0A66C2",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -60,10 +67,22 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      /* Was: sm, md and lg all mapped to var(--radius) = 2px, which is why
+         every card rendered square while the header and footer used
+         one-off pixel values. */
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        none: "0px",
+        xs: "var(--radius-xs)",
+        sm: "var(--radius-sm)",
+        DEFAULT: "var(--radius-sm)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)",
+        xl: "var(--radius-lg)",
+        "2xl": "var(--radius-lg)",
+        full: "9999px",
+      },
+      transitionTimingFunction: {
+        ease: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
       keyframes: {
         "accordion-down": {

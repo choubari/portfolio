@@ -1,19 +1,12 @@
 import { cn } from "@/lib/utils";
 
-interface BrandTagProps {
+/** Static metadata chip. Filled, so it never reads as clickable. */
+export function BrandTag({
+  className,
+  children,
+}: {
   className?: string;
   children: React.ReactNode;
-}
-
-export function BrandTag({ className, children }: BrandTagProps) {
-  return (
-    <div
-      className={cn(
-        "inline-flex items-center justify-center bg-brand-light/20 text-brand-text border border-brand-light/30 rounded-md text-lg font-medium px-4 py-1",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+}) {
+  return <span className={cn("chip", className)}>{children}</span>;
 }

@@ -1,53 +1,46 @@
 import NewsletterBox from "@/components/newsletter-box";
 import { NEWSLETTER_FEED, getFeed } from "@/lib/rss";
 import { format } from "date-fns";
-import { Calendar } from "lucide-react";
+import { PageTitle } from "@/components/section-title";
+import { Reveal } from "@/components/motion/reveal";
 
 export default async function NewsletterPage() {
   const detailedFeed = await getFeed(NEWSLETTER_FEED.url);
   const items = detailedFeed.items;
 
   return (
-    <div className="py-8">
-      <div className="flex flex-col items-center text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">
-          {NEWSLETTER_FEED.title}
-          <span
-            className="text-4xl leading-3"
-            style={{ color: "var(--color-accent)" }}
-          >
-            .
-          </span>
-        </h1>
-        <p className="mb-3">
-          The One Place to Learn, Laugh, and Level Up Your Coding Skills!
-        </p>
-        <div className="md:w-96 mt-5">
-          <NewsletterBox type={"slim"} />
-        </div>
-      </div>
+    <div className="py-14 sm:py-20">
+      <PageTitle
+        lede="The One Place to Learn, Laugh, and Level Up Your Coding Skills!"
+      >
+        {NEWSLETTER_FEED.title}
+      </PageTitle>
 
-      <div className="lg:mx-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-          {items.map((item) => (
+      <Reveal delay={150}>
+        <div className="panel mt-8 max-w-md p-5">
+          <NewsletterBox type="slim" />
+        </div>
+      </Reveal>
+
+      <ul className="mt-12">
+        {items.map((item, i) => (
+          <Reveal as="li" key={item.link} delay={Math.min(i, 6) * 50}>
             <a
-              key={item.link}
-              className="border border-gray-800 rounded-lg p-5 bg-[#17191d] hover:border-[var(--color-accent)] transition-colors"
+              className="row group grid grid-cols-1 gap-x-8 gap-y-1 py-5 sm:grid-cols-[9rem_1fr]"
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="font-bold text-xl mb-2">{item.title}</div>
-              <p className="text-sm text-gray-400 flex items-center">
-                <Calendar className="h-4 w-4 mr-2" />
-                <span>
-                  {format(new Date(item.isoDate || ""), "MMMM d, yyyy")}
-                </span>
-              </p>
+              <span className="mono pt-0.5">
+                {item.isoDate ? format(new Date(item.isoDate), "MMM d, yyyy") : ""}
+              </span>
+              <h2 className="font-semibold transition-colors group-hover:text-[var(--action)]">
+                {item.title}
+              </h2>
             </a>
-          ))}
-        </div>
-      </div>
+          </Reveal>
+        ))}
+      </ul>
     </div>
   );
 }

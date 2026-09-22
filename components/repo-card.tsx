@@ -1,34 +1,37 @@
 import Link from "next/link";
 import { Repo } from "@/types";
-import { Star, GitBranch } from "lucide-react";
+import { Star, GitFork, ArrowUpRight } from "lucide-react";
 
 export default function RepoCard({ repo }: { repo: Repo }) {
   return (
-    <div className="flex flex-col h-full border border-gray-800 rounded-lg p-5 bg-[#17191d]">
-      <h3 className="text-xl font-semibold mb-2">
-        <Link
-          href={repo.html_url}
-          target="_blank"
-          rel="noreferrer"
-          className="hover:underline hover:text-[var(--color-accent)]"
-        >
+    <Link
+      href={repo.html_url}
+      target="_blank"
+      rel="noreferrer"
+      className="card group flex h-full flex-col p-6"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-[1.0625rem] font-semibold transition-colors group-hover:text-[var(--accent)]">
           {repo.name}
-        </Link>
-      </h3>
+        </h3>
+        <ArrowUpRight className="h-5 w-5 shrink-0 text-[var(--brown-soft)] transition-colors group-hover:text-[var(--accent)]" />
+      </div>
+
       {repo.description && (
-        <p className="flex-1 text-gray-300 mb-4">{repo.description}</p>
+        <p className="mt-2 flex-1 leading-relaxed text-[var(--muted)]">
+          {repo.description}
+        </p>
       )}
-      <div className="flex items-center gap-4 mt-auto text-gray-400">
-        <span className="inline-flex items-center gap-1">
+
+      <div className="mt-5 flex flex-wrap items-center gap-2">
+        {repo.language && <span className="chip">{repo.language}</span>}
+        <span className="chip gap-1.5">
           <Star className="h-4 w-4" /> {repo.stargazers_count}
         </span>
-        <span className="inline-flex items-center gap-1">
-          <GitBranch className="h-4 w-4" /> {repo.forks_count}
+        <span className="chip gap-1.5">
+          <GitFork className="h-4 w-4" /> {repo.forks_count}
         </span>
-        {repo.language && (
-          <span className="ml-auto text-gray-200">{repo.language}</span>
-        )}
       </div>
-    </div>
+    </Link>
   );
 }

@@ -2,106 +2,427 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-}
+/* ==========================================================================
+   Design tokens — light, LinkedIn palette.
+   Flat by construction: hairline rules instead of card borders, 2px radius,
+   no shadows. Colour is carried by one action blue and nothing else.
+   ========================================================================== */
 
 :root {
-  --color-accent: #63a1dd; /* blue primary */
-  --color-background: #282d34; /* Lighter color for navbar/footer */
-  --color-background-alt: #1f2329; /* Darker color for main content */
+  /* Palette sampled from the scarf in the profile photo:
+     blue #4878B8 · brown #785050 · cream #D8D8E0. */
+
+  /* Paper & surfaces */
+  --paper: #f5f2ed; /* warm cream */
+  --surface: #ffffff;
+  --card: #e9dcd4; /* heavier clay ground */
+  --card-edge: rgba(94, 58, 58, 0.26);
+
+  /* Rules — warm hairlines, never card borders */
+  --rule: rgba(94, 58, 58, 0.22);
+  --rule-strong: rgba(94, 58, 58, 0.45);
+
+  /* Ink */
+  --ink: #1c1917;
+  --muted: #574a45;
+  --faint: #857470;
+
+  /* Accent — the scarf blue, enhanced to clear 4.7:1 on paper */
+  --accent: #3a6cb4;
+  --accent-deep: #2a5490;
+  --accent-soft: #a0b0d0;
+  --accent-wash: rgba(58, 108, 180, 0.08);
+  /* Full colour value, not an opacity modifier: Tailwind cannot compute
+     alpha for an arbitrary var(), so `bg-[var(--accent)]/75` emits
+     invalid CSS. */
+  --accent-overlay: rgba(58, 108, 180, 0.78);
+  /* Feature cards: an actually blue ground, not a tint of the paper. */
+  --card-blue: #e8eef8;
+  --card-blue-hover: #cddef5;
+  /* Dimmed paper for text on the brown blocks. Concrete rgba values because
+     Tailwind cannot apply an opacity modifier to an arbitrary var(). */
+  --paper-80: rgba(245, 242, 237, 0.82);
+  --paper-70: rgba(245, 242, 237, 0.7);
+  --paper-40: rgba(245, 242, 237, 0.4);
+
+  /* Brown — carries the cards and the primary button */
+  --brown: #5e3a3a; /* heavier than the sampled #785050 */
+  --brown-deep: #452929;
+  --brown-soft: #8a6060;
+  --card-hover: #e0d0c6;
+
+  /* Radius scale. One rule: nested elements step DOWN one level, so a
+     card (md) holds media (sm) which holds chips (xs). Page-level slabs
+     — the header shell and the footer — share lg. */
+  --radius-xs: 6px; /* chips, tags, filter pills */
+  --radius-sm: 10px; /* buttons, inputs, media, logos */
+  --radius-md: 16px; /* cards and panels */
+  --radius-lg: 20px; /* header shell, footer slab */
+
+  --radius-flat: var(--radius-sm); /* legacy alias */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --edge: clamp(1.25rem, 5vw, 2.5rem);
+
+  /* Aliases kept so untouched components still render */
+  --action: var(--accent);
+  --action-deep: var(--accent-deep);
+  --action-mid: var(--accent);
+  --action-soft: var(--accent-soft);
+  --action-wash: var(--accent-wash);
+  --color-accent: var(--accent);
+  --color-background: var(--paper);
+  --color-background-alt: var(--surface);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem; /* clears the floating header */
+  /* Everything is one step larger; the old 16px base read as small. */
+  font-size: 106.25%;
 }
 
 body {
-  background-color: var(--color-background);
-  color: white;
+  background-color: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--action);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
 }
 
 .hover-accent:hover {
-  color: var(--color-accent);
+  color: var(--action);
 }
 
-/* MDX Table Styling - Force override for prose */
-.prose.prose-invert table,
+/* ==========================================================================
+   Primitives
+   ========================================================================== */
+
+@layer components {
+  /* Mono micro-label: dates, metadata */
+  .mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+  }
+
+  /* Section heading — a real heading, not a whisper. Dark, weighted, with
+     the // in accent so it still reads as a code comment. */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .section-head::before {
+    content: "#";
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  /* Small comment line, still used above page titles */
+  .comment {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.875rem;
+    color: var(--brown);
+  }
+  .comment::before {
+    content: "// ";
+    color: var(--accent);
+  }
+
+  .display {
+    font-size: clamp(2.25rem, 4.4vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+  }
+
+  /* Inline link */
+  .link {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--brown-soft);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    transition: color 0.2s var(--ease), text-decoration-color 0.2s var(--ease);
+  }
+  .link:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  /* CARD — the brown ground. This is the default container for content,
+     not a bare hairline. Solid edge so it reads for low-contrast vision. */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-edge);
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  a.card:hover,
+  .card-interactive:hover {
+    background: var(--card-hover);
+    border-color: var(--brown-soft);
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--card-edge);
+    border-radius: var(--radius-md);
+  }
+
+  /* Row — the one list primitive shared by blog, talks and work. A single
+     separator between items, never above the first or below the last. */
+  .row {
+    border-bottom: 1px solid var(--rule);
+    transition: background-color 0.2s var(--ease);
+  }
+  /* NB: no bare `.row:last-child` rule here. Rows are wrapped by <Reveal>,
+     so each .row is the only child of its wrapper and :last-child would
+     match every single one, removing every separator. The list decides. */
+
+  /* Separated list: put this on the <ul>/<div> wrapping the .row items. */
+  .list-sep > *:last-child .row,
+  .list-sep > .row:last-child {
+    border-bottom: 0;
+  }
+
+  /* Chip — static metadata. Filled, so it does NOT look clickable. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    height: 1.75rem;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: var(--brown);
+    background: rgba(94, 58, 58, 0.12);
+    border-radius: var(--radius-xs);
+    padding: 0.2rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  /* Chip-link — clearly interactive: accent fill, arrow, lifts on hover. */
+  .chip-link {
+    display: inline-flex;
+    align-items: center;
+    height: 1.75rem;
+    gap: 0.25rem;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #fff;
+    background: var(--accent);
+    border-radius: var(--radius-xs);
+    padding: 0.2rem 0.55rem;
+    white-space: nowrap;
+    transition: background-color 0.2s var(--ease);
+  }
+  .chip-link:hover {
+    background: var(--accent-deep);
+  }
+
+  /* Kept as an alias so older markup keeps rendering */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: var(--brown);
+    background: rgba(94, 58, 58, 0.12);
+    border-radius: var(--radius-xs);
+    padding: 0.2rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  /* Scroll rail. The scrollbar stays visible — slim and in brown — because
+     a rail with no scrollbar and no cropped item reads as a static grid. */
+  .hscroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(94, 58, 58, 0.35) transparent;
+  }
+  .hscroll::-webkit-scrollbar {
+    height: 6px;
+  }
+  .hscroll::-webkit-scrollbar-track {
+    background: rgba(94, 58, 58, 0.08);
+    border-radius: 999px;
+  }
+  .hscroll::-webkit-scrollbar-thumb {
+    background: rgba(94, 58, 58, 0.35);
+    border-radius: 999px;
+  }
+  .hscroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(94, 58, 58, 0.55);
+  }
+
+  /* Masonry — CSS columns, matching the spacing main branch used. */
+  .masonry {
+    column-gap: 1.25rem;
+  }
+  .masonry > * {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
+  }
+
+  .bleed {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
+}
+
+/* ==========================================================================
+   Motion. Opt-in behind `html.js`, which an inline script sets before first
+   paint, so content is never invisible when JS does not run.
+   ========================================================================== */
+
+.reveal {
+  opacity: 1;
+}
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  opacity: 1;
+}
+html.js .rise {
+  opacity: 0;
+  animation: rise 0.6s var(--ease) forwards;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/* Terminal cursor */
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  vertical-align: text-bottom;
+  background: var(--action);
+  animation: blink 1.1s steps(1) infinite;
+}
+
+/* Interactive ASCII field (components/ascii-field.tsx). The element is
+   sized in ch/line-height units so the JS grid measurement is stable. */
+.ascii-live {
+  font-size: clamp(7px, 0.95vw, 11px);
+  line-height: 1.15;
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  html.js .reveal,
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html.js .rise,
+  .rise {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .cursor {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   MDX prose
+   ========================================================================== */
+
 .prose table {
   border-collapse: collapse !important;
-  border: 1px solid #374151 !important;
-  background-color: rgba(17, 24, 39, 0.5) !important;
   width: 100% !important;
   margin: 1.5rem 0 !important;
 }
-
-.prose.prose-invert th,
-.prose th {
-  border: 1px solid #374151 !important;
-  padding: 12px 16px !important;
-  background-color: rgba(31, 41, 55, 0.5) !important;
-  color: white !important;
-  font-weight: 600 !important;
-  text-align: left !important;
-}
-
-.prose.prose-invert td,
+.prose th,
 .prose td {
-  border: 1px solid #374151 !important;
-  padding: 12px 16px !important;
-  color: #e5e7eb !important;
+  border: 1px solid var(--rule) !important;
+  padding: 10px 14px !important;
   text-align: left !important;
 }
-
-.prose.prose-invert tr:nth-child(even),
-.prose tr:nth-child(even) {
-  background-color: rgba(31, 41, 55, 0.3) !important;
+.prose th {
+  background-color: var(--paper) !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+}
+.prose td {
+  color: var(--muted) !important;
 }
 
-.prose.prose-invert tbody tr,
-.prose tbody tr {
-  border-bottom: 1px solid #374151 !important;
-}
+/* ==========================================================================
+   shadcn/ui token bridge — light
+   ========================================================================== */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 38 30% 95%;
+    --foreground: 24 10% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 218 65% 63%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 218 65% 63%;
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 218 65% 63%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 218 65% 63%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 214 51% 46%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 22 32% 91%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 22 32% 91%;
+    --muted-foreground: 17 8% 34%;
+    --accent: 214 51% 46%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 22% 86%;
+    --input: 0 22% 86%;
+    --ring: 214 51% 46%;
+    --radius: var(--radius-sm);
   }
 }

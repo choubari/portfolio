@@ -26,7 +26,7 @@ function Slim() {
       frameBorder="0"
       scrolling="no"
       title="newsletter box"
-      className="rounded-md"
+      className="rounded-sm"
       style={{
         borderRadius: "5px !important",
         margin: 0,
