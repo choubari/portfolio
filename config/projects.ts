@@ -26,10 +26,10 @@ export const Projects: Project[] = [
   {
     name: "Closer",
     tagline:
-      "Cold-call trainer. Three minutes against an AI prospect, scored on opener, discovery, objections and close.",
+      "Cold-call trainer. Three minutes against an AI prospect, realtime transcribed, scored on opener, discovery, objections and close.",
     href: "https://closer.choubari.com",
     image: "/projects/closer.png",
-    stack: ["React", "JavaScript", "Google AI", "Realtime Voice Transcription"],
+    stack: ["React", "Next.js", "TypeScript", "Google AI"],
   },
   {
     name: "tv tracker",
@@ -37,7 +37,7 @@ export const Projects: Project[] = [
       "Browse your exported TV Time watch history after the shutdown, enriched live from TMDB and TheTVDB.",
     href: "https://github.com/choubari/rip-tv-time",
     image: "/projects/tv-tracker.png",
-    stack: ["Cloudflare Workers", "JavaScript", "TMDB API"],
+    stack: ["TypeScript", "Cloudflare Workers"],
   },
   {
     name: "url-to-markdown",

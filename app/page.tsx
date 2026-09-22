@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { WhatIDo } from "@/components/what-i-do";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionTitle } from "@/components/section-title";
 import { HScroll } from "@/components/h-scroll";
@@ -6,7 +7,6 @@ import { ProjectCard } from "@/components/project-card";
 import { Projects } from "@/config/projects";
 import { TalkThumb } from "@/components/talk-thumb";
 import { CallToAction } from "@/components/cta";
-import { LinkedInFeed } from "@/components/linkedin-posts";
 import TestimonialCard from "@/components/testimonial-card";
 import { Talks } from "@/content/talks";
 import { getTestimonials } from "@/lib/strapi";
@@ -36,6 +36,8 @@ export default async function Home() {
   return (
     <>
       <Hero />
+
+      <WhatIDo />
 
       <section className="pb-20">
         <Reveal>
@@ -88,21 +90,6 @@ export default async function Home() {
         </section>
       )}
 
-      <section className="pb-20">
-        <Reveal>
-          <SectionTitle
-            action={{
-              label: "LinkedIn",
-              href: "https://linkedin.com/in/choubari",
-            }}
-          >
-            recent posts
-          </SectionTitle>
-        </Reveal>
-        <div className="mt-8">
-          <LinkedInFeed />
-        </div>
-      </section>
 
       <CallToAction />
     </>

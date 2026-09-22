@@ -5,9 +5,9 @@ export const FooterSocials: { label: SocialPlatform; href: string }[] = [
   { label: "Github", href: "https://github.com/choubari" },
   { label: "Linkedin", href: "https://linkedin.com/in/choubari" },
   { label: "YouTube", href: "https://www.youtube.com/@choubari" },
-  { label: "Instagram", href: "https://instagram.com/choubari" },
-  { label: "Facebook", href: "https://facebook.com/choubari" },
-  { label: "TikTok", href: "https://www.tiktok.com/@choubari" },
+  { label: "Instagram", href: "https://instagram.com/choubari_" },
+  { label: "Facebook", href: "https://facebook.com/choubarii" },
+  { label: "TikTok", href: "https://www.tiktok.com/@choubari_" },
   { label: "Newsletter", href: "/newsletter" },
 ];
 

@@ -3,7 +3,7 @@ import { AsciiField } from "@/components/ascii-field";
 
 export function Hero() {
   return (
-    <section className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1fr_0.95fr] lg:gap-14">
+    <section className="grid min-h-[calc(100svh-6rem)] items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1fr_0.95fr] lg:gap-14">
       <div className="order-2 lg:order-1">
         <p
           className="comment rise"
@@ -33,7 +33,7 @@ export function Hero() {
             {" "}
             fix legacy code
           </span>
-        {" "} at startup speed with AI 🚀
+        {" "} with senior-level ownership from first commit to launch 🚀
         </p>
 
         <div
@@ -41,13 +41,16 @@ export function Hero() {
           style={{ "--rise-delay": "180ms" } as React.CSSProperties}
         >
           <AsciiButton href="/contact">Let&apos;s work together</AsciiButton>
-          <AsciiButton
+          {/* Plain text link, not an outlined button: an outline next to a
+              solid one reads as two equally weighted actions. */}
+          {/* No arrow: the solid button owns that signal. Brown, not the
+              blue accent, so it pairs with the CTA row rather than the label. */}
+          <a
             href="mailto:contact@choubari.com?subject=Speaking%20invitation"
-            tone="ghost"
-            external
+            className="font-medium text-[var(--brown)] underline decoration-[var(--brown)]/40 underline-offset-4 transition-colors hover:decoration-[var(--brown)]"
           >
             Invite me to speak
-          </AsciiButton>
+          </a>
         </div>
       </div>
 

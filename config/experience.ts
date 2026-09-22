@@ -27,12 +27,12 @@ export const Experience: Role[] = [
     start: "2023-10-02",
     location: "Paris",
     summary:
-    "Construction-management SaaS. Joined the early team; shipped 20+ features across web, backend and mobile, and cut TypeScript build time by 93%.",
+    "Construction-management SaaS. Early team member; shipped 20+ features across web, backend and mobile.",
     stack: ["TypeScript", "React", "Next.js", "Node.js", "React Native"],
     logo: "/logos/alobees.png",
     href: "https://alobees.com",
     current: true,
-    note: "Acquired — merged with Traxxeo to form Eternia Group",
+    // note: "Acquired — merged with Traxxeo to form Eternia Group",
   },
   {
     company: "Astrova",
@@ -41,7 +41,7 @@ export const Experience: Role[] = [
     start: "2026-01-01",
     location: "Paris",
     summary:
-      "Maintain and extend client apps with new featuresserving 1000+ users.",
+      "Maintain and extend client apps with new features serving 1000+ users.",
     stack: ["Supabase", "PostgreSQL", "Angular", "Spring Boot", "Digital Ocean"],
     logo: "/logos/astrova.png",
     href: "https://astrova.fr",
@@ -54,7 +54,7 @@ export const Experience: Role[] = [
     start: "2024-08-01",
     location: "Remote",
     summary:
-      "Taught a 3-hour live course on React Server Components — App Router, streaming SSR and rendering strategies.",
+      "Taught a 3-hour live course on React Server Components, App Router, streaming SSR and rendering strategies.",
     stack: ["React", "Next.js", "Server Components"],
     logo: "/logos/oreilly.png",
     href: "https://www.oreilly.com",
@@ -66,31 +66,9 @@ export const Experience: Role[] = [
     start: "2022-02-15",
     location: "Paris",
     summary:
-      "Urban parking apps for 430,000+ users. Two-person mobile squad; shipped GDPR work, a new onboarding flow and an Apple CarPlay integration.",
+      "Maintained urban parking apps for 430,000+ users, two-person mobile squad.",
     stack: ["React Native", "TypeScript", "CI/CD"],
     logo: "/logos/zenpark.png",
     href: "https://www.zenpark.com",
-  },
-  {
-    company: "Orange Maroc",
-    title: "Frontend Developer",
-    period: "Jul — Aug 2021",
-    start: "2021-07-01",
-    location: "Rabat",
-    summary:
-      "Accessibility platform translating between sign language and text/voice — React frontend wired to ML APIs and a Raspberry Pi camera rig.",
-    stack: ["React", "JavaScript", "ML APIs", "Raspberry Pi"],
-    logo: "/logos/orange.png",
-    href: "https://www.orange.ma",
-  },
-  {
-    company: "Daba'Go",
-    title: "Mobile Application Developer",
-    period: "Jul — Aug 2020",
-    start: "2020-07-01",
-    location: "Morocco",
-    summary:
-      "Multi-modal journey planner — built its design system, shared services layer and modular architecture.",
-    stack: ["Flutter", "Dart"],
   },
 ];

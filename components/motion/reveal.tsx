@@ -50,11 +50,37 @@ export function Reveal({
 
     observer.observe(node);
 
+    /**
+     * Force the element visible without relying on a transition.
+     *
+     * `.is-visible` only *starts* a transition from opacity 0. If the tab is
+     * throttled or backgrounded the animation timeline does not advance, the
+     * transition sits at currentTime 0 forever, and — because transitions
+     * outrank even `!important` — the content is stuck invisible. Clearing
+     * transition-property cancels it and lets the inline value apply.
+     */
+    const forceVisible = () => {
+      node.style.transition = "none";
+      node.style.opacity = "1";
+      node.style.transform = "none";
+      setVisible(true);
+    };
+
+    // Loaded in a background tab: show it outright, animation is pointless.
+    if (document.visibilityState !== "visible") forceVisible();
+
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") return;
+      forceVisible();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     // Safety net: whatever happens with the observer, nothing stays invisible.
-    const failsafe = window.setTimeout(() => setVisible(true), 3000);
+    const failsafe = window.setTimeout(forceVisible, 3000);
 
     return () => {
       observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       window.clearTimeout(failsafe);
     };
   }, []);

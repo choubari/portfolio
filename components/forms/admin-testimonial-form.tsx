@@ -305,8 +305,8 @@ export default function TestimonialForm() {
   };
 
   const inputStyles =
-    "mt-1 block w-full px-3 py-2 bg-transparent border border-[var(--rule)] rounded-sm focus:outline-none focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] sm:text-sm text-[var(--ink)] disabled:opacity-70 disabled:cursor-not-allowed";
-  const labelStyles = "block text-sm font-medium text-[var(--muted)]";
+    "mt-2 w-full p-2.5 rounded-sm border border-[var(--rule)] bg-[var(--surface)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] disabled:opacity-70 disabled:cursor-not-allowed";
+  const labelStyles = "block font-medium";
 
   const dropZoneClasses = `mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-sm h-64 text-center cursor-pointer relative ${
     isDraggingOver
@@ -336,7 +336,7 @@ export default function TestimonialForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="card space-y-6 p-6 sm:p-8"
+      className="space-y-6"
     >
       <div>
         <label className={`${labelStyles} mb-1`}>
@@ -592,7 +592,7 @@ export default function TestimonialForm() {
         <button
           type="submit"
           disabled={isLoading || formData.categories.length === 0}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-sm text-sm font-medium text-white bg-[var(--color-accent)] hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-accent)] focus:ring-offset-[var(--paper)] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-[var(--color-accent)] text-white font-medium rounded-sm px-6 py-3 h-auto w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? "Submitting..." : "Submit Testimonial"}
         </button>

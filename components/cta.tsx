@@ -13,14 +13,13 @@ export function CallToAction() {
         <div>
 
         <h2 className="max-w-3xl text-[clamp(2.25rem,5.2vw,4rem)] font-bold leading-[1.02] tracking-[-0.03em]">
-          What are you
+          Seen enough?
           <br />
-          building?
+          Let&apos;s talk.
         </h2>
 
-        <p className="mt-6 max-w-lg text-lg leading-relaxed text-[var(--paper)]/80">
-          A product to ship fast, a legacy app to fix, or a stage that needs a
-          speaker. Tell me about it.
+        <p className="mt-6 max-w-lg text-lg leading-relaxed text-[var(--paper-80)]">
+          If you're building a product or need help untangling a legacy one, that's the work I want to hear about
         </p>
 
         <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center">

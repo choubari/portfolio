@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getAllPostsMetadata } from "@/lib/getAllPostsMetadata";
 import { PageTitle } from "@/components/section-title";
 import { Reveal } from "@/components/motion/reveal";
+import { SectionTitle } from "@/components/section-title";
+import { LinkedInFeed } from "@/components/linkedin-posts";
 
 export default async function BlogIndexPage() {
   const posts = await getAllPostsMetadata();
@@ -49,6 +51,22 @@ export default async function BlogIndexPage() {
           <p className="text-[var(--muted)]">No posts published yet.</p>
         )}
       </div>
+
+      <section className="mt-20">
+        <Reveal>
+          <SectionTitle
+            action={{
+              label: "LinkedIn",
+              href: "https://linkedin.com/in/choubari",
+            }}
+          >
+            see my other writings
+          </SectionTitle>
+        </Reveal>
+        <div className="mt-8">
+          <LinkedInFeed />
+        </div>
+      </section>
     </>
   );
 }

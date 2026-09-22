@@ -19,7 +19,7 @@ export function AsciiButton({
 }: {
   href: string;
   children: React.ReactNode;
-  tone?: "solid" | "ghost" | "invert";
+  tone?: "solid" | "ghost" | "invert" | "accent" | "accent-ghost";
   external?: boolean;
   className?: string;
 }) {
@@ -32,6 +32,10 @@ export function AsciiButton({
       "border-[var(--brown)] bg-transparent text-[var(--brown)] hover:bg-[var(--brown)] hover:text-white",
     tone === "invert" &&
       "border-[var(--paper)] bg-[var(--paper)] text-[var(--brown)] hover:bg-white",
+    tone === "accent" &&
+      "border-[var(--accent)] bg-[var(--accent)] text-white hover:border-[var(--accent-deep)] hover:bg-[var(--accent-deep)]",
+    tone === "accent-ghost" &&
+      "border-[var(--accent)] bg-transparent text-[var(--accent)] hover:bg-[var(--accent)] hover:text-white",
     className
   );
 

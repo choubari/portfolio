@@ -36,6 +36,14 @@
      alpha for an arbitrary var(), so `bg-[var(--accent)]/75` emits
      invalid CSS. */
   --accent-overlay: rgba(58, 108, 180, 0.78);
+  /* Feature cards: an actually blue ground, not a tint of the paper. */
+  --card-blue: #e8eef8;
+  --card-blue-hover: #cddef5;
+  /* Dimmed paper for text on the brown blocks. Concrete rgba values because
+     Tailwind cannot apply an opacity modifier to an arbitrary var(). */
+  --paper-80: rgba(245, 242, 237, 0.82);
+  --paper-70: rgba(245, 242, 237, 0.7);
+  --paper-40: rgba(245, 242, 237, 0.4);
 
   /* Brown — carries the cards and the primary button */
   --brown: #5e3a3a; /* heavier than the sampled #785050 */
