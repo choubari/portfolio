@@ -14,22 +14,20 @@ export type Project = {
 
 export const Projects: Project[] = [
   {
-    name: "Awesome-Muslims",
+    name: "Parlons",
     tagline:
-      "A curated list of open source resources for muslim developers — 619 stars, 95 forks, and contributions from across the community.",
-    href: "https://github.com/choubari/Awesome-Muslims",
-    image: "/projects/awesome-muslims.jpg",
-    stack: ["Open source", "Community"],
-    status: "619 ★",
-    homeOnly: true,
+      "Speak French out loud, in real situations. Pick a situation, talk to your avatar, and get your spelling, grammar and conjugation corrected, live and in a full report.",
+    href: "https://parlons.choubari.com",
+    image: "/projects/parlons.png",
+    stack: ["React", "Next.js", "TypeScript", "Google AI"],
   },
   {
-    name: "Closer",
+    name: "url-to-markdown",
     tagline:
-      "Cold-call trainer. Three minutes against an AI prospect, realtime transcribed, scored on opener, discovery, objections and close.",
-    href: "https://closer.choubari.com",
-    image: "/projects/closer.png",
-    stack: ["React", "Next.js", "TypeScript", "Google AI"],
+      "Paste any URL, get clean Markdown. Handy for saving tokens and feeding pages to an LLM.",
+    href: "https://md.choubari.com",
+    image: "/projects/url-to-markdown.png",
+    stack: ["Next.js", "TypeScript"],
   },
   {
     name: "tv tracker",
@@ -40,11 +38,21 @@ export const Projects: Project[] = [
     stack: ["TypeScript", "Cloudflare Workers"],
   },
   {
-    name: "url-to-markdown",
+    name: "Closer",
     tagline:
-      "Paste any URL, get clean Markdown. Handy for saving tokens and feeding pages to an LLM.",
-    href: "https://md.choubari.com",
-    image: "/projects/url-to-markdown.png",
-    stack: ["Next.js", "TypeScript"],
+      "Cold-call trainer. Three minutes against an AI prospect, realtime transcribed, scored on opener, discovery, objections and close.",
+    href: "https://closer.choubari.com",
+    image: "/projects/closer.png",
+    stack: ["React", "Next.js", "TypeScript", "Google AI"],
+  },
+  {
+    name: "Awesome-Muslims",
+    tagline:
+      "A curated list of open source resources for muslim developers — 619 stars, 95 forks, and contributions from across the community.",
+    href: "https://github.com/choubari/Awesome-Muslims",
+    image: "/projects/awesome-muslims.jpg",
+    stack: ["Open source", "Community"],
+    status: "619 ★",
+    homeOnly: true,
   },
 ];

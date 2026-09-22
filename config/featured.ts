@@ -21,6 +21,8 @@ export const FeaturedTalkTitles: string[] = [
  * homepage but not on /work.
  */
 export const FeaturedProjectNames: string[] = [
+  "Parlons",
+  "url-to-markdown",
   "Closer",
   "tv tracker",
   "Awesome-Muslims",
