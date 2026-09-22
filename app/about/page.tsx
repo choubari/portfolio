@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PageTitle, SectionTitle } from "@/components/section-title";
 import { Reveal } from "@/components/motion/reveal";
 import { FeatureCard } from "@/components/feature-card";
@@ -45,6 +46,10 @@ export default async function AboutPage() {
   const stars = repos.reduce((n, r) => n + r.stargazers_count, 0);
   return (
     <div className="py-14 sm:py-20">
+      {/* Intro and portrait share a row on wide screens; the photo drops
+          below the text once there is no room beside it. */}
+      <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
+        <div className="min-w-0 flex-1">
       <PageTitle lede="Engineering, Educating, Entertaining.">
         Meet Kawtar
       </PageTitle>
@@ -93,6 +98,19 @@ export default async function AboutPage() {
           </p>
         </Reveal>
       </section>
+        </div>
+
+        <div className="rise shrink-0" style={{ "--rise-delay": "180ms" } as React.CSSProperties}>
+          <Image
+            src="/kawtar.png"
+            alt="Kawtar Choubari"
+            width={800}
+            height={800}
+            priority
+            className="mx-auto w-52 rounded-full sm:w-64 lg:mx-0 lg:w-80"
+          />
+        </div>
+      </div>
 
       {/* How I work : anchor target for "See how I work" on /work */}
       <section id="how-i-work" className="mt-20 scroll-mt-24">
