@@ -138,7 +138,7 @@ const components = {
     <div className="my-6 w-full overflow-x-auto">
       <table
         className={cn(
-          "w-full border-collapse border border-gray-700 bg-gray-900/50 text-sm",
+          "w-full border-collapse border border-[var(--rule)] bg-[var(--surface)] text-sm",
           className
         )}
         {...props}
@@ -147,14 +147,17 @@ const components = {
   ),
   tr: ({ className, ...props }: TableRowProps) => (
     <tr
-      className={cn("border-b border-gray-700 even:bg-gray-800/30", className)}
+      className={cn(
+        "border-b border-[var(--rule)] even:bg-[var(--paper)]",
+        className
+      )}
       {...props}
     />
   ),
   th: ({ className, ...props }: TableHeaderProps) => (
     <th
       className={cn(
-        "border border-gray-700 px-4 py-3 text-left font-semibold text-white bg-gray-800/50 [&[align=center]]:text-center [&[align=right]]:text-right",
+        "border border-[var(--rule)] bg-[var(--card)] px-4 py-3 text-left font-semibold text-[var(--ink)] [&[align=center]]:text-center [&[align=right]]:text-right",
         className
       )}
       {...props}
@@ -163,7 +166,7 @@ const components = {
   td: ({ className, ...props }: TableDataProps) => (
     <td
       className={cn(
-        "border border-gray-700 px-4 py-3 text-left text-gray-200 [&[align=center]]:text-center [&[align=right]]:text-right",
+        "border border-[var(--rule)] px-4 py-3 text-left text-[var(--ink)] [&[align=center]]:text-center [&[align=right]]:text-right",
         className
       )}
       {...props}
