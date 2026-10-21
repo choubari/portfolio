@@ -14,6 +14,11 @@ export const authOptions: import("next-auth").AuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
+      // GitHub returns an `iss` param on the authorization response (RFC 9207).
+      // openid-client validates it against the issuer, which next-auth v4 leaves
+      // undefined for GitHub, so the token exchange fails with
+      // "issuer must be configured on the issuer" unless we set it explicitly.
+      issuer: "https://github.com",
     }),
   ],
   callbacks: {
