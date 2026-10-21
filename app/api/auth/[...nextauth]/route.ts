@@ -19,9 +19,18 @@ export const authOptions: import("next-auth").AuthOptions = {
   callbacks: {
     async signIn({ profile }) {
       const githubProfile = profile as { login?: string; [key: string]: any };
-      if (githubProfile.login === process.env.GITHUB_ADMIN_USERNAME) {
+      const admin = (process.env.GITHUB_ADMIN_USERNAME || "choubari").trim();
+      const login = (githubProfile?.login || "").trim();
+      if (login.toLowerCase() === admin.toLowerCase()) {
         return true;
       }
+      console.error(
+        `[auth] access denied: login=${JSON.stringify(login)} admin=${JSON.stringify(
+          admin
+        )} adminEnvSet=${Boolean(process.env.GITHUB_ADMIN_USERNAME)} profileKeys=${JSON.stringify(
+          Object.keys(githubProfile || {})
+        )}`
+      );
       return false;
     },
     // Add jwt callback to include github username in the token
