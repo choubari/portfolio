@@ -18,7 +18,7 @@ export const authOptions: import("next-auth").AuthOptions = {
       // openid-client validates it against the issuer, which next-auth v4 leaves
       // undefined for GitHub, so the token exchange fails with
       // "issuer must be configured on the issuer" unless we set it explicitly.
-      issuer: "https://github.com",
+      issuer: "https://github.com/login/oauth",
     }),
   ],
   callbacks: {
