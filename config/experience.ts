@@ -22,13 +22,14 @@ export type Role = {
 export const Experience: Role[] = [
   {
     company: "Escape (YC W23)",
-    title: "Full Stack Engineer (Full-time)",
+    title: "FullStack Product Engineer (Full-time)",
     period: "Oct 2026 — now",
     start: "2026-10-01",
     location: "Paris",
     summary:
-      "API security platform. Discover exposed APIs and sensitive data, test continuously as they evolve, and ship remediation.",
+      "AI-powered offensive cybersecurity platform (ASM, DAST, AI pentesting...).",
     stack: ["TypeScript", "React", "Next.js", "Node.js"],
+    logo: "/logos/escape.png",
     href: "https://escape.tech",
     current: true,
   },
