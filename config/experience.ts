@@ -21,18 +21,16 @@ export type Role = {
 
 export const Experience: Role[] = [
   {
-    company: "Alobees",
+    company: "Escape (YC W23)",
     title: "Full Stack Engineer (Full-time)",
-    period: "Oct 2023 — now",
-    start: "2023-10-02",
+    period: "Oct 2026 — now",
+    start: "2026-10-01",
     location: "Paris",
     summary:
-    "Construction-management SaaS. Early team member; shipped 20+ features across web, backend and mobile.",
-    stack: ["TypeScript", "React", "Next.js", "Node.js", "React Native"],
-    logo: "/logos/alobees.png",
-    href: "https://alobees.com",
+      "API security platform. Discover exposed APIs and sensitive data, test continuously as they evolve, and ship remediation.",
+    stack: ["TypeScript", "React", "Next.js", "Node.js"],
+    href: "https://escape.tech",
     current: true,
-    // note: "Acquired — merged with Traxxeo to form Eternia Group",
   },
   {
     company: "Astrova",
@@ -46,6 +44,19 @@ export const Experience: Role[] = [
     logo: "/logos/astrova.png",
     href: "https://astrova.fr",
     current: true,
+  },
+  {
+    company: "Alobees",
+    title: "Full Stack Engineer (Full-time)",
+    period: "Oct 2023 — Oct 2026",
+    start: "2023-10-02",
+    location: "Paris",
+    summary:
+    "Construction-management SaaS. Early team member; shipped 20+ features across web, backend and mobile.",
+    stack: ["TypeScript", "React", "Next.js", "Node.js", "React Native"],
+    logo: "/logos/alobees.png",
+    href: "https://alobees.com",
+    // note: "Acquired — merged with Traxxeo to form Eternia Group",
   },
   {
     company: "O'Reilly Media",
